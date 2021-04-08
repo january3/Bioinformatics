@@ -370,6 +370,16 @@ GAGCATTGGCTCTAATGAAGAGATCATGCCCTTACCAGATGAGCCTTTAGAAGAAATGGAATAG</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Create global and local alignments between sequences 1 and 2 as well as 3 and 4.</p></li>
 <li><p>The following are the protein sequences corresponding to sequences 1 and 2. Run the alignments.</p></li>
+</ol>
+<pre><code>&gt;sequence1_prot
+MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHG
+KKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTP
+AVHASLDKFLASVSTVLTSKYR</code></pre>
+<pre><code>&gt;sequence2_prot
+&gt;MSLTKTERTIIVSMWAKISTQADTIGTETLERLFLSHPQTKTYFPHFDLHPGSAQLRAHG
+SKVVAAVGDAVKSIDDIGGALSKLSELHAYILRVDPVNFKLLSHCLLVTLAARFPADFTA
+EAHAAWDKFLSVVSSVLTEKYR</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li><p>Cut out a fragment from the middle of one of the sequences. Run the alignment and take a look. Now set the gap opening penalty and gap extension penalty to 1. What is the difference? How about 25/0.5?</p></li>
 <li><p>(hard) There is a consipracy theory online that the spike protein from Sars-Cov-2 is similar to the human syncytin-1 protein (which is of viral origin). Find the two proteins in the Uniprot database (<code>SPIKE_SARS</code> and and create global and local alignments and dot plots. Can you see any similarity? Try different scoring matrices (BLOSUM30, BLOSUM62 etc.) and different gap penalties.</p></li>
 </ol>

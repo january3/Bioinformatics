@@ -167,6 +167,20 @@ and the local alignments with the Smith-Waterman algorithm (program
  2. The following are the protein sequences corresponding to sequences 1
     and 2. Run the alignments.
 
+```
+>sequence1_prot
+MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHG
+KKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTP
+AVHASLDKFLASVSTVLTSKYR
+```
+
+```
+>sequence2_prot
+>MSLTKTERTIIVSMWAKISTQADTIGTETLERLFLSHPQTKTYFPHFDLHPGSAQLRAHG
+SKVVAAVGDAVKSIDDIGGALSKLSELHAYILRVDPVNFKLLSHCLLVTLAARFPADFTA
+EAHAAWDKFLSVVSSVLTEKYR
+```
+
  3. Cut out a fragment from the middle of one of the sequences. Run the
     alignment and take a look. Now set the gap opening penalty and gap
     extension penalty to 1. What is the difference? How about 25/0.5?
