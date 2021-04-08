@@ -155,9 +155,6 @@ GAGCATTGGCTCTAATGAAGAGATCATGCCCTTACCAGATGAGCCTTTAGAAGAAATGGAATAG
  5. Can you create a dot plot between sequence 1 and sequence 3?
 
 
-# Alignments.
-
-
 ## Global and local alignments
 
 You will create global alignments with the NW algorithm (program "needle")
@@ -182,6 +179,17 @@ and the local alignments with the Smith-Waterman algorithm (program
     etc.) and different gap penalties.
 
 # BLAST searches
+
+Like often in  bioinformatics, the blast family of programs can be used as
+command line programs. You can download and install them on your computer
+(in Ubuntu, it is as simple as `sudo apt install ncbi-blast+`); similarly,
+you can download and install the NCBI databases such as NR or refseq
+locally. This is advantageous when you have more than just a few sequences
+to blast.
+
+However, BLAST features a popular and extremly refined user interface on
+the NCBI website, which we will use today. The entry point is
+[https://blast.ncbi.nlm.nih.gov/Blast.cgi](https://blast.ncbi.nlm.nih.gov/Blast.cgi).
 
  1. Using blastn, identify the sequences 1, 2, 3 and 4.
 
