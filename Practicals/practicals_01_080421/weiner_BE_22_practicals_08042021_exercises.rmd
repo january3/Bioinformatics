@@ -104,7 +104,7 @@ GTAATGCGCCAATAAACCAATGAACGAA
 
  2. Play with the parameters "window size" and "threshold". Increase and
     decrease the threshold: what happens? What happens if you set the
-    threshold to 0 and windows size to 1? 
+    threshold to 1 and windows size to 3? 
 
  3. Play with the modified sequences: cut out a fragment from the middle of
     one of the sequences and display the dot plot. Do you see what happens?

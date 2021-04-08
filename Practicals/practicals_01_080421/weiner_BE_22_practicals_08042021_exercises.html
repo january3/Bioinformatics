@@ -322,7 +322,7 @@ CCCACGCCGCCTGGGACAAGTTCCTATCGGTCGTATCCTCTGTCCTGACCGAGAAGTACCGCTGAGCGCC
 GCCTCCGGGACCCCCAGGACAGGCTGCGGCCCCTCCCCCGTCCTGGAGGTTCCCCAGCCCCACTTACCGC
 GTAATGCGCCAATAAACCAATGAACGAA</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Play with the parameters “window size” and “threshold”. Increase and decrease the threshold: what happens? What happens if you set the threshold to 0 and windows size to 1?</p></li>
+<li><p>Play with the parameters “window size” and “threshold”. Increase and decrease the threshold: what happens? What happens if you set the threshold to 1 and windows size to 3?</p></li>
 <li><p>Play with the modified sequences: cut out a fragment from the middle of one of the sequences and display the dot plot. Do you see what happens? Now copy and paste a fragment two or more times. See what happens?</p></li>
 <li><p>Now try to run the dot plots for the following two sequences.</p></li>
 </ol>
@@ -364,11 +364,8 @@ GAGCATTGGCTCTAATGAAGAGATCATGCCCTTACCAGATGAGCCTTTAGAAGAAATGGAATAG</code></pre>
 <li>Can you create a dot plot between sequence 1 and sequence 3?</li>
 </ol>
 </div>
-</div>
-<div id="alignments." class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Alignments.</h1>
-<div id="global-and-local-alignments" class="section level2" number="2.1">
-<h2 number="2.1"><span class="header-section-number">2.1</span> Global and local alignments</h2>
+<div id="global-and-local-alignments" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> Global and local alignments</h2>
 <p>You will create global alignments with the NW algorithm (program “needle”) and the local alignments with the Smith-Waterman algorithm (program “water”).</p>
 <ol style="list-style-type: decimal">
 <li><p>Create global and local alignments between sequences 1 and 2 as well as 3 and 4.</p></li>
@@ -378,8 +375,10 @@ GAGCATTGGCTCTAATGAAGAGATCATGCCCTTACCAGATGAGCCTTTAGAAGAAATGGAATAG</code></pre>
 </ol>
 </div>
 </div>
-<div id="blast-searches" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> BLAST searches</h1>
+<div id="blast-searches" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> BLAST searches</h1>
+<p>Like often in bioinformatics, the blast family of programs can be used as command line programs. You can download and install them on your computer (in Ubuntu, it is as simple as <code>sudo apt install ncbi-blast+</code>); similarly, you can download and install the NCBI databases such as NR or refseq locally. This is advantageous when you have more than just a few sequences to blast.</p>
+<p>However, BLAST features a popular and extremly refined user interface on the NCBI website, which we will use today. The entry point is <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Using blastn, identify the sequences 1, 2, 3 and 4.</p></li>
 <li><p>Michael Crichton included a DNA sequence in his book “Lost World”. Use BLAST to identify the sequence origin. You might try to limit the search to a group of organisms.</p></li>
@@ -435,8 +434,8 @@ ACACGACTTAACGGGTTGGCATGGATTGTAGGCGCCGCCCTATACCTTGTCTGCCTCCCC
 GCGGTGCATGGAGCCGGGCCACCTCGACCTGAATGGAAGCCGGCGGCACCTCGCTAACGG
 CCAAGAATTGGAGCCAATCAATTCTTGCGGAGAACTGTGAATGCGCAAACCAACCCTTGG
 CCATCGCGTCCGCCATCTCCAGCAGCCGCACGCGGCGCATCTCGGGCAGCGTTGGGTCCT</code></pre>
-<div id="homework" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> Homework</h2>
+<div id="homework" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Homework</h2>
 <p>Here is a mystery sequence. What is this protein? From which organism does it come from? (X stands for an unknown amino acid).</p>
 <pre><code>&gt;mystery sequence
 GATGAPGIAGAPGFPGARGAPGPQGPSGAPGPKXXXXXXXXXXXXXXXXXXXXXXXXXXX
