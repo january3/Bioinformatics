@@ -320,6 +320,151 @@ Complementary sequence:
 
 ---
 
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_1.png)
+]
+
+.pull-right[
+
+]
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_2.png)
+]
+
+.pull-right[
+This is the theory: neat lines where similarity occurs
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_3.png)
+]
+
+.pull-right[
+This is the reality: a dot every time when there is a match, and there are
+so many single nucleotide matches
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_4.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_5.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_6.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_7.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_8.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_9.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_10.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+## How dot plots work
+
+.pull-left[
+![](images/dotplots_11.png)
+]
+
+.pull-right[
+
+]
+
+
+---
+
+
+
 ## Needleman-Wunsch algorithm
 
  * Possibly the most famous algorithm in bioinformatics
