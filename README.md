@@ -12,4 +12,5 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 2 - Sequence searches and alignments](https://january3.github.io/Bioinformatics/Lectures/lecture_02_070421/weiner_BE_22_lecture_07042021.html)
     * Practicals: [Intro](https://january3.github.io/Bioinformatics/Practicals/practicals_01_080421/weiner_BE_22_practicals_08042021.html)
     * Practicals: [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_01_080421/weiner_BE_22_practicals_08042021_exercises.html)
+ * [Lecture 3 - Protein sequences and structures](https://january3.github.io/Bioinformatics/Lectures/lecture_03_140421/weiner_BE_22_lecture_14042021.html)
 
