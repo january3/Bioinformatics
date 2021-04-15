@@ -276,6 +276,13 @@ CCAAGAATTGGAGCCAATCAATTCTTGCGGAGAACTGTGAATGCGCAAACCAACCCTTGG
 CCATCGCGTCCGCCATCTCCAGCAGCCGCACGCGGCGCATCTCGGGCAGCGTTGGGTCCT
 ```
 
+ 5. (extra) Use the Sars-Cov-2 spike protein sequence (see above) to search
+    for similar proteins in the human proteome. Which blast program would
+    you choose? What BLOSUM matrix would you choose given that one expects
+    only very distant relationships? How do you limit the search to human
+    proteins? How do you change the parameters to see even very remote
+    relationships? Is syncytin one of the hits?
+
 ## Homework
 
 Here is a mystery sequence. What is this protein? From which organism does it
