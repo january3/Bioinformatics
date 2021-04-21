@@ -91,7 +91,7 @@ $H_i = -f_{Ala,i}\cdot \log_2 f_{Ala,i} + \sum_{aa \neq Ala} f_{aa,i}\log_2 f_{a
 
 But if Ala and His are at equal frequencies, we get
 
-$H_i = -0.5 \log_2 0.5 - 0.5 \log_2 0.5 = - 0.5 \cdot -1 - 0.5 \cdot -1 = -1$
+$H_i = -0.5 \log_2 0.5 - 0.5 \log_2 0.5 = - 0.5 \cdot -1 - 0.5 \cdot -1 = 1$
 
 --
 
