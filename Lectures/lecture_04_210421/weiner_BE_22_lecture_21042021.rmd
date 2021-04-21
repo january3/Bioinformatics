@@ -1,5 +1,5 @@
 ---
-title: "Lecture 4: Multiple alignments, motifs, domains"
+title: "Lecture 4: Multiple alignments, motifs and logos"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
 date: "`r Sys.Date()`"
