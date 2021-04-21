@@ -206,11 +206,11 @@ Add scores from all possible pairs of sequences
 
 Score for a column `\(i\)` in a multiple sequence alignment:
 
-`$$S_i = \sum{j=1}{N} \sum{k=j + 1}{N} aa_{i,j,k}$$`
+`$$S_i = \sum_{j=1}^{N} \sum_{k=j + 1}^{N} aa_{i,j,k}$$`
 
 Score for the full alignment:
 
-`$$S = \sum_{i=1}^L \sum{j=1}{N} \sum{k=j + 1}{N} aa_{i,j,k}$$`
+`$$S = \sum_{i=1}^L \sum_{j=1}^{N} \sum_{k=j + 1}^{N} aa_{i,j,k}$$`
 
 where `\(L\)` is the length of the alignment, `\(N\)` is the number of sequences,
 and `\(aa_{i,j,k}\)` denotes scores between sequences `\(j\)` and `\(k\)` in column
