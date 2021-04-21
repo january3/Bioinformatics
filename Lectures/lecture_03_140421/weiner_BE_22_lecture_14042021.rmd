@@ -143,7 +143,7 @@ kable_print_codon_table(cdn)
 ```{r results="markdown"}
 cod2 <- get_codon_table(n=n)
 cdn2 <- get_codon_pivot(cod2)
-kable_print_codon_table(cdn, compare=cdn2)
+kable_print_codon_table(cdn2, compare=cdn)
 ```
 
 `r output[n]`
@@ -175,7 +175,7 @@ kable_print_codon_table(cdn)
 ```{r results="markdown"}
 cod2 <- get_codon_table(n=n)
 cdn2 <- get_codon_pivot(cod2)
-kable_print_codon_table(cdn, compare=cdn2)
+kable_print_codon_table(cdn2, compare=cdn)
 ```
 
 `r output[n]`
@@ -1097,8 +1097,12 @@ phenylalanine, tryptophan, threonine, valine, isoleucine
 cf <- read_tsv("data/choufasman.txt")
 
 tbl <- cbind(
-  cf %>% select(Abbr, Name, all_of("P(a)")) %>% arrange(-.data[["P(a)"]]),
-  cf %>% select(Abbr, Name, all_of("P(b)")) %>% arrange(-.data[["P(b)"]])
+  cf %>% select(Abbr, Name, all_of("P(a)")) %>% arrange(-.data[["P(a)"]]) %>%
+		mutate("A?"=
+			cut(.data[["P(a)"]], c(-Inf, .6, .99, 1.05, 1.2, Inf), labels=c("-A", "-a", "0", "+a", "+A"))),
+  cf %>% select(Abbr, Name, all_of("P(b)")) %>% arrange(-.data[["P(b)"]]) %>%
+		mutate("B?"=
+			cut(.data[["P(b)"]], c(-Inf, .6, .8, 1, 1.4, Inf), labels=c("-B", "-b", "0", "+b", "+B")))
 )
 
 tbl %>% kable() %>% kable_styling(font_size=12)
@@ -1113,6 +1117,292 @@ tbl %>% kable() %>% kable_styling(font_size=12)
 ![](images/aa_properties.jpg)
 
 ]
+
+
+---
+
+Given this sequence...
+
+```
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+
+
+
+```
+
+---
+
+Assign alpha-helix scores from the table
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+
+
+
+
+
+```
+
+
+---
+
+(we show the alpha-helix forming property)
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+
+
+
+
+```
+
+
+---
+
+Find a nucleation site where 5/6 are a+ or A+
+
+```
+ [---  nucleation site  --------]
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     
+
+
+
+```
+
+Nucleation site gets to be a helix.
+
+---
+
+Use a sliding window to extend the helix. Abort if score falls below 1.03
+
+```
+ [---  nucleation site  --------]
+                  [--- window of 4 -->]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H
+
+
+
+```
+
+Score: `(1.06 + 1.51 + 1.42 + 1.51)/4 = 1.38 > 1.03`
+
+---
+
+Extend...
+
+```
+ [---  nucleation site  --------]
+                        [--- window of 4 -->]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     
+
+
+
+
+```
+
+Score: `(1.51 + 1.42 + 1.51 + 0.57 )/4 = 1.25 > 1.03`
+
+---
+
+Extend...
+
+```
+ [---  nucleation site  --------]
+                              [--- window of 4 -->]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+
+
+
+```
+
+Score: `(1.42 + 1.51 + 0.57 + 1.06)/4 = 1.14 > 1.03`
+
+---
+
+Abort when the score drops off.
+
+```
+ [---  nucleation site  --------]
+                                    [--- window of 4 -->]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+
+
+
+```
+
+Score: `(1.51 + 0.57 + 1.06 + 0.69 )/4 = 0.96 < 1.03` $\rightarrow$ ABORT!
+
+---
+
+Now, the same for amino acids: nucleation = 3 out of 5 are +b/+B
+
+```
+                                                 [-- nucleation site ----]
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                                  E     E     E     E    E
+```
+
+
+---
+
+Sliding window goes in both directions.
+
+```
+                                                 [-- nucleation site ----]
+                                          [<- window ---------]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                            E     E     E     E     E    E
+```
+
+
+---
+
+Extend...
+
+```
+                                                 [-- nucleation site ----]
+                                    [<- window ---------]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      E     E     E     E     E     E    E
+```
+
+
+---
+
+Abort!
+
+```
+                                                 [-- nucleation site ----]
+                              [<- window ---------]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      E     E     E     E     E     E    E
+```
+
+Score: `(0.83 + 0.37 + 0.75 + 1.70)/4 = 0.91 < 1.0`
+
+(threshold for beta helices: 1.0)
+
+---
+
+Conflicts resolved by higher average
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      E     E     E     E     E     E    E
+```
+
+
+Average for a-helices: `(1.51 + 0.57 + 1.06 )/3 = 1.05`
+
+Average for b-sheets:  `(0.37 + 0.75 + 1.70 )/3 = 0.94`
+
+
+---
+
+Choose H over E (because of averages)
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      X     X     X     E     E     E    E
+```
+
+---
+
+Final result
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+  H     H     H     H     H     H     H     H     H    E     E     E    E
+```
+
+---
+class:empty-slide,myinverse
+background-image:url(images/quokka.png)
+
+
+
+---
+
+![](images/consensus_stru.png)
 
 ---
 

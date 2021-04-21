@@ -4,7 +4,7 @@
     <title>Lecture 3: Protein sequences and protein similarity</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2021-04-14" />
+    <meta name="date" content="2021-04-21" />
     <script src="libs/header-attrs-2.6/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 # Lecture 3: Protein sequences and protein similarity
 ## BE_22 Bioinformatics SS 21
 ### January Weiner
-### 2021-04-14
+### 2021-04-21
 
 ---
 
@@ -413,7 +413,7 @@ Standard SGC0
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; TTA L (Leu) &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; TCA S (Ser) &lt;/td&gt;
    &lt;td style="text-align:left;color: #BB0000 !important;background-color: #FFFFFF !important;"&gt; TAA * (STP) &lt;/td&gt;
-   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; TGA * (STP) &lt;/td&gt;
+   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; TGA W (Trp) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ,, &lt;/td&gt;
@@ -693,7 +693,7 @@ Standard SGC0
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; TTA L (Leu) &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; TCA S (Ser) &lt;/td&gt;
    &lt;td style="text-align:left;color: #BB0000 !important;background-color: #FFFFFF !important;"&gt; TAA * (STP) &lt;/td&gt;
-   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; TGA * (STP) &lt;/td&gt;
+   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; TGA W (Trp) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ,, &lt;/td&gt;
@@ -746,17 +746,17 @@ Standard SGC0
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ,, &lt;/td&gt;
-   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; ATA I (Ile) &lt;/td&gt;
+   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; ATA M (Met) &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; ACA T (Thr) &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; AAA K (Lys) &lt;/td&gt;
-   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; AGA R (Arg) &lt;/td&gt;
+   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; AGA * (STP) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ,, &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; ATG M (Met) &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; ACG T (Thr) &lt;/td&gt;
    &lt;td style="text-align:left;color: #000000 !important;background-color: #FFFFFF !important;"&gt; AAG K (Lys) &lt;/td&gt;
-   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; AGG R (Arg) &lt;/td&gt;
+   &lt;td style="text-align:left;color: #FFFFFF !important;background-color: #CC0000 !important;"&gt; AGG * (STP) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; G &lt;/td&gt;
@@ -5096,9 +5096,11 @@ phenylalanine, tryptophan, threonine, valine, isoleucine
    &lt;th style="text-align:left;"&gt; Abbr &lt;/th&gt;
    &lt;th style="text-align:left;"&gt; Name &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; P(a) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; A? &lt;/th&gt;
    &lt;th style="text-align:left;"&gt; Abbr &lt;/th&gt;
    &lt;th style="text-align:left;"&gt; Name &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; P(b) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; B? &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
@@ -5106,161 +5108,201 @@ phenylalanine, tryptophan, threonine, valine, isoleucine
    &lt;td style="text-align:left;"&gt; M &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Methionine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.45 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; V &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Valine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.70 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +B &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Alanine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.42 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; I &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Isoleucine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.60 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +B &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; L &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Leucine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.41 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Tyrosine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.47 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +B &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; E &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Glutamic Acid &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.39 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Phenylalanine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.38 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; K &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Lysine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; W &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Tryptophan &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.37 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Phenylalanine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; L &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Leucine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Q &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Glutamine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Cysteine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; I &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Isoleucine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.08 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; T &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Threonine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; W &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Tryptophan &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.08 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; E &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Glutamic Acid &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; V &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Valine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.06 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Q &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Glutamine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Aspartic Acid &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.01 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; M &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Methionine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.05 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; +b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; H &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Histidine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; R &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Arginine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.93 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; R &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Arginine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.98 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; N &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Asparagine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.89 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; T &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Threonine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.83 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; H &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Histidine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; S &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Serine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.77 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Alanine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.83 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Cysteine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; G &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Glycine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Tyrosine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.69 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; S &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Serine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; N &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Asparagine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; K &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Lysine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.74 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -b &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; G &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Glycine &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.57 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; P &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Proline &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.55 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -B &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; P &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Proline &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.57 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -A &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Aspartic Acid &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -B &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -5273,6 +5315,292 @@ phenylalanine, tryptophan, threonine, valine, isoleucine
 ![](images/aa_properties.jpg)
 
 ]
+
+
+---
+
+Given this sequence...
+
+```
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+
+
+
+```
+
+---
+
+Assign alpha-helix scores from the table
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+
+
+
+
+
+```
+
+
+---
+
+(we show the alpha-helix forming property)
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+
+
+
+
+```
+
+
+---
+
+Find a nucleation site where 5/6 are a+ or A+
+
+```
+ [---  nucleation site  --------]
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     
+
+
+
+```
+
+Nucleation site gets to be a helix.
+
+---
+
+Use a sliding window to extend the helix. Abort if score falls below 1.03
+
+```
+ [---  nucleation site  --------]
+                  [--- window of 4 --&gt;]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H
+
+
+
+```
+
+Score: `(1.06 + 1.51 + 1.42 + 1.51)/4 = 1.38 &gt; 1.03`
+
+---
+
+Extend...
+
+```
+ [---  nucleation site  --------]
+                        [--- window of 4 --&gt;]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     
+
+
+
+
+```
+
+Score: `(1.51 + 1.42 + 1.51 + 0.57 )/4 = 1.25 &gt; 1.03`
+
+---
+
+Extend...
+
+```
+ [---  nucleation site  --------]
+                              [--- window of 4 --&gt;]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+
+
+
+```
+
+Score: `(1.42 + 1.51 + 0.57 + 1.06)/4 = 1.14 &gt; 1.03`
+
+---
+
+Abort when the score drops off.
+
+```
+ [---  nucleation site  --------]
+                                    [--- window of 4 --&gt;]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+
+
+
+```
+
+Score: `(1.51 + 0.57 + 1.06 + 0.69 )/4 = 0.96 &lt; 1.03` `\(\rightarrow\)` ABORT!
+
+---
+
+Now, the same for amino acids: nucleation = 3 out of 5 are +b/+B
+
+```
+                                                 [-- nucleation site ----]
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                                  E     E     E     E    E
+```
+
+
+---
+
+Sliding window goes in both directions.
+
+```
+                                                 [-- nucleation site ----]
+                                          [&lt;- window ---------]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                            E     E     E     E     E    E
+```
+
+
+---
+
+Extend...
+
+```
+                                                 [-- nucleation site ----]
+                                    [&lt;- window ---------]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      E     E     E     E     E     E    E
+```
+
+
+---
+
+Abort!
+
+```
+                                                 [-- nucleation site ----]
+                              [&lt;- window ---------]
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+
+
+
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      E     E     E     E     E     E    E
+```
+
+Score: `(0.83 + 0.37 + 0.75 + 1.70)/4 = 0.91 &lt; 1.0`
+
+(threshold for beta helices: 1.0)
+
+---
+
+Conflicts resolved by higher average
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      E     E     E     E     E     E    E
+```
+
+
+Average for a-helices: `(1.51 + 0.57 + 1.06 )/3 = 1.05`
+
+Average for b-sheets:  `(0.37 + 0.75 + 1.70 )/3 = 0.94`
+
+
+---
+
+Choose H over E (because of averages)
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+ 0.57 1.00  1.51  1.06  1.51  1.42  1.51  0.57  1.06  0.69  1.06  0.69 0.57
+ -A    0     +A    +a    +A    +A    +A    -A    +a    -a    +a    -a   -A
+  H     H     H     H     H     H     H     H     H
+ 0.75 0.87  0.37  1.70  0.37  0.83  0.37  0.75  1.70  1.47  1.70  1.47 0.75
+ -b    0     -B    +B    -B     0    -B    -b    +B    +B    +B    +B   -b
+                                      X     X     X     E     E     E    E
+```
+
+---
+
+Final result
+
+```
+
+
+ Gly– His – Glu – Val - Glu – Ala – Glu – Gly – Val – Tyr – Val – Tyr –Gly
+
+  H     H     H     H     H     H     H     H     H    E     E     E    E
+```
+
+---
+class:empty-slide,myinverse
+background-image:url(images/quokka.png)
+
+
+
+---
+
+![](images/consensus_stru.png)
 
 ---
 

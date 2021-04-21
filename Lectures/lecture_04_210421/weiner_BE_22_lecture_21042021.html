@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 4: Multiple alignments, motifs, domains</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2021-04-21" />
+    <script src="libs/header-attrs-2.6/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 4: Multiple alignments, motifs, domains
+## BE_22 Bioinformatics SS 21
+### January Weiner
+### 2021-04-21
+
+---
+
+
+
+
+
+
+
+
+
+
+class:empty-slide,myinverse
+background-image:url(images/mark_boguski.jpg)
+
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/crichton_letter.png)
+
+
+
+
+---
+
+## Sequence conservation &amp; logos
+
+
+![:scale 70%](images/logos.png)
+
+
+---
+
+## What are these bits??
+
+Visualize uncertainty (defined as Shannon entropy) about a given position
+using *information bits*.
+
+Entropy at position `\(i\)` describes the probability with which we can predict
+the outcome:
+
+`\(H_i = - \sum_{aa=1}^{20} f_{aa,i} \cdot \log_2 f_{aa,i}\)`
+
+--
+
+For example, if at a certain position we have 100 % Ala and 0 % of other amino acids,
+
+`\(H_i = -f_{Ala,i}\cdot \log_2 f_{Ala,i} + \sum_{aa \neq Ala} f_{aa,i}\log_2 f_{aa, i} = - 1 \cdot \log_2 1 + 0 = 0\)`
+
+--
+
+But if Ala and His are at equal frequencies, we get
+
+`\(H_i = -0.5 \log_2 0.5 - 0.5 \log_2 0.5 = - 0.5 \cdot -1 - 0.5 \cdot -1 = -1\)`
+
+--
+
+And if all amino acids are at the same frequencies, we have
+
+`\(H_i = -20 \cdot 0.05 \cdot \log2 0.05 \approx -20 \cdot 0.05 \cdot -4.3 = 4.3\)`
+
+---
+
+## What are these bits??
+
+Bits are now defined as
+
+`\(R_i = \log_2 20 - H_i + e_n \approx 4.3 - H_i\)`
+
+(where `\(e_n\)` is correction for small sample sizes (reduces to zero for
+large number of sequences)
+
+--
+
+So for all frequencies equal, `\(H_i \approx 4.3\)` and `\(R_i \approx 0\)`; for
+one frequency equal to 100%, `\(H_i = 0\)` and `\(R_i \approx 4.3\)`.
+
+--
+
+This gives a scaling factor for the height of the letters:
+
+`\(bits = y_{aa,i} = f_{aa,i} \cdot R_i\)`
+
+---
+
+![](images/logos_0.png)
+
+---
+
+## Our many hemoglobins...
+
+![](images/hemoglobin_clusters.jpg)
+
+---
+
+## Our many hemoglobins...
+
+![](images/hemoglobin_evolution.jpg)
+
+So, why do we need so many?
+
+`\(\rightarrow\)` example of subfunctionalization
+
+---
+
+## Zeta hemoglobin function
+
+.pull-left[
+![](images/hemoglobin_alpha.png)
+]
+
+.pull-right[
+![](images/hemoglobin_zeta.png)
+]
+
+---
+
+## Zeta hemoglobin function
+
+![](images/zeta_function.png)
+
+
+---
+
+## Zeta hemoglobin function
+
+![](images/zeta_function_2.png)
+
+---
+
+## Multiple sequence alignments
+
+![:scale 70%](images/hb_align.png)
+
+
+![:scale 70%](images/hb_align_2.png)
+
+---
+
+## Multiple sequence alignments
+
+What is it good for?
+
+![](images/google.jpg)
+
+---
+
+## Multiple sequence alignments
+
+
+ * Find groups of sequences
+ * Determine conserved regions
+   * Conserved region: important! `\(\rightarrow\)` purifying selection
+ * Find motifs and domains
+ * Find common physical properties
+   * Do changes in amino acids cause changes in physical properties?
+ * Create profiles / HMM models for sensitive homology search
+ * First step to phylogeny reconstruction
+
+
+---
+
+The alignment clearly shows the two paralogs of hemoglobin (A and B)
+
+![](images/hba_align.png)
+
+
+---
+
+Alignment showing physical properties of amino acids
+
+![](images/align_phys.png)
+
+---
+
+We can find conserved regions / protein domains
+
+![](images/align_conserved.png)
+
+---
+
+## How to score a multiple alignment
+
+Add scores from all possible pairs of sequences
+
+Score for a column `\(i\)` in a multiple sequence alignment:
+
+`$$S_i = \sum{j=1}{N} \sum{k=j + 1}{N} aa_{i,j,k}$$`
+
+Score for the full alignment:
+
+`$$S = \sum_{i=1}^L \sum{j=1}{N} \sum{k=j + 1}{N} aa_{i,j,k}$$`
+
+where `\(L\)` is the length of the alignment, `\(N\)` is the number of sequences,
+and `\(aa_{i,j,k}\)` denotes scores between sequences `\(j\)` and `\(k\)` in column
+`\(i\)`.
+
+---
+
+## Extending NW approach
+
+![](images/cube-1.png)
+
+---
+
+## Extending NW approach
+
+![](images/cube-2.png)
+
+---
+
+## Extending NW approach
+
+![](images/cube-3.png)
+
+---
+
+## Extending NW approach
+
+![](images/cube-4.png)
+
+---
+
+## Extending NW approach
+
+![](images/cube-5.png)
+
+---
+
+## Extending NW approach
+
+![](images/cube-6.png)
+
+---
+
+## Extending NW approach
+
+ * complexity grows with each sequence in MSA
+ * for 3 sequences, `\(O(n^3)\)`; for 4, `\(O(n^4)\)`, etc. `\(\rightarrow O(n^k)\)`
+ * naive application completely useless
+ * sped up with Carillo-Lipman approach, but still not scalable
+ * not realistic for more than 4 sequences
+ 
+
+---
+
+## Heuristic 
+
+ * compromise accuracy vs speed
+ * algorithms:
+   * progressive algorithms
+      * clustal[o,w] `\(O(N^2)\)` (clustalw), `\(O(N\log{N})\)` (clustalo)
+      * kalign
+   * stepwise improvement / genetic
+      * MUSCLE `\(O(N^3L)\)`
+
+---
+
+## ClustalW progressive algorithm
+
+.pull-left[
+![](images/clustal_algo.png)
+]
+
+.pull-right[
+ * Calculate pairwise similarity (distance) between each two sequences
+ * Build a similarity matrix
+ * Create a "guide tree" (which sequences are next to each other?)
+ * Step-wise assembly along the tree
+]
+
+
+---
+
+## ClustalW algorithm
+
+![:scale 80%](images/clustal_algo_0.png)
+
+
+---
+
+## ClustalW algorithm
+
+![:scale 80%](images/clustal_algo_1.png)
+
+---
+
+## ClustalW algorithm
+
+![:scale 80%](images/clustal_algo_2.png)
+
+
+---
+
+## ClustalW algorithm
+
+![:scale 80%](images/clustal_algo_4.png)
+
+---
+
+## DNA/RNA sequence motifs
+
+Protein binding motifs – binding transcription factors etc.
+
+![:scale 30%](images/stat3.svg)
+
+STAT3 – member of the JAK/STAT pathway
+
+![:scale 30%](images/batfjun.svg)
+
+BATF::JUN heterodimer
+
+---
+
+## DNA/RNA sequence motifs
+
+ Examples:
+ 
+ * Shine-Dalgarno sequence 5'-AGGAGGU-3' in the untranslated region of mRNA, complementary to a sequence in the 16S
+   rRNA, 5'-ACCUCCU-3':
+ 
+.pull-left[
+ ![:scale 80%](images/ecoli_sd_logo.jpg)
+ ]
+
+.pull-right[
+ ![:scale 50%](images/shine_dalgarno.jpg)
+ ]
+
+
+.pull-left[
+
+ * Kozak sequence in eukaryotes (detected by scanning throught the PIC,
+   pre-initiation complex.
+
+ ![:scale 90%](images/kozak_logo.png)
+ ]
+
+.pull-right[
+ ![:scale 50%](images/marylin_kozak.png)
+ ]
+
+---
+
+## Position specific scoring matrices (PSSMs)
+
+Creating a BLOSUM-like scoring system which depends on the *position* to
+detect motifs.
+
+![](images/pssm/gene-prokaryota.jpg)
+
+---
+
+## Position specific scoring matrices (PSSMs)
+
+  * regulators
+  * AT-rich upstream region
+  * -35 box
+  * -10 box (Pribnow box)
+  * +1 / ATG
+
+---
+
+## Pribnow box (-10 box)
+
+![](images/pssm/january_1-1.jpg)
+
+ * Not all promoters have the same sequence
+ * Small differences follow a statistical distribution
+
+
+---
+
+Battle plan:
+
+For each of the three main regions (-35, -10 and +1) create small
+alignments.
+
+--
+
+In an alignment, count the frequencies of the four nucleotides at each
+position and calculate scores as log-odds ratios
+
+
+`$$S_{nn,i} = \log\frac{f_{o,i}}{f_e}$$`
+
+Where `\(f_e\)` is the expected frequency of nucletide `\(nn\)` (given by the GC contents),
+`\(f_{o,i}\)` is the observed frequency at position `\(i\)`, and `\(S_{nn,i}\)` is the
+position-specific score.
+
+--
+
+Then, slide the three matrices along a DNA sequence and find the
+position(s), where the overall score is maximal (we add the scores of the
+three matrices together).
+
+---
+
+![](images/pssm/january_1-1.jpg)
+
+---
+
+![](images/pssm/january_1-2.jpg)
+
+---
+
+![](images/pssm/january_1-3.jpg)
+
+---
+
+![](images/pssm/january_3_1.jpg)
+
+---
+
+![](images/pssm/january_3_2.jpg)
+
+---
+
+![](images/pssm/january_3_3.jpg)
+
+---
+
+![](images/pssm/january_4_1.jpg)
+
+---
+
+![](images/pssm/january_4_2.jpg)
+
+
+---
+
+![](images/pssm/january_4_3.jpg)
+
+
+---
+
+![](images/pssm/january_4_4.jpg)
+
+
+---
+
+![](images/pssm/january_4_5.jpg)
+
+
+---
+
+![](images/pssm/january_4_6.jpg)
+
+
+---
+
+![](images/pssm/january_4_7.jpg)
+
+
+---
+
+![](images/pssm/january_4_8.jpg)
+
+
+---
+
+![](images/pssm/january_4_9.jpg)
+
+
+---
+
+![](images/pssm/january_4_10.jpg)
+
+
+---
+
+![](images/pssm/january_4_11.jpg)
+
+
+---
+
+![](images/pssm/january_4_12.jpg)
+
+
+__
+
+class:empty-slide,myinverse
+background-image:url(images/cute_puppy.jpg)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
