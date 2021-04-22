@@ -96,10 +96,10 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
 
 There are three data sets: 
 
-  1. Data set 1, [HBA.fasta](data/HBA.fasta) are the hemoglobin alpha
+  1. Data set 1, [hba.fasta](data/hba.fasta) are the hemoglobin alpha
      sequences from different species. 
-  2. Data set 2 are the different human globin sequences.
-  3. Data set 3 are different human bHLH proteins. There are more than 150
+  2. Data set 2, [globin.fasta](data/globin.fasta) are the different human globin sequences.
+  3. Data set 3, [bhlh.fasta](data/bhlh.fasta) are different human bHLH proteins. There are more than 150
      such proteins; here is just a handful (mostly from "group C", as
      described
      [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC116727/)).
