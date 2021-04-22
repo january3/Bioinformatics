@@ -276,8 +276,18 @@ div.tocify {
 <div id="resources" class="section level1" number="1">
 <h1 number="1"><span class="header-section-number">1</span> Resources</h1>
 <ul>
-<li>Sequence Logos: <a href="https://weblogo.berkeley.edu/examples.html">link 1</a>, <a href="http://weblogo.threeplusone.com/create.cgi">link 2</a></li>
-<li>Jaspar database: <a href="http://jaspar.genereg.net/">Jaspar</a></li>
+<li><p>Sequence Logos: <a href="https://weblogo.berkeley.edu/examples.html">link 1</a>, <a href="http://weblogo.threeplusone.com/create.cgi">link 2</a></p></li>
+<li><p>Jaspar database: <a href="http://jaspar.genereg.net/">Jaspar</a></p></li>
+<li><p>Multiple sequence alignments (MSA): we will use <code>clustal omega</code> or <code>clustal 2</code> (= <code>clustalw</code>). You can use one of the following online interfaces or download the program <code>clustalx</code>:</p>
+<ul>
+<li>(preferred) Clustal Omega on EBI web page: <a href="https://www.ebi.ac.uk/Tools/msa/clustalo/">clustalo</a></li>
+<li>Clustal W interface: <a href="https://www.genome.jp/tools-bin/clustalw">clustalw</a> (requires an offline viewer like Jalview)</li>
+<li>Clustal W interface #2: <a href="https://embnet.vital-it.ch/software/ClustalW.html">clustalw</a> (requires an offline viewer)</li>
+<li>Alternatively, download and install <code>clustalx</code> from <a href="http://www.clustal.org/clustal2/">here</a>. This is a GUI offline program for doing alignmnets with clustalw.</li>
+<li>You can also download and install <a href="http://www.jalview.org/getdown/release/">Jalview</a> or the much more primitive <a href="http://doua.prabi.fr/software/seaview">Seaview</a> to view the alignments off line.</li>
+<li>If you want to, you can create MSAs in R using the <a href="https://bioconductor.org/packages/release/bioc/html/msa.html">msa</a> Bioconductor package.</li>
+<li>To view the trees, if you are not using the EBI interface, you can use <a href="http://etetoolkit.org/treeview/">this online viewer</a></li>
+</ul></li>
 </ul>
 </div>
 <div id="exercises" class="section level1" number="2">
@@ -291,7 +301,7 @@ div.tocify {
 <li>Set 2: File <a href="data/set2.fasta">data/set2.fasta</a></li>
 </ul></li>
 <li><p>What are the <em>consensus sequences</em> of these motifs for these two sets?</p></li>
-<li><p>A <em>regular expression</em> in DNA sequence motifs uses the following UPAC codes to represent positions where multiple</p></li>
+<li><p>A <em>regular expression</em> in DNA sequence motifs uses the following UPAC codes to represent positions where multiple possibilities are represented by a single letter. E.g. “N” stands for any base, and “W” stands for A or T. Summarise the sequence logos in form of regular expression (that is, if at position 1 there are only A’s and T’s, write “W”)</p></li>
 </ol>
 <table>
 <thead>
@@ -363,7 +373,7 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<ol start="3" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li><p>What happens if instead of all sequences in the data set you submit only 5? Or only 10? Do the logos change?</p></li>
 <li><p>What happens if you change the GC contents parameter? E.g. set to 50%, to 25%, to 75% -&gt; what happens?</p></li>
 <li><p>Go to the <a href="http://jaspar.genereg.net/">JASPAR</a> database and search for the motifs “CTCF”, “BATF3”, “JUN::FOS” and “STAT3”. Do any of these motifs look similar to the sequence logos you have created?</p></li>
@@ -371,7 +381,34 @@ div.tocify {
 </div>
 <div id="multiple-sequence-alignments" class="section level2" number="2.2">
 <h2 number="2.2"><span class="header-section-number">2.2</span> Multiple sequence alignments</h2>
+<p>There are three data sets:</p>
+<ol style="list-style-type: decimal">
+<li>Data set 1, <a href="data/HBA.fasta">HBA.fasta</a> are the hemoglobin alpha sequences from different species.</li>
+<li>Data set 2 are the different human globin sequences.</li>
+<li>Data set 3 are different human bHLH proteins. There are more than 150 such proteins; here is just a handful (mostly from “group C”, as described <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC116727/">here</a>).</li>
+</ol>
+<p>Here are the exercises:</p>
+<ol style="list-style-type: decimal">
+<li>Open the FASTA file for data set 1. The names of the organisms are in latin. Do you know any of them? Search for the names you do not know. What are these organisms? How re they related to humans? Are all sequences HBA sequences?</li>
+<li>Using one of the online services or an offline program, create an MSA of data set 1. The main result file has an extension <code>.aln</code> (if you want to download it and e.g. view with an offline viewer). The guide tree is in the <code>.dnd</code> file. Both are text files that can be viewed in your browser.</li>
+<li>Inspect the MSA. Which sequences are close to the consensus? Which are more distant? Which regions are conserved?</li>
+<li>Inspect the guide tree. Is the real phylogeny reflected by this tree?</li>
+<li>Run the alignment and repeat the steps 2-4 using the data set 2 (human globin sequences). How does the alignment compare to the previous one? Which proteins cluster together? How does it relate to the alpha/beta hemoglobins as described in Lecture 4?</li>
+<li>Run the alignment and repeat the steps 2-4 using the data set 3. Which region is conserved?</li>
+<li>Pick one of the bHLH protein identifiers and search for it in <a href="https://uniprot.org">Swissprot/Uniprot</a>. Go to the “Family &amp; Domains” section of the record for that protein. Which domain shows the greatest conservation?</li>
+<li>(Hard) If there is a structure present for that protein (section “Structure”), which fragment of the structure does this conserved region correspond to? (Note: the structure may show more than one molecule! The table on the right shows which chain corresponds to the given protein; hovering cursor over the structure reveals to which chain a residue belongs to.)</li>
+</ol>
 </div>
+</div>
+<div id="homework" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Homework</h1>
+<p>There are 20,000 human genes, pick one! No, seriously. You must have heard of one protein or another. An enzyme? A transcription factor? Anything, <em>but not</em> hemoglobin or bHLH.</p>
+<ol style="list-style-type: decimal">
+<li>Pick a protein. You are free to choose any of the 20,000 or so human proteins.</li>
+<li>Using BLASTP, find at least five homologous sequences <em>from other organisms</em>. You are allowed to pick specific organisms, of course.</li>
+<li>Create a multiple sequence alignment of these organism.</li>
+<li>Your homework is the <code>.aln</code> file created by the MSA program.</li>
+</ol>
 </div>
 
 
