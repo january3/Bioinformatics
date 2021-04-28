@@ -15,4 +15,5 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 3 - Protein sequences and structures](https://january3.github.io/Bioinformatics/Lectures/lecture_03_140421/weiner_BE_22_lecture_14042021.html)
  * [Lecture 4 - Motifs, logos and multiple alignments](https://january3.github.io/Bioinformatics/Lectures/lecture_04_210421/weiner_BE_22_lecture_21042021.html)
     * Practicals: [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_02_220421/weiner_BE_22_practicals_02_220421_exercises.html)
+ * [Lecture 5 - Structures](https://january3.github.io/Bioinformatics/Lectures/lecture_05_210428/weiner_BE_22_lecture_28042021.html)
 
