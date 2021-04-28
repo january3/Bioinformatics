@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 5:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2021-04-28" />
+    <script src="libs/header-attrs-2.6/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 5:
+## BE_22 Bioinformatics SS 21
+### January Weiner
+### 2021-04-28
+
+---
+
+
+
+
+
+
+
+
+
+
+class:empty-slide,mywhite
+background-image:url(images/cropped_img007.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cropped_img008.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cropped_img009.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cropped_img010.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cropped_img011.png)
+
+---
+
+## Protein structure databases ✪
+
+ * PDB – the original one
+ * Hierarchical classification of structures
+  * [SCOP 2](https://scop.mrc-lmb.cam.ac.uk/)
+    * Families (close evolutionary relationships)
+    * Superfamilies (distant relationships)
+    * Folds ("types" of superfamilies)
+  * [CATH](https://www.cathdb.info/)
+ * Sequence-based protein family databases
+   * [PFAM](https://pfam.xfam.org)
+   * [CDD](https://www.ncbi.nlm.nih.gov/cdd)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img008.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img009.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img010.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img011.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img012.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img013.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img014.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img015.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img016.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img017.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img018.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img019.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/cath_img020.png)
+
+---
+
+## Domains show on a dotplot ✪
+
+`RASA1_HUMAN` – Ras GTPase-activating protein 1. Inhibitory regulator of the Ras-cyclic AMP pathway – role in metabolism.
+
+`SOCS1_HUMAN` – Suppressor of cytokine signaling 1. Induced by several
+cytokines, inhibits the STAT pathway (so acts effectively as a
+self-regulator, negative feedback).
+
+--
+
+![](images/rasa1_socs1.png)
+
+---
+
+## Domains show on a dotplot
+
+`RASA1_HUMAN` – Ras GTPase-activating protein 1. Inhibitory regulator of the Ras-cyclic AMP pathway – role in metabolism.
+
+`SOCS1_HUMAN` – Suppressor of cytokine signaling 1. Induced by several
+cytokines, inhibits the STAT pathway (so acts effectively as a
+self-regulator, negative feedback).
+
+![](images/rasa1_socs1_2.png)
+
+---
+
+## Structure in PFAM
+
+
+
+`RASA1_HUMAN`:
+
+![](images/rasa1_human_pfam.png)
+
+`SOCS1_HUMAN`:
+
+![](images/socs1_human_pfam.png)
+
+(blue boxes are "low complexity" regions, that is repeats and such)
+
+---
+
+## SH3 domain
+
+.pull-left[
+![](images/sh3-top.png)
+]
+
+.pull-right[
+![](images/sh3-side.png)
+]
+
+([\*] if you want to create beautiful pictures of 3D structures, use
+[chimera](https://www.cgl.ucsf.edu/chimera/))
+
+---
+
+![](images/sh3-examples-1.jpg)
+
+---
+
+![](images/sh3-examples-2.jpg)
+
+---
+
+## Another example: protein kinase domain
+
+![:scale 70%](images/pkinase-1jnk.png)
+
+PDB: 1JNK
+
+---
+
+.pull-left[
+![](images/pkinase-examples-1.jpg)
+
+![](images/pkinase-examples-2.jpg)
+]
+
+
+.pull-right[
+![](images/pkinase-examples-3.jpg)
+
+![](images/pkinase-examples-4.jpg)
+]
+
+---
+
+## Bottom line ✪ 
+
+ * There are millions of different protein sequences
+   (depending how you count!)
+
+--
+
+ * There are maybe 40 main structural architectures, a thousand or two of
+   main topologies and fewer than 10000 of homologous superfamilies
+
+--
+
+ * All these millions of proteins consist of these couple of thousands of
+   building blocks
+
+--
+
+ * Some building blocks are particularly ubiquitous, but most are rare
+   (power law again!)
+
+---
+
+## Global vs. local alignments
+
+ * Reminder: BLAST searches are (mostly) local. That means, one can find
+homologs which share just a single domain.
+
+---
+
+## Homologs and partial homology
+
+ * Most people say "high homology" when they mean "high similarity", this
+   is incorrect! Homology is binary: it either is or it isn't (either there
+   is a common ancestor or not)
+ * However, *fragments* of sequence may be homologous (and the rest of the
+   sequences not) – e.g. two SH3 domains in otherwise different proteins.
+   This is *partial* homology.
+
+---
+
+## Searching for domains: PSI-BLAST
+
+"Position-Specific Iterative BLAST"
+
+.pull-left[
+![](images/psiblast.png)
+]
+
+.pull-right[
+ 1. Find a number of sequences with a query
+ 2. Select some of the hits
+ 3. Construct a PSSM from the hits
+ 4. Search again
+ 5. Go to (3.) until satisfied with the outcome
+
+---
+
+## Searching for domains: HMMER
+
+.pull-left[
+![](images/hmmer.png)
+]
+
+.pull-right[
+
+![](images/hmmer_model.png)
+
+**M** – "match states"
+**I** – "insertion states"
+**D** – "deletion states"
+]
+
+HMMER builds a Hidden Markov Model from multiple sequence alignment
+
+This is a PSSM on steroids and works remarkably well!
+
+
+---
+
+## Beyond BLAST: Protein-protein search using HMMER
+
+
+  * Create a profile out of an MSA, search a protein database using the
+    profile
+
+--
+
+  * Create a database of profiles, search with a query sequence
+
+--
+
+  * Create a profile from a single sequence, search a database of sequences
+    using this query profile (works like BLAST)
+
+--
+
+  * `jackhammer`: search with a sequence, collect hits, improve profile,
+    search with the improved profile (works like PSI-BLAST)
+
+
+---
+
+# Elements of structural bioinformatics
+
+ * Prediction of structures
+ * Binding sites
+ * Ligand docking
+ * Active centres
+ * Epitopes
+ * Interactions
+
+
+---
+
+## Prediction of structures
+
+ * Coiled-coil regions
+ * Transmembrane domains
+ * Exposed / core regions
+ * Signal peptides
+
+
+---
+
+## Coiled-coils
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/coiledcoil_img062.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/coiledcoil_img063.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/coiledcoil_img064.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/coiledcoil_img065.png)
+
+---
+
+class:empty-slide,mywhite
+background-image:url(images/coiledcoil_img062.png)
+
+
+---
+
+## Transmembrane domains
+
+Transmembrane domains are characterized by a high hydrophobicity;
+Kyte-Doolittle hydropathy score takes advantage of this fact. Again, a
+sliding window is used to calculate average hydropathy.
+
+![:scale 70%](images/kyte_doolittle.png)
+
+
+---
+
+## Docking
+
+![:scale 70%](images/docking_1.png)
+
+---
+
+## Docking
+
+![:scale 70%](images/docking_2.png)
+
+(From: *Fan, Jiyu, Ailing Fu, and Le Zhang. "Progress in molecular
+docking." Quantitative Biology (2019): 1-7.*)
+
+
+
+---
+
+## Docking
+
+![:scale 40%](images/docking_3.png)
+
+(From: *Fan, Jiyu, Ailing Fu, and Le Zhang. "Progress in molecular
+docking." Quantitative Biology (2019): 1-7.*)
+
+
+---
+
+## Structure based design
+
+ * Virtual drug screening
+  * 2D structure matching
+  * 3D structure matching
+  * Quantitative Structure – Activity Relationship (QSAR)
+ * De novo drug design
+
+
+---
+
+## QSAR
+
+.pull-left[
+![:scale 60%](images/qsar.jpg)
+]
+
+.pull-right[
+QSAR
+
+ * Use experimental data to "teach" a model:
+  * Response variable: activity
+  * Extract molecular features from the compounds and use them as
+    predictors in modelling
+  * Apply model to new data
+
+]
+
+(From: *Lima, Marilia NN, et al. "QSAR-driven design and discovery of novel
+compounds with antiplasmodial and transmission blocking activities."
+Frontiers in pharmacology 9 (2018): 146.*)
+
+---
+class:empty-slide,mywhite
+background-image:url(images/qsar.jpg)
+
+---
+
+## Example
+
+Zanamivir – influenza treatment; neuraminidase inhibitor
+
+ * neuraminidase binds to sialic acid on our cells making virus entry
+   possible; one of the major antigens
+ * 3D structure of neuraminidase: 1980
+ * 1993: computational study of the active site, rational design of new
+         drugs (Mark von Itzstein)
+ * One of the drugs was very effective
+
+![](images/zanamivir.png)
+
+(*Von Itzstein, Mark, et al. "Rational design of potent sialidase-based
+inhibitors of influenza virus replication." Nature 363.6428 (1993):
+418-423.)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
