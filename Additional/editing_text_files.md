@@ -2,7 +2,7 @@
 title: "File types in bioinformatics"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
-output: html_document
+output: pdf_document
 ---
 
 
