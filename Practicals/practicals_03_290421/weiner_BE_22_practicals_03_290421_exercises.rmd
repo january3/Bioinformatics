@@ -57,8 +57,9 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
  4. Go to the DALI server and choose "Pairwise", for pairwise structural
     alignments. Structural alignments not only look at a sequence, but also
     on its structure to align two proteins. Align 1m3q and 1xqo (use the
-    "+" button to enter the second sequence). When the results appear,
-    click on the "interactive" page.
+    "+" button to enter the second sequence), but use the identifiers
+    `1m3qA` and `1xqoA` to indicate that you want to align the A chains of
+    the structures. When the results appear, click on the "interactive" page.
  5. What do upper and lower case letters mean in the alignment? 
  6. Select the 1xqo sequence and click on "Structural alignment". What do
     you see?
