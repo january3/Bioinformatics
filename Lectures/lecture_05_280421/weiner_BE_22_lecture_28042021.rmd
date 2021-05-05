@@ -479,8 +479,7 @@ Zanamivir – influenza treatment; neuraminidase inhibitor
  * neuraminidase binds to sialic acid on our cells making virus entry
    possible; one of the major antigens
  * 3D structure of neuraminidase: 1980
- * 1993: computational study of the active site, rational design of new
-         drugs (Mark von Itzstein)
+ * 1993: computational study of the active site, rational design of new drugs (Mark von Itzstein)
  * One of the drugs was very effective
 
 ![](images/zanamivir.png)
