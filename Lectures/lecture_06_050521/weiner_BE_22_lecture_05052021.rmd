@@ -1,5 +1,5 @@
 ---
-title: "Lecture 5: Reproducible Bioinformatics"
+title: "Lecture 6: Reproducible Bioinformatics"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
 date: "`r Sys.Date()`"
@@ -171,13 +171,13 @@ background-image:url(images/pregnant.jpg)
 Meaning of probability is different in classical (frequentist) statistics
 and in bayesian statistics
 
-     * in frequentist statistics, this is the probability of getting a
-       similar or better result assuming the $H_0$. $\Rightarrow$ a coin
-       that has landed is an event that happened, therefore p=1 OR p=0, but
-       not p=0.5
-     * in bayesian statistics, it is a measure of information (much as our
-       intuition tells us!) $\Rightarrow$ as long as we don't know how the
-       coin landed, we can use p=0.5
+ * in frequentist statistics, this is the probability of getting a
+   similar or better result assuming the $H_0$. $\Rightarrow$ a coin
+   that has landed is an event that happened, therefore p=1 OR p=0, but
+   not p=0.5
+ * in bayesian statistics, it is a measure of information (much as our
+   intuition tells us!) $\Rightarrow$ as long as we don't know how the
+   coin landed, we can use p=0.5
 
 
 
