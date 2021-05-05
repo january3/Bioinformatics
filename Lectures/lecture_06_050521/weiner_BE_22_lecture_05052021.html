@@ -4,7 +4,7 @@
     <title>Lecture 5: Reproducible Bioinformatics</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2021-05-05" />
+    <meta name="date" content="2021-05-06" />
     <script src="libs/header-attrs-2.6/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # Lecture 5: Reproducible Bioinformatics
 ## BE_22 Bioinformatics SS 21
 ### January Weiner
-### 2021-05-05
+### 2021-05-06
 
 ---
 
@@ -140,6 +140,16 @@ corrected for multiple testing? Etc., etc., etc.
 
 
 ---
+
+## Hypothesis testing in science ✪
+
+ * Both `\(H_0\)` and `\(H_1\)` make certain assumptions like normality. The only
+   difference is in the effect; usually, `\(H_0\)` assumes no effect, `\(H_1\)`
+   assumes that there is an (unknown) effect
+ * The reason why we use p-values calculated based on `\(H_0\)` is *that they
+   are easy to calculate analytically* (i.e., without a computer).
+
+---
 class:empty-slide,myinverse
 background-image:url(images/pregnant.jpg)
 
@@ -175,10 +185,6 @@ p-values are defined within frequentist hypothesis testing.
 
 P-value gives us the average FPR (false positive rate, type I error rate)
 if we do many experiments, assuming the `\(H_0\)` ("no effect").
-
----
-
-
 
 ---
 
@@ -331,13 +337,13 @@ T-test results:
 ## 	Welch Two Sample t-test
 ## 
 ## data:  df$Height by df[[2]]
-## t = 18.958, df = 2e+05, p-value &amp;lt; 2.2e-16
+## t = 18.586, df = 2e+05, p-value &amp;lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.5312182 0.6537223
+##  0.5216436 0.6446297
 ## sample estimates:
 ##   mean in group April mean in group October 
-##              177.2810              176.6885
+##              177.3003              176.7172
 &lt;/code&gt;&lt;/pre&gt;
 
 `\(\Rightarrow\)` Differences are statistically significant!

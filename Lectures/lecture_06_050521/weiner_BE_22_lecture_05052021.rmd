@@ -192,10 +192,6 @@ if we do many experiments, assuming the $H_0$ ("no effect").
 
 ---
 
-
-
----
-
 ## p = 0.05
 
  * Arbitrary threshold introduced (mostly) by R.A. Fisher
