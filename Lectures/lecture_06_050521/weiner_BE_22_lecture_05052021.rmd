@@ -115,9 +115,69 @@ Bottom line: non-reproducible papers are more highly cited!
 
 ]
 
+
+---
+
+## Reasons for the reproducibility crisis: Lack of transparcency
+
+ * no access to primary data
+ * no precise description of methods:
+
+```
+We used generalized linear models (R package nlme4) to test the
+significance of association.
+```
+
+Fine, but how exactly was the model formulated? How many covariates? What
+transformations? What data were used? Which function? Were the results
+corrected for multiple testing? Etc., etc., etc.
+
+---
+
+## Lack of transparency results in different results!
+
+![](images/effect_sizes.png)
+
 ---
 
 ## Hypothesis testing in science
+
+
+---
+
+## Hypothesis testing in science ✪
+
+ * Both $H_0$ and $H_1$ make certain assumptions like normality. The only
+   difference is in the effect; usually, $H_0$ assumes no effect, $H_1$
+   assumes that there is an (unknown) effect
+ * The reason why we use p-values calculated based on $H_0$ is *that they
+   are easy to calculate analytically* (i.e., without a computer).
+
+---
+class:empty-slide,myinverse
+background-image:url(images/pregnant.jpg)
+
+---
+
+## What are p-values 
+
+...imagine we toss a coin...
+
+
+---
+
+## What are p-values
+
+Meaning of probability is different in classical (frequentist) statistics
+and in bayesian statistics
+
+     * in frequentist statistics, this is the probability of getting a
+       similar or better result assuming the $H_0$. $\Rightarrow$ a coin
+       that has landed is an event that happened, therefore p=1 OR p=0, but
+       not p=0.5
+     * in bayesian statistics, it is a measure of information (much as our
+       intuition tells us!) $\Rightarrow$ as long as we don't know how the
+       coin landed, we can use p=0.5
 
 
 
@@ -125,7 +185,13 @@ Bottom line: non-reproducible papers are more highly cited!
 
 ## What are p-values 
 
-...imagine we toss a coin...
+p-values are defined within frequentist hypothesis testing.
+
+P-value gives us the average FPR (false positive rate, type I error rate)
+if we do many experiments, assuming the $H_0$ ("no effect").
+
+---
+
 
 
 ---
@@ -242,6 +308,105 @@ background-image:url(images/dogs.jpg)
 
 ## Effect sizes: Does astrology work?
 
+Astrology: date of birth can be used to predict our physical and mental
+abilities.
+
+Can date of birth be used to predict our height?
+
+---
+
+## Effect sizes: Does astrology work?
+
+.center[
+![:scale 70%](images/astrology_1.png)
+]
+
+---
+
+## Effect sizes: Does astrology work?
+
+
+.center[
+![:scale 70%](images/astrology_2.png)
+]
+
+---
+
+## Effect sizes: Does astrology work?
+
+ * The observed effect was in the range of 6 mm
+ * The standard deviation for human population is ~ 70 mm
+ * Other factors (genetic, nutrition) have a much greater effect
+ * Simulated comparison (N=`r N<-100000;sprintf("%d", N)`):
+
+.center[
+```{r fig.width=15,fig.height=4}
+pop1 <- rnorm(N, mean=177 + 0.3, sd=7)
+pop2 <- rnorm(N, mean=177 - 0.3, sd=7)
+df <- tibble(Height=c(pop1, pop2), "Birth Date"=rep(c("April", "October"), each=N))
+ggplot(df, aes(x=Height, fill=.data[["Birth Date"]], color=.data[["Birth Date"]])) + 
+  geom_density(alpha=0.2) + theme_cowplot() +
+  theme(axis.line=element_blank()) +
+  ylab("Density") + 
+  geom_vline(xintercept=c(177+0.3, 177-0.3), color=c("#F8766D", "#00BFC4"), size=1, linetype="dashed")
+```
+]
+
+---
+
+## Effect sizes: Does astrology work?
+
+ * The observed effect was in the range of 6 mm
+ * The standard deviation for human population is ~ 70 mm
+ * Other factors (genetic, nutrition) have a much greater effect
+ * Simulated comparison (N=`r sprintf("%d", N)`), as a boxplot:
+
+.pull-left[
+```{r fig.width=5,fig.height=5}
+ggplot(df, aes(x=.data[["Birth Date"]], y=Height, fill=.data[["Birth Date"]], color=.data[["Birth Date"]])) + 
+  geom_boxplot(alpha=0.2) + theme_cowplot() +
+  theme(axis.line=element_blank()) 
+```
+]
+
+.pull-right[
+T-test results:
+
+```{r results="markdown"}
+t.test(df$Height ~ df[[2]])
+```
+
+$\Rightarrow$ Differences are statistically significant!
+
+]
+
+---
+
+## Effect sizes: are men smarter than women?
+
+
+--
+
+ * There are a few papers that indicate that men either have a higher IQ,
+   or a larger variability
+
+--
+
+ * However, there is actually strong support to state that there are no
+   actual differences apart from possibly some environmental priming (as
+   in: boys are expected to understand maths)
+
+--
+
+ * Even if we take the paper showing differences for granted, these
+   differences are as minuscule as the ones on previous plot
+
+--
+
+ * Whether or not there are population differences should *never*
+   matter for an individual case (and sexism / discrimination based on sex
+   in the STEM fields – science, technology, engineering, maths – is well
+   documented, also by scientific experiments)
 
 ---
 
@@ -438,6 +603,28 @@ background-image:url(images/torturedata.jpg)
 class:empty-slide,myinverse
 background-image:url(images/vonneumann.jpg)
 
+---
+
+## What can we do as scientists? ✪
+
+ * registered studies, SOPs etc.: plan and publish the analysis before
+   performing it
+ * be as transparent as possible
+    * publish data
+    * publish methods as code on github (or similar)
+ * learn statistics
+ * KILL YOUR DARLINGS
+
+
+---
+
+## What can we do as non-scientists? ✪
+
+ * Beware of the hype
+ * Always check the sources
+ * Learn how to read scientific papers
+ * Confront the sources (there is always another opinion)
+ * Learn statistics
 
 ---
 
