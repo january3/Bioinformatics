@@ -1,0 +1,202 @@
+---
+title: "Practicals 04: Working with R"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+```
+
+```{r libraries,cache=FALSE}
+```
+
+
+## Introduction
+
+This session is going to be a little bit different. You will follow what I
+do on the screen rather then be left to do the exercises. 
+
+**Aims:**
+
+ * Give you a jump start
+ * Give you good habits
+ * Proceed along a helix
+
+---
+
+## Example R session
+
+---
+
+## Workspaces
+
+ Workspace is basically a folder which contains a few special files in
+ which R stores project-specific data.
+
+  * `Rhistory` (hidden file) – a text file containing all commands that you
+    have issued
+  * `Rdata` (hidden file) – a binary file containing your workspace (all
+    variables created)
+  * `<filename>.Rproj` – Rstudio R project file containing some
+    rstudio-specific settings (text file)
+  * Anything else should be save by you
+
+---
+
+## Exercise
+
+  * Start R studio $\rightarrow$ File $\rightarrow$ New project
+    $\rightarrow$ New directory $\rightarrow$ New project and create a new
+    project.
+  * Examine the Files pane (lower right); what does it indicate?
+  * Try to open the ".Rproj" file in a text editor. 
+  * Go to File $\rightarrow$ New File $\rightarrow$ $\rightarrow$ R Script
+    to create a new R script.
+  * In the new file, write a simple R statement, for example:
+
+```
+a <- 1:10
+```
+
+   * Press Ctrl/Cmd-Enter. 
+   * What happens? What do you see in the console? 
+   * What do you see under "Environment" on the top right?
+
+---
+
+## A few notes on R
+
+ * Why programming?
+ * Why R?
+ * Alternatives: Python, matlab, other statistical languages
+ * R vs matlab
+ * "There is more than one way of doing it" (but one way will usually be
+   optimal)
+
+---
+
+## R language basics (demo)
+
+ * Assignment and variables: `a <- 2` or `myBigVar <- "test"`
+  * Note: there are no "singletons", everything is a vector (but maybe of
+    length one)
+ * vectors and multiple assignment: `a <- c(1, 7, 9)`
+ * operators: 
+   * `3 + 5` 
+   * `a * 7` 
+   * `5 / /` 
+   * `5 %% 7` 
+   * `5 %/% 7` 
+   * `5^7`
+   * operators often are "vectorized", that is they work with vectors:
+      * `c(1, 5, 7) * 8`
+ * functions: `sum(c(1, 2, 3))`
+   * basically everything is a function, even the operators
+
+---
+
+## Exercises
+
+ * create variables: a string, a number using the `<-` operator
+   * how to create the variables?
+   * how to view the variables?
+ * what does `1:5` do?
+ * what happens when you add a number to a vector? (i.e. `c(3, 1, 4) + 5`)
+ * what happens when you multiply a vector with a number?
+ * what happens when you add two vectors?
+
+ * What does the `length()` function do?
+
+---
+
+# Good coding practices
+
+## Remember: language is communication
+
+ * Your code will be seen by others
+ * And this is a good thing!
+ * Documentation *is* important
+ * Reproducibility matters
+
+---
+
+## Literate programming
+
+.pull-left[
+![Donald E. Knuth](images/knuth.jpg)
+]
+
+.pull-right[
+I believe that the time is ripe for significantly better documentation
+of programs, and that we can best achieve this by considering
+programs to be works of literature. Hence, my title: “Literate
+Programming.”
+
+Let us change our traditional attitude to the construction of
+programs: Instead of imagining that our main task is to instruct a
+computer what to do, let us concentrate rather on explaining to
+human beings what we want a computer to do.
+
+(Donald E. Knuth)
+]
+
+---
+
+## Documenting your code
+
+ * Better a lousy documentation than none at all
+ * Use spaces, empty lines, comments to structure your code
+ * COMMENT, COMMENT, COMMENT
+ * Document in plain text files and source code files
+
+---
+
+## Writing code
+
+Keep your code clean:
+
+ * be consistent!
+ * use meaningful variable and function names
+ * don't use shorthands
+ * refactorize
+ * create distinct code chunks
+ * split the code into meaningful scripts
+ * use a formatting style and stick to it
+
+E.g.
+http://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html
+
+---
+
+## Simplify!
+
+ * make your code as simple as possible
+ * make your functions versatile and simple
+ * use simple data types if possible
+ * don't overdo it!
+
+---
+
+## You never know
+
+ * what your code evolves into
+ * when you will need to publish it
+ * when someone will want to see it
+
+…so prepare in advance!
+
+
