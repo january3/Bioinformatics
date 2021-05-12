@@ -4,7 +4,7 @@
     <title>Lecture 6: Reproducible Bioinformatics</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2021-05-06" />
+    <meta name="date" content="2021-05-12" />
     <script src="libs/header-attrs-2.6/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # Lecture 6: Reproducible Bioinformatics
 ## BE_22 Bioinformatics SS 21
 ### January Weiner
-### 2021-05-06
+### 2021-05-12
 
 ---
 
@@ -130,6 +130,23 @@ corrected for multiple testing? Etc., etc., etc.
 
 ---
 
+
+## Reasons for the reproducibility crisis: Lack of transparcency
+
+.pull-left[
+"...I thought it necessary to deliver things circumstantially, that the
+person I addressed them to might, without mistake, and with as little
+trouble as possible, be able to repeat such unusual experiments"
+
+*Robert Boyle, 1627-1691*
+]
+
+.pull-right[
+![:scale 70%](images/boyle.jpg)
+]
+
+---
+
 ## Lack of transparency results in different results!
 
 ![](images/effect_sizes.png)
@@ -185,6 +202,128 @@ p-values are defined within frequentist hypothesis testing.
 
 P-value gives us the average FPR (false positive rate, type I error rate)
 if we do many experiments, assuming the `\(H_0\)` ("no effect").
+
+---
+
+## Reasons for the reproducibility crisis:&lt;br&gt;Misunderstanding and misusing of statistics ✪
+
+--
+
+ * file drawer (suppresing non-significant results)
+
+--
+
+ * HARKing: Hypothesis After Results are Known
+
+--
+
+ * p-hacking / fishing / "researchers degrees of freedom"
+
+--
+
+ * "Garden of forking paths" (Gelman)
+
+
+---
+
+## Cherry-picking and p-hacking 
+
+---
+class:empty-slide,myinverse
+background-image:url(images/torturedata.jpg)
+
+???
+
+Stanisław Lem: "From strawberries under torture one may extract all sorts of
+things."
+
+---
+class:empty-slide,myinverse
+background-image:url(images/vonneumann.jpg)
+
+---
+
+## Music makes people literally younger
+
+"*[W]e asked 20 University of Pennsylvania undergraduates to listen to
+either “When I’m Sixty-Four” by The Beatles or “Kalimba.” Then, in an
+ostensibly unrelated task, they indicated their birth date (mm/dd/yyyy) and
+their father’s age. We used father’s age to control for variation in
+baseline age across participants*.
+
+*An ANCOVA revealed the predicted effect: According to their birth dates,
+**people were nearly a year-and-a-half younger after listening to “When I’m
+Sixty-Four” (adjusted M = 20.1 years) rather than to “Kalimba” (adjusted M
+= 21.5 years), F(1, 17) = 4.92, p = .040**.*"
+
+.myfootnote[ 
+*Simmons JP, Nelson LD, Simonsohn U. False-positive
+psychology: Undisclosed flexibility in data collection and analysis allows
+presenting anything as significant. Psychological science. 2011
+Nov;22(11):1359-66.* 
+]
+
+
+---
+
+
+
+## A short guide to p-hacking
+
+ * p &gt; 0.05? Try another test
+ * Or maybe add or remove some covariates?
+ * Surely, there are outliers. Remove them.
+ * Well, let us collect some more data. And then some more. As long as it
+   takes.
+
+
+---
+
+## Evidence for p-hacking: the p-curve
+
+.pull-left[
+![](images/pval_th_distribution.png)
+]
+
+.myfootnote[
+left: *Head ML, Holman L, Lanfear R, Kahn AT, Jennions MD. The extent and
+consequences of p-hacking in science. PLoS Biol. 2015 Mar
+13;13(3):e1002106.*
+
+right: *Masicampo EJ, Lalande DR. A peculiar prevalence of p values just below 0.05. 
+Quarterly journal of experimental psychology. 2012 Nov;65(11):2271-9.*
+
+]
+
+
+--
+
+.pull-right[
+![](images/pval_distribution.png)
+]
+
+
+---
+
+## Reasons for the reproducibility crisis:&lt;br&gt;Keeping data private
+
+.pull-left[
+![](images/miyakawa.webp)
+]
+
+.pull-right[
+"*We requested just the images of western blotting membranes and I wonder
+how such images can contain novel information that is worth being kept
+confidential.*"
+]
+
+
+.myfootnote[
+*Miyakawa, Tsuyoshi. "No raw data, no science: another possible source of
+the reproducibility crisis." (2020). Molecular Brain 13:24.*
+]
+
+
 
 ---
 
@@ -337,13 +476,13 @@ T-test results:
 ## 	Welch Two Sample t-test
 ## 
 ## data:  df$Height by df[[2]]
-## t = 19.258, df = 199986, p-value &amp;lt; 2.2e-16
+## t = 19.71, df = 2e+05, p-value &amp;lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.540576 0.663079
+##  0.5544984 0.6769572
 ## sample estimates:
 ##   mean in group April mean in group October 
-##              177.2741              176.6723
+##              177.3426              176.7269
 &lt;/code&gt;&lt;/pre&gt;
 
 `\(\Rightarrow\)` Differences are statistically significant!
@@ -560,18 +699,6 @@ experiencing.
 ![](images/salmon_2.png)
 
 ]
-
----
-
-## Cherry-picking
-
----
-class:empty-slide,myinverse
-background-image:url(images/torturedata.jpg)
-
----
-class:empty-slide,myinverse
-background-image:url(images/vonneumann.jpg)
 
 ---
 
