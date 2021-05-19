@@ -1,0 +1,66 @@
+.inverse {
+  color: #AA1C7D;
+  background: #70ACC0;
+}
+
+h3, h2, h1 {
+  color:#70ACC0;
+  border-bottom: 1px solid #AA1C7D ;
+  font-weight: 200;
+}
+
+.title-slide {
+  background-image: url(title_slide.png);
+  background-size: cover;
+}
+
+.title-slide h1, .title-slide h2, .title-slide h3 {
+  border-style: none;
+  text-align: left;
+  text-shadow: none;
+  font-weight: 300;
+}
+
+.title-slide h1 {
+  color: #AA1C7D;
+  font-weight: bold;
+}
+
+
+.title-slide h1, .title-slide h2 {
+  text-transform:uppercase;
+}
+
+.title-slide .remark-slide-number {
+    display: none;
+}
+
+.footnote {
+  color:grey;
+  font-size:70%;
+}
+
+.empty-slide h1, .empty-slide h2, .empty-slide h3 {
+  display:none;
+}
+
+.mywhite {
+  background-color: #fff;
+  background-size: contain;
+}
+
+.myinverse {
+  background-color: #000000;
+  background-size: contain;
+}
+
+.mysmall {
+  font-size:75%;
+}
+
+.myfootnote {
+  font-size:80%;
+  position: absolute;
+  width: 80%;
+  bottom: 0px;
+}

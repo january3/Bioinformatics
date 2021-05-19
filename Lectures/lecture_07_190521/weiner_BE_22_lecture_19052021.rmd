@@ -1,0 +1,712 @@
+---
+title: "Lecture 7: Sequence evolution"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+outputdupa: html_document
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=FALSE,autodep=TRUE, results="hide")
+library(pander)
+library(knitr)
+library(kableExtra)
+#source("functions.R")
+```
+
+```{r echo=FALSE,include=FALSE,eval=TRUE}
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+
+
+```{r libraries,cache=FALSE}
+library(tidyverse)
+```
+
+----
+
+.pull-left[
+
+*Nothing in biology makes sense except in the light of evolution*
+
+<div style="text-align:right;">– Theodosius Dobzhansky</div> 
+
+]
+
+.pull-right[
+
+![](images/dobzhansky.jpeg)
+
+]
+
+
+---
+
+.pull-left[
+*[A] curious aspect of the theory of evolution is that
+everybody thinks he understands it.*
+<div style="text-align:right;"> — Jacques Monod</div>
+
+.pull-right[
+![](images/jacques_monod.jpg)
+]
+
+---
+
+## What is evolution? ✪
+
+.pull-left[
+ We *observe* evolution: 
+ 
+ * change of species composition in geological time
+
+ * unity of life – tree of life
+   * shared genetic code
+   * shared L-amino acids, protein structures, even complex enzymes
+   * sequence conservation (even in neutral positions)
+
+ * experimental evolution
+
+Theory of evolution is any theory that explains the observed evolution.
+]
+
+.pull-right[
+
+![:scale 70%](images/Haeckel_Amaltheus_margaritatus.jpg)
+
+Ernst Haeckel, *Amaltheus margaritatus* (Ammonite)
+
+]
+
+---
+
+## Short history of theory of evolution
+
+.pull-left[
+ 
+ * in the XVIII century it became clear that the age of Earth is at least
+   hundreds of thousands years, if not hundreds of millions (todays
+   estimate: four billions)
+ * XVIII/XIX century: first "trees of life" (Buffon)
+ * XIX century: several theories (including Lamarck) – mechanism lacking!
+ * crucial idea of natural selection: William Wallace, William Charles
+   Welles, Patrick Matthew
+
+]
+
+.pull-right[
+
+![](images/belon.jpg)
+
+]
+
+---
+
+## Oh yeah, and Charles Darwin
+
+.pull-left[
+
+![:scale 70%](images/charles_darwin.jpg)
+
+]
+
+.pull-right[
+
+![:scale 80%](images/darwin_tol.png)
+
+]
+
+---
+
+## The principle of natural selection ✪
+
+Natural selection is a *mechanism*:
+
+ * IF an entity replicates:
+
+    1. with errors
+    2. these errors influence replication
+    3. and are heritable
+
+ (heritability, variability, selection)
+
+--
+
+ * THEN:
+    * change of phenotype over time will be observed
+
+
+---
+
+## The theory of natural selection ✪
+
+
+.pull-left[
+Natural selection is one of the main mechanisms responsible for evolution
+and speciation (hence, "Origin of the Species")
+]
+
+.pull-right[
+![:scale 70%](images/origin.jpg)
+
+]
+
+---
+
+## The great synthesis / modern synthesis
+
+.center[
+<div style="font-size:200%">
+Natural selection + Mendelian genetics + Neutral evolution =
+
+Modern synthesis
+</div>
+]
+
+
+
+---
+
+## Remember!
+
+.center[
+
+Evolution $\neq$ Theory of Evolution
+
+Natural selection $\neq$ Theory of Natural Selection
+
+Theory of Natural Selection $\neq$ "The Great Synthesis"
+]
+
+---
+
+## Other mechanisms of evolution ✪
+
+ * Genetic drift / neutral evolution
+   
+    * many mutations, possibly the majority (as we have seen in the multiple sequence alignments)
+      have little or no impact on the structure / function
+    * random propagation in small populations may "fix" alleles not through
+      selection, but just by chance
+
+--
+
+ * Gene flow – exchange of alleles between populations
+
+---
+
+## Lactose intolerance / lactase persistence
+
+![](images/lactose_intolerance.png)
+
+---
+
+![:scale 80%](images/lactose_intolerance_2.png)
+
+.myfootnote[
+*Tishkoff et al. “Convergent adaptation of human lactase persistence in Africa and Europe.”
+ Nat Genet. 2007 January; 39(1): 31–40;
+http://www.ncbi.nlm.nih.gov/pubmed/17159977.*
+]
+
+---
+
+.center[
+![](images/wolverine.jpg)
+
+**I am a mutant with superpowers.**
+]
+
+--
+
+.center[
+*I don't fart after drinking milk *and* I don't suffer from vitamin D
+deficiency in high geographic latitudes.*
+]
+
+---
+
+## Positive / negative selection
+
+.pull-left[
+
+**Negative (purifying) selection**
+
+ * non-neutral mutations are disadvantageous
+ * results in highly conserved sequences
+ * e.g.:
+    * replication / transcription / translation
+    * histones
+]
+
+.pull-right[
+ **Positive (adaptive) selection**
+
+ * non-neutral mutations are advantageous
+ * therefore the sequences change rapidly
+ * e.g.:
+   * immune related genes (MHC)
+   * Darwin's finches
+   * Lactase persistence
+]
+
+---
+
+## Genetic drift
+
+---
+
+![](images/cropped_img003.png)
+
+---
+
+![](images/cropped_img004.png)
+
+---
+
+![](images/cropped_img005.png)
+
+---
+
+![](images/cropped_img006.png)
+
+---
+
+![](images/cropped_img007.png)
+
+---
+
+![](images/cropped_img008.png)
+
+---
+
+![](images/cropped_img009.png)
+
+---
+
+![](images/cropped_img010.png)
+
+---
+
+![](images/cropped_img014.png)
+
+---
+
+![](images/cropped_img015.png)
+
+---
+
+![](images/cropped_img016.png)
+
+---
+
+![](images/cropped_img017.png)
+
+---
+
+## Sequence evolution
+
+ * synonymous vs non-synonymous mutations
+
+---
+
+## dN / dS (Ka/Ks)
+
+.pull-left[
+
+Nucleotide:
+
+     AAG ACT GCC GGG CGT ATT
+     AAA ACA GCA GGA CGA ATC
+       *   *   *   *   *   *
+= 6 mutations
+
+Amino acid:
+
+      K T A G R I
+      K T A G R I
+= 6 synonymous, 0 non-synonymous
+
+]
+
+.pull-right[
+
+Nucleotide:
+
+        AAG ACT GCC GGG CGT ATT
+        AAA ACA GAC GGA CAT ATG
+          *   *  *    *  *    *
+= 6 mutations
+
+Amino acid:
+
+        K T A G R I
+        K T D G H M
+            *   * *
+= 3 synonymous, 3 non-synonymous
+
+]
+
+
+---
+
+## Ka and Ks
+
+**Non-synonymous substitution rate:** $$K_a = \frac{N_d}{N}$$
+
+where $N_d$ – number of non-synonymous substitutions, and $N$ – number of
+nonsynonymous "sites"
+
+**Synonymous substitution rate:** $$K_s = \frac{S_d}{S}$$
+
+where $S_d$ – number of synonymous substitutions, and $S$ – number of
+synonymous "sites"
+
+Then **selective strength**
+
+  $$\omega = \frac{K_a}{K_s}$$
+
+The devil is in the detail: how to calculate the number of synonymous
+sites?
+
+---
+
+Consider the third site of the codons `AAA` and `AAG`. There exist a number
+of possible mutations:
+
+```
+AAA <-> AAC       K <-> N    NS
+AAA <-> AAG       K <-> K     S
+AAA <-> AAT       K <-> N    NS
+AAC <-> AAG       N <-> K    NS
+AAC <-> AAT       N <-> N     S
+AAG <-> AAT       K <-> N    NS
+```
+
+which makes 4 potential NS and 2 S mutations at this site. 
+
+Also, we need to consider different models of evolution. The calculations quickly become complex.
+
+---
+
+.pull-left[
+**High Ka/Ks ratio:**
+
+ * More non-synonymous mutations than expected: proteins evolve faster than by molecular clock alone.
+
+ * Selection is positive / directional, pushing changes
+
+ * Typical for genes that „are being selected“ (HLA/MHC, receptors)
+]
+
+.pull-right[
+**Low Ka/Ks ratio:**
+
+ * Fewer non-synonymous mutations than expected: proteins evolve slower than by random mutations.
+
+ * Selection is negative / stabilizing, maintaining current sequence
+
+ * Typical for most functional sites,  especially these which are functionally important (replication / transcription / translation, core metabolism)
+]
+
+---
+
+## Diffent mutation rates in different proteins
+
+![](images/pamrates.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/portjacksonshark.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/heterodontus_zitteli.jpg)
+
+---
+
+## Constant rate of mutation in hemoglobin
+
+ * Heterodontiformes known from the Jurassic
+ * number of differences between hemoglobin $\alpha$ and hemoglobin $\beta$
+   same as in humans, despite almost no changes in the phenotype
+
+---
+
+## Amino acid replacement rate almost constant
+
+![](images/aarepl.png)
+
+---
+
+## Neutral evolution
+
+ * most of the mutations are neutral (even if non-synonymous!)
+ * overall, the mutation rate can be quite constant over large periods of
+   time $\rightarrow$ no
+   selection, "molecular clock"
+
+
+---
+
+![](images/cropped_img049.png)
+
+.myfootnote[
+*Ohta, “Near-neutrality in evolution of genes and gene regulation”, 2002.
+PNAS 99(25):16134-7*
+]
+
+---
+
+![](images/cropped_img050.png)
+
+.myfootnote[
+*Ohta, “Near-neutrality in evolution of genes and gene regulation”, 2002.
+PNAS 99(25):16134-7*
+]
+
+---
+
+![](images/cropped_img051.png)
+
+.myfootnote[
+*Ohta, “Near-neutrality in evolution of genes and gene regulation”, 2002.
+PNAS 99(25):16134-7*
+]
+
+---
+
+## Was Darwin a selectionist¹?
+
+*I am inclined to suspect that we see, at least in some [cases], variations
+which are of no service to the species, and which consequently have not
+been seized on and rendered definite by natural selection.… **Variations
+neither useful nor injurious would not be affected by natural selection,
+and would be left either a fluctuating element**, as perhaps we see in
+certain polymorphic species, or would **ultimately become fixed**.… We may
+easily **err in attributing importance to characters, and in believing that
+they have been developed through natural selection**;… many structures are
+now of no direct use to their possessors, and may never have been of any
+use to their progenitors.…*
+ 
+<span style="text-align:right;">– Charles Darwin, The Origin of
+Species</span>
+
+.myfootnote[
+¹ Betteridge's law of headlines:
+"Any headline that ends in a question mark can be answered by the word no."
+]
+
+---
+
+## A crash-course in phylogenies
+
+Why do phylogenetic reconstructions?
+
+ * Answer exciting scientific questions
+ * Create beautiful plots
+
+---
+
+## Tree Of Life
+
+.pull-left[
+![:scale 80%](images/tol_.webp)
+]
+
+.pull-right[ 
+*Hug LA, Baker BJ, Anantharaman K, Brown CT, Probst AJ, Castelle CJ,
+Butterfield CN, Hernsdorf AW, Amano Y, Ise K, Suzuki Y. A new view of the
+tree of life. Nature microbiology. 2016 Apr 11;1(5):1-6.*
+]
+
+
+---
+
+## Tree Of Life
+
+.center[
+![:scale 50%](images/tol_1.png)
+]
+
+.myfootnote[ 
+Interactive Tree of Life, [https://itol.embl.de/](https://itol.embl.de/)
+]
+
+---
+
+## Tree Of Life
+
+.center[
+![:scale 70%](images/tol_2.png)
+]
+
+.myfootnote[ 
+Interactive Tree of Life, [https://itol.embl.de/](https://itol.embl.de/)
+]
+
+
+---
+
+## Three domains of life
+
+.center[
+![](images/tol_3.jpg)
+]
+
+
+---
+
+## A crash-course in phylogenies
+
+Why do phylogenetic reconstructions?
+
+ * Answer exciting scientific questions
+ * Create beautiful plots
+
+ 
+Also, practical applications:
+
+ * Diseases 
+ * Functional annotation of genes by orthology reconstruction
+ * Criminal prosecution
+
+--
+
+...wait, criminal prosecution?
+
+
+---
+
+.pull-left[
+![:scale 60%](images/criminal_1.jpg)
+]
+
+.pull-right[
+
+![](images/criminal_2.jpg)
+]
+
+
+.myfootnote[
+*Metzker, Michael L., et al. "Molecular evidence of HIV-1 transmission in a
+criminal case." Proceedings of the National Academy of Sciences 99.22
+(2002): 14292-14297.*
+]
+
+---
+
+## Drawing trees
+
+.pull-left[
+
+ * rooted vs unrooted
+   * outgroup: used to root a tree
+ * types of rooted trees
+
+]
+
+---
+
+## Tree reconstruction
+
+![](images/phylogeny.png)
+
+---
+
+## Tree reconstruction
+
+ * Distance based methods:
+    * calculate evolutionary distances (e.g. number of substitutions) between each two sequences
+    * use the distances to reconstruct a tree
+ * Parsimony based methods
+    * Find the tree with the lowest number of evolutionary events
+      (mutations, indels)
+ * Maximum likelihood methods
+    * find the tree with the highest likelihood: most likely to explain the
+      observations
+ * Bayesian methods
+    * find the tree with the highest posterior probability
+
+---
+
+## Example: UPGMA
+
+
+---
+
+![](images/upgma/cropped_img041.png)
+
+---
+
+![](images/upgma/cropped_img042.png)
+
+---
+
+![](images/upgma/cropped_img043.png)
+
+---
+
+![](images/upgma/cropped_img044.png)
+
+---
+
+![](images/upgma/cropped_img045.png)
+
+---
+
+![](images/upgma/cropped_img046.png)
+
+---
+
+![](images/upgma/cropped_img047.png)
+
+---
+
+![](images/upgma/cropped_img048.png)
+
+---
+
+![](images/upgma/cropped_img049.png)
+
+---
+
+![](images/upgma/cropped_img050.png)
+
+---
+
+![](images/upgma/cropped_img051.png)
+
+---
+
+![](images/upgma/cropped_img052.png)
+
+---
+
+![](images/upgma/cropped_img053.png)
+
