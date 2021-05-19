@@ -19,4 +19,5 @@ You can click on the links below to directly view the HTML presentations.
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_03_290421/weiner_BE_22_practicals_03_290421_exercises.html) 
  * [Lecture 6 – Reproducible science](https://january3.github.io/Bioinformatics/Lectures/lecture_06_050521/weiner_BE_22_lecture_05052021.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04_060321/weiner_BE_22_practicals_04_060521_exercises.html)
+ * [Lecture 7 – Evolution and phylogenies](https://january3.github.io/Bioinformatics/Lectures/lecture_07_190521/weiner_BE_22_lecture_19052021.html)
 
