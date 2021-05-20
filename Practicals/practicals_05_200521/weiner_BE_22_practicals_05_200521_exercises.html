@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Practicals 04: Working with R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2021-05-20" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Practicals 04: Working with R
+## BE_22 Bioinformatics SS 21
+### January Weiner
+### 2021-05-20
+
+---
+
+
+
+
+
+
+## Working with Rmarkdown (cont.)
+
+---
+
+## Working with markdown
+
+ 1. Try out the following: creating **bold** (`**bold**`), *italics*
+    (`*italics*`)
+ 2. Make a footnote:
+
+            Text with a footnote^[This is the footnote.].
+
+ 3. Download an image to your working directory. Insert it into the
+    rmarkdown document:
+
+          ![Image caption](image_file_name.jpg)
+
+ 4. Create a bullet point and numbered list. What happens if you use
+     different numbers or change the order of the numbers?
+
+```
+ * one
+ * two 
+ * three
+
+ 1. one
+ 2. two
+ 3. three
+```
+
+
+---
+
+## Working with markdown
+
+ 4. Create a simple table, like this:
+
+```
+  Right     Left     Center     Default
+-------     ------ ----------   -------
+     12     12        12            12
+    123     123       123          123
+      1     1          1             1
+```
+
+---
+
+## Better tables with Rmarkdown
+
+Two colons mean that we access a function from the `knitr` package without
+loading it with `library`.
+
+
+```r
+knitr::kable(iris)
+```
+
+
+
+---
+
+## Analysis of the iris data set (simple stats)
+
+Before you start doing *anything*, take a look at the iris data set (if you
+don't see it, run `data(iris)`). That is, run a few descriptive analyses.
+
+**Note:** Store *every* analysis in Rmarkdown, that is the point of the
+exercise.
+
+ 1. Use the function `summary()` on the iris data set.
+
+ 2. Create a boxplot:
+
+           boxplot(Sepal.Width ~ Species, data=iris)
+
+---
+
+## Analysis of the iris data set (simple stats)
+
+Before we come to hypothesis testing, let us make a PCA (principal
+component analysis). We will use the build-in data set iris, which is a
+data frame. The first four columns contain the measurements, the fifth is
+the only covariate (species).
+
+
+```r
+pca &lt;- prcomp(iris[,1:4], scale.=TRUE)
+```
+
+
+---
+
+## Analysis of the iris data set (simple stats)
+
+ 1. The pca object is a list. What elements does it contain? How can you
+    check that?
+ 2. The element `x` (`pca$x`) contains the principal components. How many
+    principal components are there? (why?)
+ 3. Try using the basic plot function `plot(x, y)` to plot first two
+    components.
+ 4. The `col` option of `plot` takes a character or numeric vector with
+    colors (you can use `red`, or you can use `1`, both work). Can you
+    create a column in the `iris` data frame containing colors that
+    correspond to the species?
+
+
+---
+
+## Plotting with ggplot2 (very basic!)
+
+.pull-left[
+
+
+```r
+df &lt;- cbind(iris, pca$x)
+library(ggplot2)
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
+  geom_point()
+```
+]
+
+--
+
+.pull-right[
+
+![](weiner_BE_22_practicals_05_200521_exercises_files/figure-html/pcaplot-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+
+.pull-left[
+
+
+```r
+df &lt;- cbind(iris, pca$x)
+library(ggplot2)
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
+  geom_point() + ggthemes::theme_tufte()
+```
+
+![](weiner_BE_22_practicals_05_200521_exercises_files/figure-html/pcaplot2-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+
+
+```r
+df &lt;- cbind(iris, pca$x)
+library(ggplot2)
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
+  geom_point() + ggthemes::theme_economist_white()
+```
+
+![](weiner_BE_22_practicals_05_200521_exercises_files/figure-html/pcaplot3-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Very basic statistics
+
+First, a t.test to check whether the differences in Sepal Width between
+*I. versicolor* and *I. virginica* are statistically significant.
+
+
+
+```r
+versicolor &lt;- iris$Species == "versicolor"
+ver_sw &lt;- iris$Sepal.Width[versicolor]
+virginica &lt;- iris$Species == "virginica"
+vir_sw &lt;- iris$Sepal.Width[virginica]
+
+t.test(ver_sw, vir_sw)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  ver_sw and vir_sw
+## t = -3.2058, df = 97.927, p-value = 0.001819
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.33028364 -0.07771636
+## sample estimates:
+## mean of x mean of y 
+##     2.770     2.974
+```
+
+---
+
+## t.test object
+
+ 1. Save the output of t.test to a variable.
+
+ 2. Examine this variable. Is that a list? What elements does it have?
+    Which elements correspond to the output?
+
+ 3. Load the library `broom`. What happens when you do 
+
+            tidy(t.test(ver_sw, vir_sw))
+
+
+---
+
+## Very basic statistics
+
+First, a t.test to check whether the differences in Sepal Width between
+*I. versicolor* and *I. virginica* are statistically significant.
+
+
+
+```r
+versicolor &lt;- iris$Species == "versicolor"
+ver_sw &lt;- iris$Sepal.Width[versicolor]
+virginica &lt;- iris$Species == "virginica"
+vir_sw &lt;- iris$Sepal.Width[virginica]
+
+t.test(ver_sw, vir_sw)
+```
+
+---
+
+## Very basic statistics
+
+A pairwise t-test between each group
+
+
+```r
+pairwise.t.test(iris$Sepal.Width, iris$Species)
+```
+
+
+---
+
+
+## Very basic statistics
+
+Next, a simple ANOVA to check whether Species is a significant covariate.
+
+
+
+```r
+iris_anova &lt;- aov(Sepal.Width ~ Species, data=iris)
+summary(iris_anova)
+```
+
+```
+##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## Species       2  11.35   5.672   49.16 &lt;2e-16 ***
+## Residuals   147  16.96   0.115                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+
+---
+
+## ANOVA post-hoc Tukey's test
+
+
+
+```r
+TukeyHSD(iris_anova, "Species")
+```
+
+```
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = Sepal.Width ~ Species, data = iris)
+## 
+## $Species
+##                        diff         lwr        upr     p adj
+## versicolor-setosa    -0.658 -0.81885528 -0.4971447 0.0000000
+## virginica-setosa     -0.454 -0.61485528 -0.2931447 0.0000000
+## virginica-versicolor  0.204  0.04314472  0.3648553 0.0087802
+```
+
+
+
+---
+
+## Adding bibliography
+
+ 1. Create a new text file called "bibliography.bib". You can do that in
+    Rstudio for some OS (simply create a new .R file, but save it as
+    "bibliography.bib"). In other OS (notably Windows), you might need to
+    create an empty text file and then rename it to "bibliography.bib".
+ 2. Open the bibliography.bib file in Rstudio or a text editor. Go to
+    google scholar and search for a paper on an interesting topic (whatever
+    comes to your mind. If you don't know what, look for the paper by
+    Watson and Crick on DNA structure).
+ 3. Click on the citation icon `"`, and then on "BibTex". Copy the contents
+    to your newly created bibliography file and save it. Note what the
+    identifier of the article is (something like `watson1953structure`).
+ 4. In your markdown file, add the line `bibliography: bibliography.bib` to
+    the header. 
+ 5. In the body of the markdown file, add somewhere the citation:
+    `[@watson1953structure]`. Knit the document and look at the output.
+ 6. What happens if you use `@watson1953structure` (without brackets),
+    `[-@watson1953structure]` or `[@watson1953structure; page 1]`?
+ 7. Go to [https://www.zotero.org/styles](https://www.zotero.org/styles) and search
+    for the citation style of "Nature".
+    Download it to your working directory. To the markdown header add the
+    line `csl: nature.csl` (or whatever the file is called). Knit and look
+    at the output.
+
+---
+
+## Homework: Rmarkdown analysis of the iris data set
+
+ * Follow the instructions from the practicals to generate an Rmarkdown
+   file with the analysis of the iris data set. 
+ * Add short comments for each step, indicating what the step is doing.
+ * Make sure the Rmd file can be knitted.
+ * Submit the Rmd file (only the Rmd file) as your homework.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

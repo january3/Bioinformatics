@@ -1,0 +1,300 @@
+---
+title: "Practicals 04: Working with R"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+```
+
+```{r libraries,cache=FALSE}
+```
+
+## Working with Rmarkdown (cont.)
+
+---
+
+## Working with markdown
+
+ 1. Try out the following: creating **bold** (`**bold**`), *italics*
+    (`*italics*`)
+ 2. Make a footnote:
+
+            Text with a footnote^[This is the footnote.].
+
+ 3. Download an image to your working directory. Insert it into the
+    rmarkdown document:
+
+          ![Image caption](image_file_name.jpg)
+
+ 4. Create a bullet point and numbered list. What happens if you use
+     different numbers or change the order of the numbers?
+
+```
+ * one
+ * two 
+ * three
+
+ 1. one
+ 2. two
+ 3. three
+```
+
+
+---
+
+## Working with markdown
+
+ 4. Create a simple table, like this:
+
+```
+  Right     Left     Center     Default
+-------     ------ ----------   -------
+     12     12        12            12
+    123     123       123          123
+      1     1          1             1
+```
+
+---
+
+## Better tables with Rmarkdown
+
+Two colons mean that we access a function from the `knitr` package without
+loading it with `library`.
+
+```{r, echo=TRUE}
+knitr::kable(iris)
+```
+
+
+
+---
+
+## Analysis of the iris data set (simple stats)
+
+Before you start doing *anything*, take a look at the iris data set (if you
+don't see it, run `data(iris)`). That is, run a few descriptive analyses.
+
+**Note:** Store *every* analysis in Rmarkdown, that is the point of the
+exercise.
+
+ 1. Use the function `summary()` on the iris data set.
+
+ 2. Create a boxplot:
+
+           boxplot(Sepal.Width ~ Species, data=iris)
+
+---
+
+## Analysis of the iris data set (simple stats)
+
+Before we come to hypothesis testing, let us make a PCA (principal
+component analysis). We will use the build-in data set iris, which is a
+data frame. The first four columns contain the measurements, the fifth is
+the only covariate (species).
+
+```{r,echo=TRUE}
+pca <- prcomp(iris[,1:4], scale.=TRUE)
+```
+
+
+---
+
+## Analysis of the iris data set (simple stats)
+
+ 1. The pca object is a list. What elements does it contain? How can you
+    check that?
+ 2. The element `x` (`pca$x`) contains the principal components. How many
+    principal components are there? (why?)
+ 3. Try using the basic plot function `plot(x, y)` to plot first two
+    components.
+ 4. The `col` option of `plot` takes a character or numeric vector with
+    colors (you can use `red`, or you can use `1`, both work). Can you
+    create a column in the `iris` data frame containing colors that
+    correspond to the species?
+
+
+---
+
+## Plotting with ggplot2 (very basic!)
+
+.pull-left[
+
+```{r pcaplot,eval=FALSE,echo=TRUE}
+df <- cbind(iris, pca$x)
+library(ggplot2)
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
+  geom_point()
+```
+]
+
+--
+
+.pull-right[
+
+```{r pcaplot}
+```
+
+]
+
+---
+
+
+.pull-left[
+
+```{r pcaplot2,eval=TRUE,echo=TRUE}
+df <- cbind(iris, pca$x)
+library(ggplot2)
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
+  geom_point() + ggthemes::theme_tufte()
+```
+]
+
+
+.pull-right[
+
+```{r pcaplot3,eval=TRUE,echo=TRUE}
+df <- cbind(iris, pca$x)
+library(ggplot2)
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
+  geom_point() + ggthemes::theme_economist_white()
+```
+]
+
+---
+
+## Very basic statistics
+
+First, a t.test to check whether the differences in Sepal Width between
+*I. versicolor* and *I. virginica* are statistically significant.
+
+
+```{r,echo=TRUE,results="markdown"}
+versicolor <- iris$Species == "versicolor"
+ver_sw <- iris$Sepal.Width[versicolor]
+virginica <- iris$Species == "virginica"
+vir_sw <- iris$Sepal.Width[virginica]
+
+t.test(ver_sw, vir_sw)
+```
+
+---
+
+## t.test object
+
+ 1. Save the output of t.test to a variable.
+
+ 2. Examine this variable. Is that a list? What elements does it have?
+    Which elements correspond to the output?
+
+ 3. Load the library `broom`. What happens when you do 
+
+            tidy(t.test(ver_sw, vir_sw))
+
+
+---
+
+## Very basic statistics
+
+First, a t.test to check whether the differences in Sepal Width between
+*I. versicolor* and *I. virginica* are statistically significant.
+
+
+```{r,echo=TRUE}
+versicolor <- iris$Species == "versicolor"
+ver_sw <- iris$Sepal.Width[versicolor]
+virginica <- iris$Species == "virginica"
+vir_sw <- iris$Sepal.Width[virginica]
+
+t.test(ver_sw, vir_sw)
+```
+
+---
+
+## Very basic statistics
+
+A pairwise t-test between each group
+
+```{r,echo=TRUE}
+pairwise.t.test(iris$Sepal.Width, iris$Species)
+```
+
+
+---
+
+
+## Very basic statistics
+
+Next, a simple ANOVA to check whether Species is a significant covariate.
+
+
+```{r,echo=TRUE,eval=TRUE,results="markdown"}
+iris_anova <- aov(Sepal.Width ~ Species, data=iris)
+summary(iris_anova)
+```
+
+
+---
+
+## ANOVA post-hoc Tukey's test
+
+
+```{r echo=TRUE, results="markdown"}
+TukeyHSD(iris_anova, "Species")
+```
+
+
+
+---
+
+## Adding bibliography
+
+ 1. Create a new text file called "bibliography.bib". You can do that in
+    Rstudio for some OS (simply create a new .R file, but save it as
+    "bibliography.bib"). In other OS (notably Windows), you might need to
+    create an empty text file and then rename it to "bibliography.bib".
+ 2. Open the bibliography.bib file in Rstudio or a text editor. Go to
+    google scholar and search for a paper on an interesting topic (whatever
+    comes to your mind. If you don't know what, look for the paper by
+    Watson and Crick on DNA structure).
+ 3. Click on the citation icon `"`, and then on "BibTex". Copy the contents
+    to your newly created bibliography file and save it. Note what the
+    identifier of the article is (something like `watson1953structure`).
+ 4. In your markdown file, add the line `bibliography: bibliography.bib` to
+    the header. 
+ 5. In the body of the markdown file, add somewhere the citation:
+    `[@watson1953structure]`. Knit the document and look at the output.
+ 6. What happens if you use `@watson1953structure` (without brackets),
+    `[-@watson1953structure]` or `[@watson1953structure; page 1]`?
+ 7. Go to [https://www.zotero.org/styles](https://www.zotero.org/styles) and search
+    for the citation style of "Nature".
+    Download it to your working directory. To the markdown header add the
+    line `csl: nature.csl` (or whatever the file is called). Knit and look
+    at the output.
+
+---
+
+## Homework: Rmarkdown analysis of the iris data set
+
+ * Follow the instructions from the practicals to generate an Rmarkdown
+   file with the analysis of the iris data set. 
+ * Add short comments for each step, indicating what the step is doing.
+ * Make sure the Rmd file can be knitted.
+ * Submit the Rmd file (only the Rmd file) as your homework.
+
+
+
