@@ -42,7 +42,11 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
           ![Image caption](image_file_name.jpg)
 
  4. Create a bullet point and numbered list. What happens if you use
-     different numbers or change the order of the numbers?
+     different numbers or change the order of the numbers? 
+
+ 5. Create a link to Google scholar with
+
+           [Google scholar](https://scholar.google.com)
 
 ```
  * one
