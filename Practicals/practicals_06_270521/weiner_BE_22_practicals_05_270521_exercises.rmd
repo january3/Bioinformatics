@@ -35,7 +35,7 @@ First, we need to install a few packages. We will also install BiocManager
 practicals.
 
 ```{r, eval=FALSE}
-install.packages(c("phangorn", "seqinr", "BiocManager"))
+install.packages(c("phangorn", "seqinr", "BiocManager", "ape"))
 BiocManager::install("msa")
 ```
 
