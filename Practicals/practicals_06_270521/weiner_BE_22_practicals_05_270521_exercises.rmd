@@ -1,0 +1,301 @@
+---
+title: "Practicals 05: Sequence reconstruction with Phylip"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+    html_document:
+      toc: true
+      toc_float: true
+outputxxx:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+```
+
+```{r libraries,cache=FALSE}
+```
+
+### Installation
+
+First, we need to install a few packages. We will also install BiocManager
+(Bioconductor package manager), because we will need it during following
+practicals.
+
+```{r, eval=FALSE}
+install.packages(c("phangorn", "seqinr", "BiocManager"))
+BiocManager::install("msa")
+```
+
+This will take a moment, during which we will talk about what the plan for
+the practicals is.
+
+### Loading the multiple sequence alignment
+
+It is possible, of course, to create multiple sequence alignments using R
+(e.g. with the `msa` package from Bioconductor). However, it is also
+possible to read in an MSA in the phangorn package.
+Here, we will start with an amino acid alignment. 
+
+As you can see in the script that follows, you can supply an URL to R and
+it will work just like a file. However, normally you could just use a
+regular file name.
+
+We will start with our beloved hemoglobin example.
+
+```{r reading_msa}
+library(phangorn)
+library(seqinr)
+url <- "https://january3.github.io/Bioinformatics/Practicals/practicals_02_220421/data/hba.aln"
+msa <- read.alignment(url, format="clustal")
+```
+
+The `msa` object has been created by the seqinr package and we need to
+modify it a bit before proceeding.
+
+```{r modify_msa}
+## remove the boring identifiers from the sequence names,
+## so "sp|P01942|HBA_MOUSE" becomes "MOUSE". Don't do it unless all
+## proteins are HBA_something or HBA2_something
+msa$nam <- gsub(".*(HBA_|HBA2_)", "", msa$nam)
+
+## convert to phangorn package object
+msa <- as.phyDat(msa, type="AA")
+```
+
+The `msa` object holds now the multiple sequence alignment. We had to
+convert it to a data typ that is suitable for the `phangorn` package,
+though.
+
+We will now use
+the `dist.ml` function from the `phangorn` package to calculate pairwise
+distances between the sequences. We will use the Blosum62 matrix to
+calculate the distances:
+
+```{r, dist_mat,results="markdown"}
+dist_mat <- dist.ml(msa, model="Blosum62")
+dist_mat
+```
+
+**Note:** For a more advanced analysis, one would first spent quite some
+time deciding which model to chose. This is especially important for DNA
+sequences.
+
+We can make a plot visualizing this distance matrix, first converting it to
+regular square matrix, and then plotting a heatmap:
+
+```{r heatmap}
+mtx <- as.matrix(dist_mat)
+heatmap(mtx, symm=TRUE)
+```
+
+---
+
+**Exercise 1.**
+
+ 1. What does `symm=TRUE` do? (Hint: `?heatmap`)
+ 2. Which two species seem to be closest? Take a look at the `mtx` and
+    check which distances is smallest.
+ 3. What is BALAC? (hint: the protein name is `HBA_BALAC`...)
+
+---
+
+### Reconstructing phylogenies
+
+We now can do the first phylogenetic reconstruction using neighbor joining.
+
+
+```{r nj_tree,results="markdown"}
+nj_tree <- NJ(dist_mat)
+```
+
+That wasn't hard. Now, we plot the tree. 
+
+```{r plot_nj,fig.width=10}
+## split the window in two
+par(mfrow=c(1,2))
+
+plot(nj_tree)
+plot(nj_tree, type="unrooted")
+```
+
+Let us see the tree in Newick format as well:
+
+```{r newick_nj_0,results="markdown"}
+write.tree(nj_tree)
+```
+
+---
+
+**Exercise 2.**
+
+Look up the help for the function `plot.phylo` which is called when you
+plot a tree. What are the other types of trees? View them all.
+
+---
+
+The tree on the left sucks: clearly, GADMO (Gadus morhua, atlantic cod) and
+POGSC (Saddleback, also a fish) are the outgroup here. We need to *root* the tree
+correctly.
+
+```{r root_nj}
+nj_tree <- root(nj_tree, outgroup=c("GADMO", "POGSC"))
+
+plot(nj_tree)
+```
+
+---
+
+**Exercise 3.**
+
+Instead of the function `NJ`, use the function `upgma()` to create a tree.
+Compare it with the neighbor-joining tree. What do you notice?
+
+---
+
+### Bootstrapping a tree
+
+Bootstrapping is an important technique to understand which parts of the
+tree are robust, and which are somewhat shaky. Basically, 100 or 1000 trees
+are computed, but each time a random subset of the alignment columns is
+used. If a part of a tree is solid, this will have no influence; but
+othertimes, selecting a subset of columns will change the phylogeny.
+
+Generating bootstrap values may look like that:
+
+```{r bootstrap_nj}
+## set up the function to calculate phylogenies
+make_phylo <- function(msa) {
+  tree <- NJ(dist.ml(msa, model="Blosum62"))
+}
+
+boot <- bootstrap.phyDat(msa, make_phylo)
+```
+
+The `boot` object contains now a 100 of different phylogenetic trees. We
+can plot some of them.
+
+```{r plot_bs_trees,fig.width=15,fig.height=10}
+par(mfrow=c(2,3))
+for(i in 1:6) {
+  plot(boot[[i]])
+}
+```
+
+Can you see the differences?
+
+We can now plot the bootstrap values on the original tree. The numbers
+indicate how often, among the 100 bootstrap replicates, a given group was
+found. We use the function plotBS to generate a tree which contains
+bootstrap values as node labels:
+
+```{r plot_nj_tree,fig.width=15}
+nj_tree_bs <- plotBS(nj_tree, boot, type="none")
+plot(nj_tree_bs, show.node.label=TRUE)
+```
+
+A slightly more readable figure can be achieved as follows:
+
+```{r plot_nj_tree_2,fig.width=15}
+plot(nj_tree_bs)
+nodelabels(nj_tree_bs$node.label)
+```
+
+Take a look on how the tree looks like in the Newick format:
+
+
+```{r newick_nj}
+write.tree(nj_tree_bs)
+```
+
+
+### Using maximum likelihood for phylogeny reconstruction
+
+As noted, ML methods do not actually reconstruct a tree *per se*. Rather,
+they are able to provide a measure called *likelihood* which allows us to
+decide which tree is better.
+
+We can now calculate the likelihood function and the AIC (Akaike
+Information Criterion) on the NJ tree we have constructed. Note that we
+must use the `msa_phydat` object:
+
+```{r calc_nj_ml,results="markdown"}
+nj_tree_pml <- pml(nj_tree, msa, model="Blosum62")
+nj_tree_pml
+AIC(nj_tree_pml)
+```
+
+Note that `nj_tree_pml` is no longer an object of class `phylo`: pml added
+extra information to that tree. The actual tree is stored in
+`nj_tree_pml$tree`. Yeah, I know it is confusing. Welcome to R and bioinformatics!
+
+However, this is still our boring NJ-generated tree. We can try to find a
+better one, using some heuristics which starts with an initial tree and
+then tries to improve it:
+
+```{r ml_tree, fig.width=12}
+ml_tree <- optim.pml(nj_tree_pml, rearrangement="NNI")
+ml_tree
+AIC(ml_tree)
+
+par(mfrow=c(1,2))
+plot(nj_tree)
+plot(ml_tree)
+```
+
+What differences do you see?
+
+---
+
+**Exercise 4.**
+
+ 1. There are various models (both for nucleic acids and for protein
+sequences). For example, for amino acid sequences there are the models
+Blosum62, Jones-Taylor-Thornton (JTT), Dayhoff (of the PAM matrix fame),
+Whelan and Goldman (WAG).  Try all of them; which of them fits the data
+best? (the higher the log likelihood, the better; the lower the AIC, the
+better).
+
+ 2. Plot all the trees you have created in the previous point (WAG, JTT,
+    Dayhoff, Blosum62) and compare them to the NJ tree.
+
+---
+
+
+### Bootstrapping the ML tree (optional)
+
+We are going to use a bootstrapping function from the `phangorn` package.
+The plotBS function not only plots the tree, it also returns a tree with
+the node labels.
+
+```{r ml_bootstrap,fig.width=15}
+boot_ml <- bootstrap.pml(ml_tree)
+boot_tree <- plotBS(ml_tree$tree, boot_ml, type="none")
+plot(boot_tree)
+nodelabels(boot_tree$node.label)
+```
+
+As you can see, ML is pretty sure about its result – all bootstrap values
+are 100! However, it is also wrong, since horse should be in one group with
+cattle. 
+
+**Homework 4.**
+
+Use the data from 
+`https://january3.github.io/Bioinformatics/Practicals/practicals_02_220421/data/globin.aln`
+to reconstruct phylogeny using a suitable amino acid substitution model. As
+outgroups, use the sequence of myoglobin (`MYG_HUMAN`).  Just like in case
+of homework 3, you are expected to provide an Rmd file which can be
+compiled without errors.
