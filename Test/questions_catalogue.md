@@ -40,6 +40,17 @@ definition by heart.
   * What are orthologs and paralogs?
   * What is neofunctionalisation and subfunctionalisation?
   * What is the relationship between amino acid similarity and substitution rate?
+  * What is natural selection? What are the three conditions for the
+    natural selection to occur?
+  * What are the three main mechanisms of evolution according to the modern
+    synthesis?
+  * Is genetic drift stronger for larger or for smaller populations?
+  * What is positive and negative selection?
+  * How can you detect evolutionary pressure in sequences?
+  * What is a distance matrix? How can you use it in phylogenetic
+    reconstructions?
+  * Can you tell whether two trees have identical topology?
+  * What is a rooted / unrooted tree?
 
  4. Structure of genes and proteins
   * What is genetic code? How many different genetic codes are there?
@@ -52,6 +63,12 @@ definition by heart.
   * What is a sequence logo?
   * What is a protein domain?
   * How many structural superfamilies are there? How many topologies? (roughly: 4, 40 thousand, 40 million?)
-  * What are coiled coil? Do you know any examples of proteins or protein
+  * What are coiled coils? Do you know any examples of proteins or protein
     families with coiled coils?
 
+ 5. Omics & co.
+
+  * At which molecules are you looking when you are doing transcriptomics /
+    proteomics / metabolomics / lipidomics?
+  * In high throughput data sets, do you have typically more variables or
+    more samples in a data set?
