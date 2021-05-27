@@ -22,4 +22,5 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 7 – Evolution and phylogenies](https://january3.github.io/Bioinformatics/Lectures/lecture_07_190521/weiner_BE_22_lecture_19052021.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_05_200521/weiner_BE_22_practicals_05_200521_exercises.html)
  * [Lecture 8 – Omics](https://january3.github.io/Bioinformatics/Lectures/lecture_08_260521/weiner_BE_22_lecture_26052021.html)
+    * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_06_270521/weiner_BE_22_practicals_05_270521_exercises.html)
 
