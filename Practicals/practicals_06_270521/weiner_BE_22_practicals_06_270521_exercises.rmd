@@ -1,5 +1,5 @@
 ---
-title: "Practicals 05: Sequence reconstruction with R"
+title: "Practicals 06: Sequence reconstruction with R"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
 date: "`r Sys.Date()`"
