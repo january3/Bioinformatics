@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 9: Gene expression and clustering</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2021-06-02" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 9: Gene expression and clustering
+## BE_22 Bioinformatics SS 21
+### January Weiner
+### 2021-06-02
+
+---
+
+
+
+
+
+
+
+
+
+&lt;!--
+class:empty-slide,myinverse
+background-image:url(images/arnolfini.jpg)
+--&gt;
+
+
+## Plan for today
+
+ * A more in-depth introduction to RNA-Seq
+ * Use transcriptomic data as a pretext to introduce clustering algorithms
+
+---
+
+## Transcriptomic methods
+
+ * QPCR: precise, low-throughput
+ * Nanostring: precise, mid-throughput (~ 500-1000 genes)
+ * Microarray: less exact, high-throughput, pre-defined genes
+ * RNA-Seq: very flexible, less exact, high-throughput
+
+---
+class:empty-slide,myinverse
+background-image:url(images/rnaseq.png)
+
+---
+
+.pull-left[
+### Library preparation
+
+ * cDNA synthesis
+ * fragmentation
+ * ligation of adapter and index sequences (and possibly UMIs, universal
+   molecular identifiers)
+ * purification (e.g. removing globin sequences)
+ * amplification
+   ]
+
+.pull-right[
+
+![](images/illumina_1.jpg)
+
+]
+
+---
+
+.pull-left[
+
+### Cluster amplification
+
+ * ligation of the cDNA to the flowcell
+ * amplification in situ
+ * results in spots ("clusters") with homogenous DNA
+
+   ]
+
+.pull-right[
+
+![](images/illumina_2.png)
+
+]
+
+---
+
+.pull-left[
+
+### Sequencing
+
+ * "Sequencing by synthesis": Step-wise extension of the sequences
+ * in each cycle, only one nucleotide is added: a protective group (-OH)
+   does not allow incorporation of another nucleotide
+ * a snapshot of the flow cell is taken; each cluster appears as a dot, the
+   color corresponds to the last dNTP incorporated
+ * fluorescence is deactivated, -OH protective group removed and another
+   cycle begins
+
+   ]
+
+.pull-right[
+
+![](images/illumina_3.png)
+
+]
+
+
+---
+
+.pull-left[
+
+### Sequencing
+
+ * "Sequencing by synthesis": Step-wise extension of the sequences
+ * in each cycle, only one nucleotide is added: a protective group (-OH)
+   does not allow incorporation of another nucleotide
+ * a snapshot of the flow cell is taken; each cluster appears as a dot, the
+   color corresponds to the last dNTP incorporated
+ * fluorescence is deactivated, -OH protective group removed and another
+   cycle begins
+
+   ]
+
+.pull-right[
+
+![](images/illumina.webp)
+
+]
+
+
+
+---
+
+.pull-left[
+
+### Sequencing
+
+ * "Sequencing by synthesis": Step-wise extension of the sequences
+ * in each cycle, only one nucleotide is added: a protective group (-OH)
+   does not allow incorporation of another nucleotide
+ * a snapshot of the flow cell is taken; each cluster appears as a dot, the
+   color corresponds to the last dNTP incorporated
+ * fluorescence is deactivated, -OH protective group removed and another
+   cycle begins
+
+]
+
+.pull-right[
+
+![](images/illumina.webp)
+
+]
+
+---
+
+
+.pull-left[
+
+### Bioinformatics
+
+ * convert image data to (compressed) text files (fastq files)
+ * demultiplex: split sequences based on the index
+ * trim adapters
+ * align to a genome / exome (SAM/BAM files)
+ * using a gene model (GTF files) count reads per gene
+ * Quality Control
+
+]
+
+.pull-right[
+
+![](images/alignment.png)
+
+]
+
+---
+
+## FASTQ files
+
+![](images/fastq.png)
+
+Lines:
+
+ 1. Identifier
+ 2. Sequence of the read
+ 3. End of the sequence (`+`), optionally identifier again
+ 4. Phred quality score
+
+
+---
+
+## Phred quality score
+
+ `$$Q \stackrel{\text{def}}{=} -10 \cdot \log_{10}P$$`
+
+
+So if `\(Q = 10\)`, then error probability is 1 in 10 (one zero); if `\(Q = 50\)`, error
+probability is `\(100,000\)` (five zeros).
+
+The `\(P\)` (probability) is derived empirically from the signal / noise ratio
+(and other metrics) in the raw data.
+
+The number is then mapped on ASCII codes of characters, e.g. `A` has the
+code of 65, which corresponds to `\(Q = 65 - 33 = 32\)`; `]` has the ASCII code
+93, so `\(Q = 93 - 33 = 60\)`.
+
+---
+
+## BAM files
+
+![](images/bam.png)
+
+ * contain information about alignment
+ * SAM = human readable text format (huge), BAM = same data but binary for
+   smaller size and quicker access
+ 
+
+---
+
+## Count data
+
+ * Matrix with integer data
+ * Rows = genes (or transcripts)
+ * Columns = samples
+
+---
+
+## Alternative representations of count data
+
+Library size = total number of reads in a sample
+
+ * (log) counts per million (normalized to library size)
+ * RPKM: reads per kilobase of transcript per million reads (normalized to
+   transcript length and library size)
+ * FPKM: fragments per kilobase of transcript per million reads (normalized
+   to transcript length and library size)
+ * TPMs: Transcript Per Million, normalized to transcript length and
+   library size (but differently)
+
+
+---
+
+### Stranded vs non-stranded
+
+![](images/strand_specificity.png)
+
+---
+
+### Paired end vs single-end
+
+
+---
+
+
+
+
+
+.pull-left[
+## Why cluster the genes?
+
+ * Genes which are co-regulated have similar function `\(\rightarrow\)`
+   identification of "transcriptional modules"
+ * Analysis of the clusters may give us clues about what is happening in
+   the biological system
+ * Better visualization if genes are clustered
+
+]
+
+.pull-right[
+
+&lt;img src="weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-3-1.png" width="60%" /&gt;
+]
+
+---
+class:empty-slide,mywhite
+background-image:url(images/network_1.png)
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/network_2.png)
+
+---
+
+### From correlations to distances
+
+ `\(d_{i,j}\)` – Distance between genes `\(i\)` and `\(j\)`
+
+ `\(\rho(x_i, x_j)\)` – correlation coefficient between expression of `\(i\)` ($x_i$) and `\(j\)` ($x_j$)
+
+Hard threshold:
+
+ `$$d_{i,j} \equiv \left\{\begin{array}{ll}1 &amp; |\rho(x_i, x_j)| &gt; \tau\\0 &amp; |\rho(x_i, x_j)| \leq \tau\end{array}\right.$$`
+
+Continuouos in `\((0, 1)\)`
+
+ `$$d_{i,j} \equiv 1 - |\rho(x_i, x_j)|$$`
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/correlation_modules.png)
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/correlation_dependence.png)
+
+
+
+---
+
+## Many alternatives
+
+ Other measures exist:
+
+   * mutual information
+   * different types of correlation (Spearman `\(\rho\)`, Kendall `\(\tau\)`)
+   * distance correlation (Székely 2007)
+
+
+Bottom line: we need to get at distances
+
+---
+class:empty-slide,myinverse
+background-image:url(images/desert2.jpg)
+
+.mytop[
+The number of grains of sand in this picture accurately represents the
+number of clustering algorithms.
+]
+
+--
+.mytop[
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+Each tree in the picture corresponds to a method of clustering which is
+robust, reliable and provides automatically high quality clusters. 
+]
+
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/desert2.jpg)
+
+.pull-left[
+.transpblock[
+**PAM** Partitioning Around Medoids. Similar to k-means;
+predefined number of clusters
+]
+
+.transpblock[
+**SOMs**, Self-organizing maps:
+Train a neural network to recognize clusters in the data
+(also SOTA: self-organizing trees)
+]
+
+.transpblock[
+**SVC** – support vector clustering;
+based on SVM’s (support vector machines)
+]
+
+
+.transpblock[
+**Fuzzy C-means clustering**:
+Each sample gets assigned a probability of
+belonging to each of the clusters.
+Algorithm similar to k-means.
+Also similar – “soft k-means”
+]
+
+]
+
+.pull-right[
+
+.transpblock[
+**Hierarchical clustering:** UPGMA (group-average linkage), Ward's method, neighbor joining, single
+linkage, complete linkage...
+
+]
+
+.transpblock[
+**Mclust** – model based clustering
+The data is fit to a statistical model consisting of K normal distributions.
+]
+
+.transpblock[
+**Density based clustering:**
+identify clusters by local density profiles
+]
+
+]
+
+---
+
+### Hierarchical clustering
+
+ * Start with each element in its own cluster ($n_{\text{clust}} = N$)
+ * Identify two elements with the smallest distance
+ * Recalculate distances using a *linkage* function
+
+E.g. complete linkage:
+
+ `$$D(C_i, C_j) = \max_{e_i \in C_i, e_j \in C_j} D(e_i, e_j)$$`
+
+Basically: join the clusters with the smalles distance between the
+*furthest* elements of the clusters
+
+E.g. single linkage:
+
+ `$$D(C_i, C_j) = \min_{e_i \in C_i, e_j \in C_j} D(e_i, e_j)$$`
+
+Basically: join the clusters with the smalles distance between the
+*closest* elements of the clusters
+
+---
+class:empty-slide,mywhite
+background-image:url(images/hclust.png)
+
+
+---
+
+## k-means
+
+Naive k-means:
+
+ * Assign the elements to random clusters
+ * Repeat:
+   * Calculate the cluster centroids (midpoints) 
+   * Assign the elements to the cluster with the closest centroid
+   * Abort if the asignments no longer change
+
+
+
+.center[
+![](weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+---
+
+
+.center[
+![](weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-6-.gif)&lt;!-- --&gt;
+]
+
+---
+
+## Measuring clustering performance
+
+.pull-left[
+ * How many clusters?
+ * Which clustering method?
+ * What parameters?
+]
+
+--
+
+.pull-right[
+ * Internal: information scientific
+ * Stability measures: cross-validation, resampling (like bootstrapping in
+   phylogenies!)
+ * External: use external information
+    * a priori information
+    * biological information (how well the clusters correspond to
+      underlying biology)
+
+]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/desert2.jpg)
+
+--
+
+.mytop[
+The number of grains of sand in this picture accurately represents the
+number of available measures of clustering performance.
+]
+
+
+---
+
+## The elbow method
+
+.pull-left[
+There is a total amount of variance in the clusters.
+
+We can split it into *between cluster* variance and *within cluster*
+variance.
+
+Instead of variance, we use Sum of Squares (SS), because `\(Var(x)\equiv \frac{SS}{n-1}\)`.
+
+ `$$SS_{\text{tot}} = SS_{\text{within}} + SS_{\text{between}}$$`
+
+ * If all elements are in one large cluster, `\(SS_{\text{between}}= 0\)`.
+ * If all elements are each in a separate cluster, `\(SS_{\text{within}}= 0\)`.
+]
+
+.pull-right[
+
+
+![](images/elbow.png)
+
+
+]
+
+---
+
+## Silhouette plots
+
+.pull-left[
+
+For each element, we plot the difference between distance to the center of
+the cluster where that element is and the distance to the closest *other*
+cluster center.
+
+]
+
+.pull-right[
+
+
+
+![](weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+
+]
+
+---
+
+![](weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+![](weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+![](weiner_BE_22_lecture_02062021_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
