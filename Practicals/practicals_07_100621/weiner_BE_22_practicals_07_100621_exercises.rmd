@@ -1,0 +1,250 @@
+---
+title: "Practicals 07: Clustering and transcriptomics"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+    html_document:
+      toc: true
+      toc_float: true
+outputxxx:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=7,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+```
+
+```{r libraries,cache=FALSE,echo=FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+### Installation
+
+First, we need to install a few packages (installing `fpc` will install
+them all). We will also install BiocManager (Bioconductor package manager),
+because we will need it during following practicals.
+
+```{r, eval=FALSE}
+install.packages(c("fpc", "cluster"))
+BiocManager::install("DESeq2")
+```
+
+This will take a moment, during which we will talk about what the plan for
+the practicals is.
+
+
+## Clustering
+
+### K-means clustering
+
+You will cluster the iris data set. First, because we know exactly how many
+clusters should there be, and second, because you have seen it before. How
+well can the different clustering algorithms figure out how the real groups
+look like?
+
+Before we start clustering, we will take a look again at the data set using
+a PCA approach (see practicals 5).
+
+```{r}
+## first, a quick look
+View(iris)
+
+library(ggplot2)
+data(iris) ## not necessary in newer R versions
+pca <- prcomp(iris[, 1:4], scale.=TRUE)
+## what does the following line do?
+df <- data.frame(iris, pca$x[,1:4])
+ggplot(df, aes(x=PC1, y=PC2, color=Species)) + geom_point()
+```
+
+Now, let us cluster the data. We will start with the kmeans algorithm. The
+`kmeans` function is part of base R.
+Remember, in the iris data set the first four columns are numerical. We
+start with 3 clusters (as we expect to get 3 clusters!).
+
+```{r}
+iris_mtx <- iris[,1:4]
+clusts_kmeans <- kmeans(iris_mtx, centers=3)
+```
+
+---
+
+**Exercise (5').** What is the type of the `clusts_kmeans` object? What
+components does it have? Take a look at the `clusts_kmeans$cluster`. What
+do you think that is?
+
+---
+
+Now, let us take a look how the cluster assignment compares to the actual
+clusters. First, let us visualize the clustering. We will use the
+previously calculated principal components, but color by cluster (and not
+Species):
+
+```{r}
+df <- data.frame(iris, pca$x[,1:4], cluster=paste0("CL", clusts_kmeans$cluster))
+ggplot(df, aes(x=PC1, y=PC2, color=cluster)) + geom_point()
+```
+
+This looks similar, but is it? The `table` function in R is very useful to
+create contingency tables which show us how many elements of each Species are
+assigned to which cluster:
+
+```{r results="markdown"}
+table(df$Species, df$cluster)
+```
+
+---
+
+**Exercise (15').** Create clustering with 2, 4 and 5 clusters. Create
+plots as above and contingency tables.
+
+---
+
+The elements `withinss`, `betweenss` and `totss` give the within, between
+and total sums of squares. We can see that sum of the within and between
+sums of squares is equal to the total sum of squares:
+
+```{r}
+sum(clusts_kmeans$withinss) + clusts_kmeans$betweenss # 681.37
+clusts_kmeans$totss # also 681.37
+```
+
+We can create a series of clusterings and plot the fraction of withinss
+along the number of clusters:
+
+
+```{r}
+n <- 2:10 # 2 to 10 cluster centres
+cl <- lapply(n, function(i) kmeans(iris_mtx, centers=i))
+
+## we use sapply to create a vector rather than a list
+## you can also use map_dbl for that
+ss_frac <- sapply(cl, function(x) {
+  withinss <- x$withinss
+  totss    <- x$totss
+  return(sum(withinss) / totss)
+})
+
+df <- data.frame(centers=n, ss_frac=ss_frac)
+ggplot(df, aes(x=centers, y=ss_frac, group=1)) + geom_point() +
+  geom_line() + ylab("Within SS fraction")
+```
+
+---
+
+**Exercise. (5')** What number of clusters is optimal according to the
+elbow rule? Take a look at the code above. Do you understand how it
+works? If not, ask!
+
+---
+
+### Hierarchical clustering
+
+The R function `hclust` is really useful here. However, to use it, we
+need to convert the iris data into a distance matrix (see practicals 6).
+
+```{r}
+iris_dist <- dist(iris_mtx)
+tree_hclust <- hclust(iris_dist)
+```
+
+---
+
+**Exercise. (5')**. What happens if you seemply run `plot(tree_hclust)`? Take
+a look at the help page for hclust (`?hclust`). How do you add labels to
+the plot? Add `iris$Species` as labels.
+
+---
+
+The `tree_hclust` object does not contain the clusters. To actually get the
+clusters, we need to cut the tree, specifying either a number of clusters
+that we want to have or a height at which we want to cut the tree.
+
+```{r}
+clusts_h <- cutree(tree_hclust, k=3)
+```
+
+The result is a numerical vector with the cluster assignments.
+
+---
+
+**Exercise (10').** Using `table` for creating contingency tables, compare
+the results of the clustering with hclust with (i) real species and (ii)
+results of the k-means clustering.
+
+---
+
+
+
+### Silhouettes
+
+To visualise and calculate silhouettes, we need to have a distance matrix
+even for k-means clustering. 
+
+To visualize the silhouette, we use the `silhouette` function from the
+`cluster` package. Again, we need the distances in order to calculate the
+silhouette. 
+
+```{r results="markdown"}
+silh <- silhouette(clusts_kmeans$cluster, iris_dist)
+head(silh)
+print(mean(silh[,3]))
+```
+
+The `silh` object is basically a data frame with the individual silhouette
+widths in the third column. The average silhouette width over all elements is another
+way of measuring the clustering performance. We can calculate the average
+silhouette widths for clusters with differernt number of centers:
+
+```{r}
+avg_sil <- sapply(cl, function(x) {
+                    x_sil <- silhouette(x$cluster, iris_dist)
+                    return(mean(x_sil[,3]))
+})
+df <- data.frame(centers=n, silwidth=avg_sil)
+ggplot(df, aes(x=centers, y=silwidth, group=1)) + geom_point() +
+  geom_line() + ylab("Average silhouette width")
+```
+
+If we use the silhouette method for determining the optimal number of
+clusters, then the result would be "2".
+
+---
+
+**Homework 5.** Install the package `cluster.datasets`. In it, you will
+find the data set "european.foods":
+
+```{r}
+install.packages("cluster.datasets")
+library(cluster.datasets)
+data(european.foods)
+?european.foods
+```
+
+This is data frame showing percentages of housholds in several countries
+which have the given food at the time when the questionnaire was filled
+out; eg. 88% of the households in West Germany had teabags, but only 61%
+households in Austria. Cluster the countries by the foods; how many
+clusters do you see? You are free to use whichever method is available.
+
+---
+
+## Differential gene expression analysis
+
+This part of the exercise which will be, at this point, mostly a
+demonstration.
+
+
+
