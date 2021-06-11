@@ -11,7 +11,7 @@
 
 <meta name="author" content="January Weiner" />
 
-<meta name="date" content="2021-06-10" />
+<meta name="date" content="2021-06-11" />
 
 <title>Practicals 07: Clustering and transcriptomics</title>
 
@@ -244,7 +244,7 @@ div.tocify {
 <h1 class="title toc-ignore">Practicals 07: Clustering and transcriptomics</h1>
 <h3 class="subtitle">BE_22 Bioinformatics SS 21</h3>
 <h4 class="author">January Weiner</h4>
-<h4 class="date">2021-06-10</h4>
+<h4 class="date">2021-06-11</h4>
 
 </div>
 
@@ -301,11 +301,12 @@ cl &lt;- lapply(n, function(i) kmeans(iris_mtx, centers=i))
 
 ## we use sapply to create a vector rather than a list
 ## you can also use map_dbl for that
-ss_frac &lt;- sapply(cl, function(x) {
+calc_ss_fraction &lt;- function(x) {
   withinss &lt;- x$withinss
   totss    &lt;- x$totss
   return(sum(withinss) / totss)
-})
+}
+ss_frac &lt;- sapply(cl, calc_ss_fraction)
 
 df &lt;- data.frame(centers=n, ss_frac=ss_frac)
 ggplot(df, aes(x=centers, y=ss_frac, group=1)) + geom_point() +
@@ -321,7 +322,7 @@ ggplot(df, aes(x=centers, y=ss_frac, group=1)) + geom_point() +
 <pre class="r"><code>iris_dist &lt;- dist(iris_mtx)
 tree_hclust &lt;- hclust(iris_dist)</code></pre>
 <hr />
-<p><strong>Exercise. (5’)</strong>. What happens if you seemply run <code>plot(tree_hclust)</code>? Take a look at the help page for hclust (<code>?hclust</code>). How do you add labels to the plot? Add <code>iris$Species</code> as labels.</p>
+<p><strong>Exercise. (5’)</strong>. What happens if you simply run <code>plot(tree_hclust)</code>? Take a look at the help page for hclust (<code>?hclust</code>). How do you add labels to the plot? Add <code>iris$Species</code> as labels.</p>
 <hr />
 <p>The <code>tree_hclust</code> object does not contain the clusters. To actually get the clusters, we need to cut the tree, specifying either a number of clusters that we want to have or a height at which we want to cut the tree.</p>
 <pre class="r"><code>clusts_h &lt;- cutree(tree_hclust, k=3)</code></pre>
@@ -362,7 +363,7 @@ ggplot(df, aes(x=centers, y=silwidth, group=1)) + geom_point() +
 library(cluster.datasets)
 data(european.foods)
 ?european.foods</code></pre>
-<p>This is data frame showing percentages of housholds in several countries which have the given food at the time when the questionnaire was filled out; eg. 88% of the households in West Germany had teabags, but only 61% households in Austria. Cluster the countries by the foods; how many clusters do you see? You are free to use whichever method is available.</p>
+<p>This is data frame showing percentages of housholds in several countries which have the given food at the time when the questionnaire was filled out; eg. 88% of the households in West Germany had teabags, but only 61% households in Austria. Cluster the countries by the foods; how many clusters do you see? You are free to use whichever method is available. Submit the assignment as an Rmarkdown file. Alternatively, use your own data set – whatever you like (except for iris data set, obviously).</p>
 <hr />
 </div>
 </div>

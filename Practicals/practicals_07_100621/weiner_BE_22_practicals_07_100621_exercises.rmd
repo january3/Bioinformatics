@@ -32,12 +32,11 @@ theme_set(theme_bw())
 
 ### Installation
 
-First, we need to install a few packages (installing `fpc` will install
-them all). We will also install BiocManager (Bioconductor package manager),
+First, we need to install a few packages. We will also install DESeq2 (Bioconductor package),
 because we will need it during following practicals.
 
 ```{r, eval=FALSE}
-install.packages(c("fpc", "cluster"))
+install.packages("cluster")
 BiocManager::install("DESeq2")
 ```
 
@@ -131,11 +130,12 @@ cl <- lapply(n, function(i) kmeans(iris_mtx, centers=i))
 
 ## we use sapply to create a vector rather than a list
 ## you can also use map_dbl for that
-ss_frac <- sapply(cl, function(x) {
+calc_ss_fraction <- function(x) {
   withinss <- x$withinss
   totss    <- x$totss
   return(sum(withinss) / totss)
-})
+}
+ss_frac <- sapply(cl, calc_ss_fraction)
 
 df <- data.frame(centers=n, ss_frac=ss_frac)
 ggplot(df, aes(x=centers, y=ss_frac, group=1)) + geom_point() +
@@ -162,7 +162,7 @@ tree_hclust <- hclust(iris_dist)
 
 ---
 
-**Exercise. (5')**. What happens if you seemply run `plot(tree_hclust)`? Take
+**Exercise. (5')**. What happens if you simply run `plot(tree_hclust)`? Take
 a look at the help page for hclust (`?hclust`). How do you add labels to
 the plot? Add `iris$Species` as labels.
 
@@ -198,6 +198,7 @@ To visualize the silhouette, we use the `silhouette` function from the
 silhouette. 
 
 ```{r results="markdown"}
+library(cluster)
 silh <- silhouette(clusts_kmeans$cluster, iris_dist)
 head(silh)
 print(mean(silh[,3]))
@@ -226,7 +227,7 @@ clusters, then the result would be "2".
 **Homework 5.** Install the package `cluster.datasets`. In it, you will
 find the data set "european.foods":
 
-```{r}
+```{r eval=FALSE}
 install.packages("cluster.datasets")
 library(cluster.datasets)
 data(european.foods)
@@ -237,7 +238,7 @@ This is data frame showing percentages of housholds in several countries
 which have the given food at the time when the questionnaire was filled
 out; eg. 88% of the households in West Germany had teabags, but only 61%
 households in Austria. Cluster the countries by the foods; how many
-clusters do you see? You are free to use whichever method is available.
+clusters do you see? You are free to use whichever method is available. Submit the assignment as an Rmarkdown file. Alternatively, use your own data set – whatever you like (except for iris data set, obviously).
 
 ---
 
