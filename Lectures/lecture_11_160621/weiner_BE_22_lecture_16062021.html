@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 11: Gene set enrichments</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2021-06-16" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 11: Gene set enrichments
+## BE_22 Bioinformatics SS 21
+### January Weiner
+### 2021-06-16
+
+---
+
+
+
+
+
+
+
+
+
+&lt;!--
+class:empty-slide,myinverse
+background-image:url(images/arnolfini.jpg)
+--&gt;
+
+
+## Plan for today
+
+ * Gene set enrichment analysis
+    * 1st generation: hypergeometric test, Fisher's exact test
+    * 2nd generation: other algorithms
+
+
+---
+
+## Gene set enrichment analysis
+
+
+
+
+
+
+The problem: how do you interpret a list of 1000 results?
+
+---
+
+## Gene ontology database
+
+.pull-left[
+
+ * Genes are assigned to GO categories
+ * GO categories are assigned to each other
+ * GO can be represented as a *directed acyclic graph*
+
+]
+
+.pull-right[
+![](images/gorilla.png)
+]
+
+---
+
+## KEGG pathways
+
+KEGG – Kyoto Encyclopaedia of Genes and Genomes
+
+---
+class:empty-slide,myinverse
+background-image:url(images/hsa04110.gse16873.png)
+
+---
+
+
+## Other gene sets
+
+Different lists of genes can be obtained from various sources.
+
+ * Coexpression data sets: groups of genes that have correlated expression
+   profiles
+
+--
+
+ * Results from another differential gene expression analysis experiment:
+   groups of genes significant in a comparison
+
+--
+
+ * Targets of a particular miRNA determined computationally
+
+
+---
+
+## MSigDB – a meta database of gene sets
+
+.pull-left[
+![:scale 60%](images/msigdb.png)
+]
+
+---
+
+## Group of genes, and then what?
+
+First, define DEGs: differentially expressed genes (e.g.
+`abs(log2FoldChange) &gt; 1`, `adj_p_val &lt; 0.001`)
+
+Second, define which genes are in a given gene set (GS), and which are not.
+
+.pull-left[
+
+**No significant enrichment:**
+
+|    |DEGs |non-DEGs|Fraction|
+|----|-----|--------|--------|
+|in GS|5 | 95| 5%|
+|non in GS|50 |1000|5%|
+|Fraction|9%|9.5%||
+
+
+]
+
+--
+
+.pull-right[
+
+
+**Significant enrichment:**
+
+|    |DEGs |non-DEGs|Fraction|
+|----|-----|--------|--------|
+|in GS|50 | 60| 45%|
+|non in GS|70 |1000|7%|
+|Fraction|42%|6%||
+
+]
+
+--
+
+.pull-left[
+
+&lt;pre class="r-output"&gt;&lt;code&gt;## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  matrix(c(50, 60, 70, 1000), byrow = TRUE, nrow = 2)
+## X-squared = 161.1, df = 1, p-value &amp;lt; 2.2e-16
+&lt;/code&gt;&lt;/pre&gt;
+
+]
+
+.pull-right[
+
+&lt;pre class="r-output"&gt;&lt;code&gt;## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  matrix(c(5, 95, 50, 1000), byrow = TRUE, nrow = 2)
+## X-squared = 2.0686e-30, df = 1, p-value = 1
+&lt;/code&gt;&lt;/pre&gt;
+
+
+]
+
+
+---
+
+## Disadvantages of the generation 1 approach
+
+ * You have to define DEGs... but that depends on the number of samples
+    * the larger the number of samples, the higher statistical power
+    * the higher statistical power, the more DEGs you can detect
+    * therefore, the results depend on an arbitrary threshold
+
+ * What to do if you have no DEGs at all?
+
+---
+
+## GSEA algorithm
+
+![](images/GSEA-homegraphic.gif)
+
+
+---
+
+## tmod algorithm
+
+ * Arrange the genes according to p-value or another similar metrics
+ * Test whether genes from a given gene set are denser on the beginning of
+   the list
+
+---
+
+### Tmod statistics
+
+Since normalized ranking for a gene `\(i\)`
+
+`\(r'_{i}=\frac{r_i}{N} \sim U(0,1)\)`
+
+then
+
+`\(-\ln{r'_{i}} \sim Exp(1)\)`
+
+and
+
+`\(-2\cdot\ln{r'_i} \sim \chi^2_2\)`
+
+thus, if `\(G\)` is a set of genes,
+
+`\(-2\cdot\sum_{i \in G}\ln{r'_i} \sim \sum_{i \in G}\chi^2_2 \sim \chi^2_{2\cdot n(G)}\)`
+
+This gives a fast and reliable statistics with a known distribution which
+can be used to associate a p-value to any set of genes.
+
+
+---
+
+![:scale 90%](images/tmod.png)
+
+.footnote[*Zyla J, Marczyk M, Domaszewska T, Kaufmann SH, Polanska J, Weiner
+3rd J. Gene set enrichment for reproducible science: comparison of CERNO
+and eight other algorithms. Bioinformatics. 2019 Dec 15;35(24):5146-54.*]
+
+---
+
+![:scale 90%](images/tmod_2.png)
+
+---
+
+![:scale 90%](images/tmod_3.png)
+
+.pull-left[Vaccine with an adjuvant]
+
+.pull-right[Vaccine without an adjuvant]
+
+.footnote[*Weiner, January, et al. "Characterization of potential biomarkers
+of reactogenicity of licensed antiviral vaccines: randomized controlled
+clinical trials conducted by the BIOVACSAFE consortium." Scientific reports
+9.1 (2019): 1-14.*]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
