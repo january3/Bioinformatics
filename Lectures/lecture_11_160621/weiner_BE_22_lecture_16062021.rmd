@@ -200,24 +200,53 @@ Second, define which genes are in a given gene set (GS), and which are not.
 
 ]
 
---
+How can we test it?
+
+---
 
 .pull-left[
 
-```{r, results="markdown"}
-chisq.test(matrix(c(50, 60, 70, 1000), byrow=TRUE, nrow=2))
-```
+**No significant enrichment:**
+
+|    |DEGs |non-DEGs|Fraction|
+|----|-----|--------|--------|
+|in GS|5 | 95| 5%|
+|non in GS|50 |1000|5%|
+|Fraction|9%|9.5%||
+
 
 ]
 
+--
+
 .pull-right[
+
+
+**Significant enrichment:**
+
+|    |DEGs |non-DEGs|Fraction|
+|----|-----|--------|--------|
+|in GS|50 | 60| 45%|
+|non in GS|70 |1000|7%|
+|Fraction|42%|6%||
+
+]
+Results of $\chi^2$ test:
+
+Left:
 
 ```{r, results="markdown"}
 chisq.test(matrix(c(5, 95, 50, 1000), byrow=TRUE, nrow=2))
 ```
 
+Right:
 
-]
+
+```{r, results="markdown"}
+chisq.test(matrix(c(50, 60, 70, 1000), byrow=TRUE, nrow=2))
+```
+
+
 
 
 ---
