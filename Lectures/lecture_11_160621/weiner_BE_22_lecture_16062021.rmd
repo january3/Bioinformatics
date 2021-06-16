@@ -69,6 +69,7 @@ background-image:url(images/arnolfini.jpg)
  * Gene set enrichment analysis
     * 1st generation: hypergeometric test, Fisher's exact test
     * 2nd generation: other algorithms
+    * 3rd generation: pathway topology analysis
 
 
 ---
@@ -78,6 +79,7 @@ background-image:url(images/arnolfini.jpg)
 ```{r}
 covar <- readRDS("../../Datasets/covar.rds")
 cnts  <- readRDS("../../Datasets/counts.rds")
+annot <- readRDS("../../Datasets/annot.rds")
 ```
 
 ```{r deseq2,cache=TRUE}
@@ -87,8 +89,25 @@ ds2 <- DESeq(ds2)
 res <- map(rlang::set_names(resultsNames(ds2)), ~ results(ds2, name=.x))
 ```
 
-
 The problem: how do you interpret a list of 1000 results?
+
+---
+
+```{r results="asis"}
+res <- map(res, ~ .x %>% as.data.frame %>% arrange(padj) %>% { merge(annot, ., by.x="PrimaryID", by.y=0)})
+DT::datatable(res[[2]] %>% select(SYMBOL, GENENAME, log2FoldChange, padj)) %>%
+  DT::formatSignif(c("log2FoldChange", "padj"), digits=2)
+```
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/desert2.jpg)
+
+.mytop[
+The number of grains of sand in this picture accurately represents the
+number of approaches for functional analysis of gene expression.
+]
 
 ---
 
@@ -214,6 +233,12 @@ chisq.test(matrix(c(5, 95, 50, 1000), byrow=TRUE, nrow=2))
 
 ---
 
+## Generation 2 approaches – "Functional Class Sorting"
+
+ * do not depend on arbitrary thresholds
+
+---
+
 ## GSEA algorithm
 
 ![](images/GSEA-homegraphic.gif)
@@ -228,6 +253,38 @@ chisq.test(matrix(c(5, 95, 50, 1000), byrow=TRUE, nrow=2))
    the list
 
 ---
+class:empty-slide,myinverse
+background-image:url(images/img21.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img22.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img23.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img24.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img25.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img26.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img27.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/img28.png)
+
+---
 
 ### Tmod statistics
 
@@ -235,13 +292,19 @@ Since normalized ranking for a gene $i$
 
 $r'_{i}=\frac{r_i}{N} \sim U(0,1)$
 
+--
+
 then
 
 $-\ln{r'_{i}} \sim Exp(1)$
 
+--
+
 and
 
 $-2\cdot\ln{r'_i} \sim \chi^2_2$
+
+--
 
 thus, if $G$ is a set of genes,
 
@@ -275,4 +338,24 @@ and eight other algorithms. Bioinformatics. 2019 Dec 15;35(24):5146-54.*]
 of reactogenicity of licensed antiviral vaccines: randomized controlled
 clinical trials conducted by the BIOVACSAFE consortium." Scientific reports
 9.1 (2019): 1-14.*]
+
+
+---
+
+## Network analysis (generation 3)
+
+Genes / proteins may be linked by
+
+ * co-expression 
+ * common pathways
+ * literature (co-citation)
+ * synteny (co-occurence in genomes)
+ * common motifs
+
+---
+
+## STRING
+
+![](images/string.png)
+
 
