@@ -72,13 +72,17 @@ all(colnames(counts45) == covar45$label) ## TRUE
 saveRDS(counts45, file="../../Datasets/counts45.rds")
 saveRDS(annot45, file="../../Datasets/annot45.rds")
 saveRDS(covar45, file="../../Datasets/covar45.rds")
+write.table(covar45, file="../../Datasets/covar45.txt")
+write.table(annot45, file="../../Datasets/annot45.txt")
+write.table(counts45, file="../../Datasets/counts45.txt")
+
 ```
 
 
 ### Preparation
 
 Download the files `counts45.rds`, `covar45.rds` and `annot45.rds` from the
-github repository (https://github.com/january3/Bioinformatics/tree/main/Datasets). These RDS files contain, respectively, the counts,
+github repository. These RDS files are contain, respectively, the counts,
 the covariates and gene annotation for 45 samples from the data set 
 [GSE156063](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE156063).
 These RDS files contain R objects saved with the `saveRDS` function. 
@@ -270,7 +274,7 @@ res$sc2 <- merge(annot, res$sc2, by.x="ENSEMBL", by.y=0) %>%
 res$other <- merge(annot, res$other, by.x="ENSEMBL", by.y=0) %>%
   arrange(pvalue)
 
-tmod_res <- lapply(res, function(x) tmodCERNOtest(x$SYMBOL)
+tmod_res <- lapply(res, function(x) tmodCERNOtest(x$SYMBOL))
 
 ```
 
