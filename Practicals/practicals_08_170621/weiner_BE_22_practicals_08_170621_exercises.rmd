@@ -78,7 +78,7 @@ saveRDS(covar45, file="../../Datasets/covar45.rds")
 ### Preparation
 
 Download the files `counts45.rds`, `covar45.rds` and `annot45.rds` from the
-github repository. These RDS files are contain, respectively, the counts,
+github repository. These RDS files contain, respectively, the counts,
 the covariates and gene annotation for 45 samples from the data set 
 [GSE156063](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE156063).
 These RDS files contain R objects saved with the `saveRDS` function. 
