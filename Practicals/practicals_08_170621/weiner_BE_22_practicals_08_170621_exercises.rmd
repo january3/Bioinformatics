@@ -1,0 +1,277 @@
+---
+title: "Practicals 08: Differential expression and gene set enrichments"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+    html_document:
+      toc: true
+      toc_float: true
+outputxxx:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=7,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+
+```{r libraries,cache=FALSE,echo=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(DESeq2)
+library(tmod)
+library(edgeR)
+theme_set(theme_bw())
+options(colorDF_n=30)
+options(width=100)
+```
+
+```{r eval=FALSE,echo=FALSE}
+## this is how the counts45 data was derived
+
+annot <- readRDS("../../Datasets/annot.rds")
+covar <- readRDS("../../Datasets/covar.rds")
+covar45 <- covar %>% group_by(group) %>% sample_n(15)
+counts <- readRDS("../../Datasets/counts.rds")
+all(colnames(counts) %in% covar$label) ## TRUE
+counts45 <- counts[ , covar45$label ]
+library(edgeR)
+vars <- apply(cpm(counts45, log=TRUE), 1, var)
+sel <- vars > quantile(vars, .25)
+all(rownames(counts) == annot$PrimaryID) ## TRUE
+counts45 <- counts45[sel, ]
+annot45  <- annot[sel, ]
+annot45 <- annot45 %>% dplyr::select("ENSEMBL", "SYMBOL", "GENENAME")
+all(rownames(counts45) == annot45$PrimaryID) ## TRUE
+all(colnames(counts45) == covar45$label) ## TRUE
+
+saveRDS(counts45, file="../../Datasets/counts45.rds")
+saveRDS(annot45, file="../../Datasets/annot45.rds")
+saveRDS(covar45, file="../../Datasets/covar45.rds")
+```
+
+
+### Preparation
+
+Download the files `counts45.rds`, `covar45.rds` and `annot45.rds` from the
+github repository. These RDS files are contain, respectively, the counts,
+the covariates and gene annotation for 45 samples from the data set 
+[GSE156063](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE156063).
+These RDS files contain R objects saved with the `saveRDS` function. 
+
+The only reason we use the RDS files is that they are smaller than the
+corresponding TSV/CSV text files. You can load them as follows:
+
+```{r,eval=TRUE,echo=FALSE}
+counts <- readRDS("../../Datasets/counts45.rds")
+covar  <- readRDS("../../Datasets/covar45.rds")
+annot  <- readRDS("../../Datasets/annot45.rds")
+```
+
+
+```{r,eval=FALSE}
+counts <- readRDS("counts45.rds")
+covar  <- readRDS("covar45.rds")
+annot  <- readRDS("annot45.rds")
+```
+
+There are three groups of data in the covariate file.
+
+```{r results="markdown"}
+library(colorDF)
+summary_colorDF(covar)
+```
+
+**Exercise. (10 minutes)** Take a look at the `covar` object. How many females and how
+many males are there? How many females have COVID-19, and how many males
+are healthy? What is the average age in the male and female groups? Hint:
+use the `table` function.
+
+
+## Differential gene expression analysis
+
+To run a basic gene expression analysis, we need to use the DESeq2 package.
+The steps are as follows:
+
+ * Create the DESeq2 object with counts and covariates
+ * Run the calculations – fit the model
+ * Extract the results
+
+First two steps are below:
+
+```{r, cache=TRUE}
+library(DESeq2)
+ds2 <- DESeqDataSetFromMatrix(countData=counts, 
+                              colData=covar,
+                              design=~ group)
+ds2 <- DESeq(ds2)
+```
+
+The ds2 contains now the fitted model. We now have to get the results, but
+for that, we need to know the names of the results:
+
+```{r cache=TRUE,results="markdown"}
+resultsNames(ds2)
+res_sc2 <- results(ds2, name="group_SC2_vs_no")
+res_sc2 <- as.data.frame(res_sc2)
+print_colorDF(head(res_sc2))
+```
+
+This is not very interesting, unless we merge it with the annotation table
+and order by p-values. The row names of `res_sc2` correspond to the column
+"ENSEMBL" of `annot`:
+
+```{r results="markdown"}
+## merge by ENSEMBL column from annot and rownames ("0")
+## from res
+res_sc2 <- merge(annot, res_sc2, by.x="ENSEMBL", by.y=0) %>%
+  arrange(pvalue)
+knitr::kable(head(res_sc2))
+```
+
+**Exercise. (5 minutes)**. How many genes are significant at padj < 0.05?
+How many at padj < 0.01? (padj is the false discovery rate from the
+Benjamini-Hochberg procedure). How many are significant at padj < 0.05 and
+abs(log2FoldChange) > 1?
+
+**Exercise. (15 minutes)**. Repeat the above steps for the other comparison
+(other virus vs. no virus) generating a suitable data frame. Merge the two
+result tables and plot the log2 fold changes from one comparison vs the
+log2 fold changes from the other comparison. What do you notice?
+
+**Exercise. (extra)** The model `~ group` fits the data using `group` as predictor.
+To find genes that are related to age, you would use a model like `~ age`.
+Using DESeq2, find genes that show a significant association with age
+(repeat the steps above with a new model).
+
+
+## Visualizing the results
+
+To visualize the results, we need to first calculate the log-counts per
+million. One could use here the `cpm` function from the package `edgeR`,
+but we will do it manually. We need, however, to add a small value to all
+results to avoid log2(0).
+
+```{r}
+cpm <- counts + 2
+lib_sizes <- colSums(cpm) / 1e6 # library sizes in millions
+## a neat trick to divide a matrix by a row
+cpm <- t(t(cpm) / lib_sizes)
+cpm <- log2(cpm)
+```
+
+
+Now we can plot the top results.
+
+```{r}
+par(mfrow=c(1,2))
+id <- "ENSG00000126709" # IFI6
+boxplot(counts[id, ] ~ covar$group)
+boxplot(cpm[id, ] ~ covar$group)
+```
+
+**Exercise. (5min)** Choose another gene and plot it.
+
+
+To create a heatmap, we can use the very simple `heatmap` function. We will
+select the top 25 genes for that:
+
+```{r}
+sel <- res_sc2$ENSEMBL[1:25]
+x <- cpm[sel, ]
+colnames(x) <- covar$group
+rownames(x) <- annot$SYMBOL[ match(sel, annot$ENSEMBL) ]
+heatmap(x)
+```
+
+**Exercise. (15min)** Create PCA based on the CPM of the top 500 genes (see
+practicals 5 and 7).
+
+
+## Gene set enrichment analysis
+
+### Gene set enrichment
+
+Gene set enrichment analysis with tmod is as simple as this:
+
+```{r results="markdown"}
+library(tmod)
+tmodCERNOtest(res_sc2$SYMBOL)
+```
+
+**Exercise. (20min)** Run the enrichment analysis for the other comparison.
+Compare the results of the enrichment (AUC, p-values) on a plot.
+
+### ORA (Overrepresentation Analysis)
+
+We will select genes from a single gene set and test them using a $\chi^2$
+test.
+
+```{r}
+degs <- abs(res_sc2$log2FoldChange) > 1 & res_sc2$padj < 0.05
+degs <- ifelse(degs, "DEG", "NS")
+data(tmod)
+ifn <- tmod$MODULES2GENES[["LI.M75"]]
+ings <- res_sc2$SYMBOL %in% ifn
+ings <- ifelse(ings, "IFN", "Other")
+table(ings, degs)
+```
+
+```{r}
+chisq.test(table(ings, degs))
+```
+
+## Other visualizations
+
+### Evidence plot
+
+```{r}
+evidencePlot(res_sc2$SYMBOL, m="LI.M75", gene.labels = TRUE)
+```
+
+## Panel plot
+
+This one is a bit more complex.
+
+```{r}
+
+res <- list()
+res$sc2 <- results(ds2, name="group_SC2_vs_no")
+res$sc2 <- as.data.frame(res$sc2)
+res$other <- results(ds2, name="group_other_vs_no")
+res$other <- as.data.frame(res$other)
+
+res$sc2 <- merge(annot, res$sc2, by.x="ENSEMBL", by.y=0) %>%
+  arrange(pvalue)
+res$other <- merge(annot, res$other, by.x="ENSEMBL", by.y=0) %>%
+  arrange(pvalue)
+
+tmod_res <- lapply(res, function(x) tmodCERNOtest(x$SYMBOL)
+
+```
+
+
