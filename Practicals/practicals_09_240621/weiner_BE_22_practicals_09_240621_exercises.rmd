@@ -1,0 +1,210 @@
+---
+title: "Practicals 09: Visulization workshop"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+    html_document:
+      toc: true
+      toc_float: true
+outputxxx:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=7,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+
+```{r libraries,cache=FALSE,echo=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(DESeq2)
+library(tmod)
+library(edgeR)
+theme_set(theme_bw())
+options(colorDF_n=30)
+options(width=100)
+```
+
+
+# Simple graphics with ggplot2.
+
+The package ggplot2 is a state of the art visualization framework for R
+(and Python). However, its logic is not as simple as "plot x versus y".
+Basically, we first define "coding", that is "aesthetics": this is position
+on the screen, fill color or symbol shape (etc.). Next, we tell the package
+what to do with it: make a barplot, boxplot, scatter plot etc.
+
+Also, those are not "plotting commands". Rather, a plot is an object that
+can be assigned to a variable. When the variable gets printed, the plot
+will be displayed.
+
+We start with a very simple graphics of the iris data set.  The aes
+function defines the esthetics: x, y and color. The assigned values are
+column names from the data frame which is the first argument to ggplot.
+
+```{r}
+library(ggplot2)
+data(iris)
+p <- ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length))
+```
+
+This doesn't do anything yet. We merely set up the stage. Now we can use
+the `+` symbol to add components to the plot.
+
+```{r}
+p + geom_point()
+```
+
+This is a beginning, but where is the color? Well, we did not define the
+color esthetics. Also, there is no real need to use the p variable, that
+was just for demonstration purposes.
+
+```{r}
+ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length, color=Species)) + geom_point()
+```
+
+**Exercise.** Define a data frame as follows:
+
+```{r}
+df <- data.frame(varX=rnorm(20),
+                 varY=rnorm(20))
+```
+
+Plot varX vs. varY. Add some axis labels (e.g. "Variable X") using the
+components `xlab` and `ylab`; that is, add to the plot `xlab("Variable X")`.
+
+## Setting themes
+
+Before we continue, let us get rid of this ugly grey panel:
+
+```{r}
+theme_set(theme_bw())
+```
+
+The `theme_set()` function returns an object which is a ggplot theme, and
+`theme_set()` sets it globally for all the following function calls.
+
+
+# Different types of plots with ggplot
+
+There are many, many types of plots which can be drawn with ggplot. 
+
+## Barplots
+
+How many cars are there with different number of cylinders in the `mtcars`
+data set?
+
+```{r}
+mtcars$cyl <- factor(mtcars$cyl)
+ggplot(mtcars, aes(x=cyl)) + geom_bar()
+```
+
+The `geom_bar` function summarizes the number of cars of each type for us.
+And how about when we already counted how many cars of a given type are
+there?
+
+```{r}
+df <- data.frame(cyl=factor(c(4, 6, 8)), N=c(11, 7, 14))
+ggplot(df, aes(x=cyl, y=N)) + geom_bar(stat="identity")
+```
+
+The plot is identical, but the underlying data is different.
+
+**Exercise.** What happens if you map the "fill" esthetics to the number of
+cylinders (`aes(..., fill=cyl)`)? What happens when you map it to something
+else, e.g. `gear`? And what if you convert `gear` to a factor? And what if
+you add the parameter `position="dodge"` to `geom_bar`?
+
+
+## Boxplots
+
+What is the average sepal width in the three species of iris?
+
+```{r}
+ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_boxplot()
+```
+
+We can also make a violin plot:
+
+```{r}
+ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_violin() 
+```
+
+We can add the individual points, too:
+
+
+```{r}
+ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_violin() + 
+  geom_jitter(alpha=.6, color="tomato", width=.1)
+```
+
+**Exercise.** Play with the settings of `geom_jitter` to figure out what
+they do. What is alpha? What is width?
+
+## Line plots
+
+Line plots are especially suitable for time series data. We now will load
+the World Incom Inequality Database data and select a recent time series for two
+countries: Germany and UK. 
+
+```{r}
+library(readxl)
+library(tidyverse)
+wiid <- read_xlsx("../../Datasets/WIID_19Dec2018.xlsx")
+wiid_sel <- wiid %>% filter(country %in% c("Germany", "United Kingdom")) %>% 
+  filter(!is.na(q1) & !is.na(gini_reported)) %>%
+  group_by(country) %>% filter(!duplicated(year)) %>%
+  filter(year > 1970)
+
+ggplot(wiid_sel, aes(x=year, y=gini_reported, color=country)) + geom_line()
+```
+
+We can also add the points:
+
+```{r}
+ggplot(wiid_sel, aes(x=year, y=gini_reported, color=country)) + geom_line() + 
+  geom_point()
+```
+
+Or use facets to split the plots into sub panels (note the tilde!):
+
+```{r}
+ggplot(wiid_sel, aes(x=year, y=gini_reported, color=country)) + geom_line() + 
+  geom_point() + facet_wrap(~ country)
+```
+
+**Exercise.** From the point of view of efficient graphic design, what is
+wrong on the above plot? How do you correct it? Use google to learn how to
+get rid of the legend (the point of this exercise is not to teach you one
+particular tidbit of information, but rather finding that information on
+your own).
+
+**Exercise.** Load the data as above, but select two other countries.
+Repeat the plot commands above. Now, try the same with the variable called
+`q1` which is the first quintile.
+
