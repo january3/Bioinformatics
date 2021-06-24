@@ -94,6 +94,10 @@ corresponding TSV/CSV text files. You can load them as follows:
 counts <- readRDS("../../Datasets/counts45.rds")
 covar  <- readRDS("../../Datasets/covar45.rds")
 annot  <- readRDS("../../Datasets/annot45.rds")
+
+counts <- read.table("../../Datasets/counts45.txt")
+covar  <- read.table("../../Datasets/covar45.txt")
+annot  <- read.table("../../Datasets/annot45.txt")
 ```
 
 
@@ -101,6 +105,11 @@ annot  <- readRDS("../../Datasets/annot45.rds")
 counts <- readRDS("counts45.rds")
 covar  <- readRDS("covar45.rds")
 annot  <- readRDS("annot45.rds")
+
+## alternatively, download the .txt files (counts45.txt etc) and read them as follows:
+counts <- read.table("counts45.txt")
+covar  <- read.table("covar45.txt")
+annot  <- read.table("annot45.txt")
 ```
 
 There are three groups of data in the covariate file.
@@ -131,7 +140,7 @@ First two steps are below:
 library(DESeq2)
 ds2 <- DESeqDataSetFromMatrix(countData=counts, 
                               colData=covar,
-                              design=~ group)
+                              design= ~ group)
 ds2 <- DESeq(ds2)
 ```
 
@@ -157,7 +166,7 @@ res_sc2 <- merge(annot, res_sc2, by.x="ENSEMBL", by.y=0) %>%
 knitr::kable(head(res_sc2))
 ```
 
-**Exercise. (5 minutes)**. How many genes are significant at padj < 0.05?
+**Exercise. (10 minutes)**. How many genes are significant at padj < 0.05?
 How many at padj < 0.01? (padj is the false discovery rate from the
 Benjamini-Hochberg procedure). How many are significant at padj < 0.05 and
 abs(log2FoldChange) > 1?
@@ -181,6 +190,7 @@ but we will do it manually. We need, however, to add a small value to all
 results to avoid log2(0).
 
 ```{r}
+counts <- as.matrix(counts)
 cpm <- counts + 2
 lib_sizes <- colSums(cpm) / 1e6 # library sizes in millions
 ## a neat trick to divide a matrix by a row
@@ -224,7 +234,8 @@ Gene set enrichment analysis with tmod is as simple as this:
 
 ```{r results="markdown"}
 library(tmod)
-tmodCERNOtest(res_sc2$SYMBOL)
+res_tmod <- tmodCERNOtest(res_sc2$SYMBOL)
+res_tmod
 ```
 
 **Exercise. (20min)** Run the enrichment analysis for the other comparison.
