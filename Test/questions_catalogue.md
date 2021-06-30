@@ -34,6 +34,7 @@ definition by heart.
   * What are type I (false positive, FP) and type II (false negative, FN) errors? 
   * What is "cherry picking" in the context of statistical analysis?
   * What is correction for multiple testing? 
+  * What is a contingency table? Which tests can you apply to the table?
 
  3. Evolution
   * What is sequence homology?
@@ -72,3 +73,23 @@ definition by heart.
     proteomics / metabolomics / lipidomics?
   * In high throughput data sets, do you have typically more variables or
     more samples in a data set?
+  * What are other typical characteristics of HT data sets?
+  * What is the Phred quality score?
+  * What probabilitstic distribution is suitable for count data?
+  * What is gene set enrichment analysis? How do you make an ORA (1st
+    generation gene set enrichment analysis) with a chi-square test?
+
+ 6. Clustering
+  * How can you measure clustering performance?
+  * Where do you take distances from when clustering using a distance-based
+    method?
+  * How does the elbow method work?
+
+ 7. Machine learning
+
+  * What is the bias-variance tradeoff?
+  * What is ROC? 
+  * What is AUC? Is AUC=0.5 good or bad? And AUC=1?
+  * What is sensitivity and specificity? If given a specific example
+    (number of TN/TP,FN/FP) can you calculate sensitivity and specificity?
+  * What is overfitting, underfitting?

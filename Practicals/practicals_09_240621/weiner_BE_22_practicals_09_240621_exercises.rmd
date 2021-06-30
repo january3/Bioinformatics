@@ -106,7 +106,7 @@ Before we continue, let us get rid of this ugly grey panel:
 theme_set(theme_bw())
 ```
 
-The `theme_set()` function returns an object which is a ggplot theme, and
+The `theme_bw()` function returns an object which is a ggplot theme, and
 `theme_set()` sets it globally for all the following function calls.
 
 
@@ -121,12 +121,21 @@ data set?
 
 ```{r}
 mtcars$cyl <- factor(mtcars$cyl)
-ggplot(mtcars, aes(x=cyl)) + geom_bar()
+ggplot(mtcars, aes(x=cyl, fill=factor(gear))) + geom_bar()
 ```
 
 The `geom_bar` function summarizes the number of cars of each type for us.
 And how about when we already counted how many cars of a given type are
 there?
+
+
+**Exercise.** What happens if you map the "fill" esthetics to the number of
+cylinders (`aes(..., fill=cyl)`)? What happens when you map it to something
+else, e.g. `gear`? And what if you convert `gear` to a factor? And what if, in 
+addition to `fill=factor(gear)`,
+you add the parameter `position="dodge"` to `geom_bar`?
+
+
 
 ```{r}
 df <- data.frame(cyl=factor(c(4, 6, 8)), N=c(11, 7, 14))
@@ -135,10 +144,6 @@ ggplot(df, aes(x=cyl, y=N)) + geom_bar(stat="identity")
 
 The plot is identical, but the underlying data is different.
 
-**Exercise.** What happens if you map the "fill" esthetics to the number of
-cylinders (`aes(..., fill=cyl)`)? What happens when you map it to something
-else, e.g. `gear`? And what if you convert `gear` to a factor? And what if
-you add the parameter `position="dodge"` to `geom_bar`?
 
 
 ## Boxplots
@@ -152,7 +157,7 @@ ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_boxplot()
 We can also make a violin plot:
 
 ```{r}
-ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_violin() 
+ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_violin()
 ```
 
 We can add the individual points, too:
@@ -160,7 +165,7 @@ We can add the individual points, too:
 
 ```{r}
 ggplot(iris, aes(x=Species, y=Sepal.Width)) + geom_violin() + 
-  geom_jitter(alpha=.6, color="tomato", width=.1)
+  geom_jitter(alpha=.6, color="navyblue", width=.1)
 ```
 
 **Exercise.** Play with the settings of `geom_jitter` to figure out what
@@ -178,8 +183,8 @@ library(tidyverse)
 wiid <- read_xlsx("../../Datasets/WIID_19Dec2018.xlsx")
 wiid_sel <- wiid %>% filter(country %in% c("Germany", "United Kingdom")) %>% 
   filter(!is.na(q1) & !is.na(gini_reported)) %>%
-  group_by(country) %>% filter(!duplicated(year)) %>%
-  filter(year > 1970)
+  group_by(country) %>% filter(!duplicated(year))
+
 
 ggplot(wiid_sel, aes(x=year, y=gini_reported, color=country)) + geom_line()
 ```

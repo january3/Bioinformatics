@@ -1330,7 +1330,7 @@ gapminder %>% filter(year %in% c(1952, 2007) & continent=="Europe") %>%
   mutate(country=factor(country, levels=unique(country))) %>%
   ggplot(aes(x=gdpPercap, y=country, color=year)) + 
   geom_point() + geom_line()
-```
+ ```
 
 ---
 

@@ -225,6 +225,17 @@ heatmap(x)
 **Exercise. (15min)** Create PCA based on the CPM of the top 500 genes (see
 practicals 5 and 7).
 
+```{r}
+vars <- apply(cpm, 1, var)
+sel <- order(vars, decreasing = TRUE)[1:500]
+mtx <- cpm[ sel, ]
+pca <- prcomp(t(mtx), scale.=TRUE)
+library(ggplot2)
+df <- data.frame(covar, pca$x)
+ggplot(df, aes(x=PC3, y=PC4, color=group)) + geom_point()
+
+```
+
 
 ## Gene set enrichment analysis
 
@@ -272,7 +283,7 @@ evidencePlot(res_sc2$SYMBOL, m="LI.M75", gene.labels = TRUE)
 
 This one is a bit more complex.
 
-```{r}
+```{r fig.width=12,fig.height=12}
 
 res <- list()
 res$sc2 <- results(ds2, name="group_SC2_vs_no")
@@ -287,6 +298,7 @@ res$other <- merge(annot, res$other, by.x="ENSEMBL", by.y=0) %>%
 
 tmod_res <- lapply(res, function(x) tmodCERNOtest(x$SYMBOL))
 
+tmodPanelPlot(tmod_res)
 ```
 
 
