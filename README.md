@@ -33,5 +33,6 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 12 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_12_230621/weiner_BE_22_lecture_23062021.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09_240621/weiner_BE_22_practicals_09_240621_exercises.html)
  * [Lecture 13 - Machine Learning](https://january3.github.io/Bioinformatics/Lectures/lecture_13_300621/weiner_BE_22_lecture_30062021.html)
+    * Practicals: [Exercises and Homework 6](https://january3.github.io/Bioinformatics/Practicals/practicals_10_010721/weiner_BE_22_practicals_10_010721_exercises.html)
 
 
