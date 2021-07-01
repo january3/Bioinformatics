@@ -53,7 +53,7 @@ options(width=100)
 Please install the following packages:
 
 ```{r eval=FALSE}
-install.packages(c("randomForest", "party", "rpart", "MASS", "cutpointr", "pROC"))
+install.packages(c("randomForest", "party", "MASS", "pROC"))
 ```
 
 Please load the following three data sets:
@@ -387,8 +387,19 @@ imp <- rf$importance %>% as.data.frame %>%
 
 merge(m_features, imp, by.x="ID", by.y=0) %>%
   select(ID, BIOCHEMICAL.NAME, SUB.PATHWAY, HEALTHY, TB, 
-         MeanDecreaseAccuracy) %>% pander()
+         MeanDecreaseAccuracy) %>% knitr::kable()
 ```
+
+Fine, but does that make sense? Let us plot some of the molecules.
+
+```{r}
+sel <- c("ID_24", "ID_169", "ID_70", "ID_139")
+df <- m_df %>% select(all_of(c("GROUP", sel))) %>% 
+  pivot_longer(starts_with("ID"), names_to="ID", values_to="level")
+ggplot(df, aes(x=GROUP, y=level))+   geom_boxplot() + 
+  facet_wrap(~ ID, ncol=2) 
+```
+
 
 ## ROC curves
 
