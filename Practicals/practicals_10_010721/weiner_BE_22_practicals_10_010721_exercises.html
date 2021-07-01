@@ -331,7 +331,7 @@ table(pred, iris_test_vv$Species)</code></pre>
 ##   virginica           2        14
 </code></pre>
 <p><strong>Question.</strong> What is the overall error rate?</p>
-<p><strong>Homework 6, alternative 1</strong>. Repeat the above analysis with the full iris data set (three classes). You will find that the <code>scaling</code> object has now two columns, <code>LD1</code> and <code>LD2</code>. Make boxplots for both of them. Which LD discriminates between which species? [note: instead of this homework, you are allowed to choose the “alternative 2” (only if we don’t do it together during practicals) and “alternative 3” below]</p>
+<p><strong>Homework 6, alternative 1</strong>. Repeat the above analysis with the full iris data set (three classes). You will find that the <code>scaling</code> object has now two columns, <code>LD1</code> and <code>LD2</code>. Make boxplots for both of them. Which LD discriminates between which species? [note: instead of this homework, you are allowed to choose the “alternative 2” (only if we don’t do it together during practicals) and “alternative 3” below] Submit an Rmarkdown file.</p>
 </div>
 </div>
 <div id="the-metabo-data-set" class="section level1">
@@ -707,6 +707,16 @@ head(probs)</code></pre>
 ## MPIB_00178 0.8655914 0.13440860
 </code></pre>
 <p>The two columns indicate the percentage of votes each class got from the trees, so <code>0.124</code> in column “HEALTHY” indicates that 12% of the trees decided that this given sample comes from a healthy person (and 88% trees decided that this is a TB patient).</p>
+<pre class="r"><code>probs_df &lt;- as.data.frame(probs) %&gt;% merge(m_samples, by.x=0, by.y=&quot;SAMPLE_NAME&quot;) %&gt;% arrange(HEALTHY)
+head(probs_df)</code></pre>
+<pre class="r-output"><code>##    Row.names   HEALTHY        TB GENDER GROUP1 GROUP2
+## 1 MPIB_00308 0.1032609 0.8967391      M     TB     TB
+## 2 MPIB_00290 0.1473684 0.8526316      F     TB     TB
+## 3 MPIB_00277 0.1505376 0.8494624      F     TB     TB
+## 4 MPIB_00301 0.1587302 0.8412698      M     TB     TB
+## 5 MPIB_00304 0.1739130 0.8260870      M     TB     TB
+## 6 MPIB_00285 0.1746032 0.8253968      F     TB     TB
+</code></pre>
 <p>To plot a ROC curve, we use <code>roc</code> from package <code>pROC</code>. We need to supply the <code>levels</code> argument to tell pROC which one is the positive and which one is the negative:</p>
 <pre class="r"><code>library(pROC)
 roc(response=m_df$GROUP, predictor=probs[,1], 
@@ -753,8 +763,8 @@ ct_probs &lt;- map_dbl(1:nrow(m_df), ~ test_one(m_df, .x))</code></pre>
 ## Data: ct_probs in 92 controls (m_df$GROUP HEALTHY) &gt; 46 cases (m_df$GROUP TB).
 ## Area under the curve: 0.8689
 </code></pre>
-<p><strong>Exercise – optional (if we find time)</strong>. Otherwise, <strong>Homework 6, alternative 2</strong> (so if we don’t manage to run it during practicals together, you can do it as a homework). Use the metabo dataset and random forests, but instead of “GROUP” take “SEX” as predictor. Which biochemicals found in blood are indicative of biological sex?</p>
-<p><strong>Homework 6, alternative 3</strong>. Another method of machine learning are the Support Vector Machines (learn more <a href="https://www.datacamp.com/community/tutorials/support-vector-machines-r">here</a>). An SVM algorithm is implemented in the function <code>svm</code> of the package <code>e1071</code>. Train <code>svm</code> on the metabolomic training data set, test it on the testing data set (using <code>predict</code>), calculate the sensitivity and specificity.</p>
+<p><strong>Exercise – optional (if we find time)</strong>. Otherwise, <strong>Homework 6, alternative 2</strong> (so if we don’t manage to run it during practicals together, you can do it as a homework). Use the metabo dataset and random forests, but instead of “GROUP” take “SEX” as predictor. Which biochemicals found in blood are indicative of biological sex? Submit an Rmarkdown file.</p>
+<p><strong>Homework 6, alternative 3</strong>. Another method of machine learning are the Support Vector Machines (learn more <a href="https://www.datacamp.com/community/tutorials/support-vector-machines-r">here</a>). An SVM algorithm is implemented in the function <code>svm</code> of the package <code>e1071</code>. Train <code>svm</code> on the metabolomic training data set, test it on the testing data set (using <code>predict</code>), calculate the sensitivity and specificity. Submit an Rmarkdown file.</p>
 </div>
 </div>
 

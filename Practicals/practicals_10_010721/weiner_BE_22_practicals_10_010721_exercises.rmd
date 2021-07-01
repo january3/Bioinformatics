@@ -175,7 +175,7 @@ table(pred, iris_test_vv$Species)
 columns, `LD1` and `LD2`. Make boxplots for both of them. Which LD
 discriminates between which species? [note: instead of this homework, you
 are allowed to choose the "alternative 2" (only if we don't do it together
-during practicals) and "alternative 3" below]
+during practicals) and "alternative 3" below] Submit an Rmarkdown file.
 
 
 # The metabo data set
@@ -419,6 +419,13 @@ trees, so `0.124` in column "HEALTHY" indicates that 12% of the trees
 decided that this given sample comes from a healthy person (and 88% trees
 decided that this is a TB patient). 
 
+```{r results="markdown"}
+probs_df <- as.data.frame(probs) %>% merge(m_samples, by.x=0, by.y="SAMPLE_NAME") %>% arrange(HEALTHY)
+head(probs_df)
+```
+
+
+
 To plot a ROC curve, we use `roc` from package `pROC`. We need to supply
 the `levels` argument to tell pROC which one is the positive and which one
 is the negative:
@@ -466,7 +473,7 @@ roc(response=m_df$GROUP, predictor=ct_probs,
 alternative 2** (so if we don't manage to run it during practicals
 together, you can do it as a homework). Use the metabo dataset and random
 forests, but instead of "GROUP" take "SEX" as predictor. Which biochemicals
-found in blood are indicative of biological sex?
+found in blood are indicative of biological sex? Submit an Rmarkdown file.
 
 
 **Homework 6, alternative 3**. Another method of machine learning are the
@@ -475,6 +482,6 @@ Support Vector Machines (learn more
 An SVM algorithm is implemented in the function `svm` of the package
 `e1071`. Train `svm` on the metabolomic training data set, test it on the
 testing data set (using `predict`), calculate the sensitivity and
-specificity.
+specificity. Submit an Rmarkdown file.
 
 
