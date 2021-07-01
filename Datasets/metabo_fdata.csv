@@ -1,0 +1,351 @@
+"","ID","PATHWAY SORT","BIOCHEMICAL NAME","SUPER PATHWAY","SUB PATHWAY","PLATFORM","KEGG ID","HMDB ID"
+"1","ID_1","1","glycine","Amino acid","Glycine, serine and threonine metabolism","GC MS","C00037","HMDB00123"
+"2","ID_2","2","N-acetylglycine","Amino acid","Glycine, serine and threonine metabolism","GC MS",NA,"HMDB00532"
+"3","ID_3","3","serine","Amino acid","Glycine, serine and threonine metabolism","GC MS","C00065","HMDB03406"
+"4","ID_4","4","threonine","Amino acid","Glycine, serine and threonine metabolism","LC MS pos","C00188","HMDB00167"
+"5","ID_5","5","N-acetylthreonine","Amino acid","Glycine, serine and threonine metabolism","LC MS pos",NA,NA
+"6","ID_6","6","betaine","Amino acid","Glycine, serine and threonine metabolism","LC MS pos","C00719","HMDB00043"
+"7","ID_7","7","alanine","Amino acid","Alanine and aspartate metabolism","GC MS","C00041","HMDB00161"
+"8","ID_8","8","aspartate","Amino acid","Alanine and aspartate metabolism","GC MS","C00049","HMDB00191"
+"9","ID_9","9","asparagine","Amino acid","Alanine and aspartate metabolism","GC MS","C00152","HMDB00168"
+"10","ID_10","10","glutamate","Amino acid","Glutamate metabolism","LC MS neg","C00025","HMDB03339"
+"11","ID_12","12","pyroglutamine*","Amino acid","Glutamate metabolism","LC MS pos",NA,NA
+"12","ID_14","14","3-methylhistidine","Amino acid","Histidine metabolism","LC MS neg","C01152","HMDB00479, HMDB00001"
+"13","ID_15","15","lysine","Amino acid","Lysine metabolism","LC MS pos","C00047","HMDB00182"
+"14","ID_16","16","pipecolate","Amino acid","Lysine metabolism","LC MS pos","C00408","HMDB00070"
+"15","ID_17","18","phenylalanine","Amino acid","Phenylalanine & tyrosine metabolism","LC MS pos","C00079","HMDB00159"
+"16","ID_18","19","phenylacetate","Amino acid","Phenylalanine & tyrosine metabolism","LC MS neg","C07086",NA
+"17","ID_19","20","p-cresol sulfate*","Amino acid","Phenylalanine & tyrosine metabolism","LC MS neg","(C01468)",NA
+"18","ID_21","22","3-(4-hydroxyphenyl)lactate (HPLA)","Amino acid","Phenylalanine & tyrosine metabolism","LC MS neg","C03672","HMDB00755"
+"19","ID_22","23","3-methoxytyrosine","Amino acid","Phenylalanine & tyrosine metabolism","LC MS pos",NA,"HMDB01434"
+"20","ID_23","24","phenylacetylglutamine","Amino acid","Phenylalanine & tyrosine metabolism","LC MS pos","C05597",NA
+"21","ID_24","25","kynurenine","Amino acid","Tryptophan metabolism","LC MS pos","C00328","HMDB00183"
+"22","ID_26","27","indolelactate","Amino acid","Tryptophan metabolism","GC MS","C02043","HMDB00671"
+"23","ID_27","28","indoleacetate","Amino acid","Tryptophan metabolism","LC MS pos","C00954","HMDB00197"
+"24","ID_28","30","serotonin (5HT)","Amino acid","Tryptophan metabolism","LC MS pos","C00780","HMDB00259"
+"25","ID_29","31","3-indoxyl sulfate","Amino acid","Tryptophan metabolism","LC MS neg",NA,"HMDB00682"
+"26","ID_30","32","3-indolepropionate","Amino acid","Tryptophan metabolism","GC MS",NA,"HMDB02302"
+"27","ID_31","33","3-methyl-2-oxobutyrate","Amino acid","Valine, leucine and isoleucine metabolism","LC MS neg","C00141","HMDB00019"
+"28","ID_32","34","3-methyl-2-oxovalerate","Amino acid","Valine, leucine and isoleucine metabolism","LC MS neg","C00671","HMDB03736"
+"29","ID_33","35","levulinate (4-oxovalerate)","Amino acid","Valine, leucine and isoleucine metabolism","LC MS neg",NA,"HMDB00720"
+"30","ID_34","36","4-methyl-2-oxopentanoate","Amino acid","Valine, leucine and isoleucine metabolism","LC MS neg","C00233","HMDB00695"
+"31","ID_35","37","beta-hydroxyisovalerate","Amino acid","Valine, leucine and isoleucine metabolism","LC MS neg",NA,"HMDB00754"
+"32","ID_40","42","alpha-hydroxyisovalerate","Amino acid","Valine, leucine and isoleucine metabolism","LC MS neg",NA,"HMDB00407"
+"33","ID_41","43","cysteine","Amino acid","Cysteine, methionine, SAM, taurine metabolism","GC MS","C00097","HMDB00574"
+"34","ID_43","47","2-hydroxybutyrate (AHB)","Amino acid","Cysteine, methionine, SAM, taurine metabolism","GC MS","C05984","HMDB00008"
+"35","ID_45","49","arginine","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS neg","C00062","HMDB03416, HMDB00517"
+"36","ID_46","50","ornithine","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS pos","C00077","HMDB03374"
+"37","ID_47","51","urea","Amino acid","Urea cycle; arginine-, proline-, metabolism","GC MS","C00086","HMDB00294"
+"38","ID_48","52","proline","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS pos","C00148","HMDB00162"
+"39","ID_49","53","citrulline","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS pos","C00327","HMDB00904"
+"40","ID_50","54","N-acetylornithine","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS pos","C00437","HMDB03357"
+"41","ID_51","55","trans-4-hydroxyproline","Amino acid","Urea cycle; arginine-, proline-, metabolism","GC MS","C01157","HMDB00725"
+"42","ID_52","56","stachydrine","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS pos","C10172","HMDB04827"
+"43","ID_53","57","homostachydrine*","Amino acid","Urea cycle; arginine-, proline-, metabolism","LC MS pos","C08283","HMDB04827"
+"44","ID_54","58","creatine","Amino acid","Creatine metabolism","LC MS pos","C00300","HMDB00064"
+"45","ID_56","60","2-aminobutyrate","Amino acid","Butanoate metabolism","LC MS pos","C02356","HMDB00581"
+"46","ID_57","61","4-acetamidobutanoate","Amino acid","Guanidino and acetamido metabolism","LC MS pos","C02946","HMDB03681"
+"47","ID_58","62","5-oxoproline","Amino acid","Glutathione metabolism","LC MS pos","C01879","HMDB00267"
+"48","ID_59","63","cysteine-glutathione disulfide","Amino acid","Glutathione metabolism","LC MS pos",NA,"HMDB00656"
+"49","ID_60","64","glycylvaline","Peptide","Dipeptide","LC MS pos",NA,NA
+"50","ID_61","65","aspartylphenylalanine","Peptide","Dipeptide","LC MS pos",NA,"HMDB00706"
+"51","ID_62","66","prolylhydroxyproline","Peptide","Dipeptide","LC MS pos",NA,"HMDB06695"
+"52","ID_63","67","threonylphenylalanine","Peptide","Dipeptide","LC MS pos",NA,NA
+"53","ID_64","68","pyroglutamylglycine","Peptide","Dipeptide","LC MS neg",NA,NA
+"54","ID_65","69","gamma-glutamylleucine","Peptide","γ-glutamyl","LC MS pos",NA,NA
+"55","ID_67","72","gamma-glutamylglutamine","Peptide","γ-glutamyl","LC MS pos",NA,NA
+"56","ID_68","73","gamma-glutamylphenylalanine","Peptide","γ-glutamyl","LC MS pos",NA,"HMDB00594"
+"57","ID_69","74","gamma-glutamyltyrosine","Peptide","γ-glutamyl","LC MS pos",NA,NA
+"58","ID_70","76","ADSGEGDFXAEGGGVR* (fibrinopeptide)","Peptide","Polypeptide","LC MS pos",NA,NA
+"59","ID_71","77","DSGEGDFXAEGGGVR* (fibrinopeptide)","Peptide","Polypeptide","LC MS pos",NA,NA
+"60","ID_72","78","ADpSGEGDFXAEGGGVR* (fibrinopeptide)","Peptide","Polypeptide","LC MS pos",NA,NA
+"61","ID_73","79","HWESASXX* (complement C3 peptide)","Peptide","Polypeptide","LC MS pos",NA,NA
+"62","ID_75","81","N-acetylneuraminate","Carbohydrate","Aminosugars metabolism","GC MS","C00270","HMDB00230"
+"63","ID_76","82","fructose","Carbohydrate","Fructose, mannose, galactose, starch, and sucrose metabolism","GC MS","C00095","HMDB00660"
+"64","ID_77","84","mannose","Carbohydrate","Fructose, mannose, galactose, starch, and sucrose metabolism","GC MS","C00159","HMDB00169"
+"65","ID_78","85","sucrose","Carbohydrate","Fructose, mannose, galactose, starch, and sucrose metabolism","LC MS neg","C00089","HMDB00258"
+"66","ID_79","86","1,5-anhydroglucitol (1,5-AG)","Carbohydrate","Glycolysis, gluconeogenesis, pyruvate metabolism","GC MS","C07326","HMDB02712"
+"67","ID_80","87","2-isopropylmalate","Carbohydrate","Glycolysis, gluconeogenesis, pyruvate metabolism","LC MS neg","C02504","HMDB00402"
+"68","ID_81","88","glycerate","Carbohydrate","Glycolysis, gluconeogenesis, pyruvate metabolism","GC MS","C00258","HMDB00139"
+"69","ID_83","90","pyruvate","Carbohydrate","Glycolysis, gluconeogenesis, pyruvate metabolism","GC MS","C00022","HMDB00243"
+"70","ID_85","93","xylitol","Carbohydrate","Nucleotide sugars, pentose metabolism","GC MS","C00379","HMDB00568"
+"71","ID_86","94","isovalerate","Lipid","Fatty acid, saturated","LC MS neg","C08262","HMDB00718"
+"72","ID_87","95","caproate (6:0)","Lipid","Fatty acid, saturated, even","LC MS neg","C01585","HMDB00535"
+"73","ID_88","96","caprylate (8:0)","Lipid","Fatty acid, saturated, even","LC MS neg","C06423","HMDB00482"
+"74","ID_90","98","laurate (12:0)","Lipid","Fatty acid, saturated, even","LC MS neg","C02679","HMDB00638"
+"75","ID_91","99","myristate (14:0)","Lipid","Fatty acid, saturated, even","LC MS neg","C06424","HMDB00806"
+"76","ID_92","100","palmitate (16:0)","Lipid","Fatty acid, saturated, even","LC MS neg","C00249","HMDB00220"
+"77","ID_93","101","stearate (18:0)","Lipid","Fatty acid, saturated, even","LC MS neg","C01530","HMDB00827"
+"78","ID_94","102","heptanoate (7:0)","Lipid","Fatty acid, saturated, odd","LC MS neg",NA,"HMDB00666"
+"79","ID_97","105","pentadecanoate (15:0)","Lipid","Fatty acid, saturated, odd","GC MS","C16537","HMDB00826"
+"80","ID_98","106","margarate (17:0)","Lipid","Fatty acid, saturated, odd","LC MS neg",NA,"HMDB02259"
+"81","ID_99","107","nonadecanoate (19:0)","Lipid","Fatty acid, saturated, odd","LC MS neg","C16535","HMDB00772"
+"82","ID_100","108","5-dodecenoate (12:1n-7)","Lipid","Fatty acid, monoene","LC MS neg",NA,"HMDB00529"
+"83","ID_101","109","myristoleate (14:1n-5)","Lipid","Fatty acid, monoene","LC MS neg","C08322","HMDB02000"
+"84","ID_102","110","palmitoleate (16:1n-7)","Lipid","Fatty acid, monoene","LC MS neg","C08362","HMDB03229"
+"85","ID_103","111","oleate(18:1n-9)","Lipid","Fatty acid, monoene","LC MS neg","C00712","HMDB00207"
+"86","ID_104","112","eicosenoate (20:1n9 or 11)","Lipid","Fatty acid, monoene","LC MS neg",NA,NA
+"87","ID_105","113","10-undecenoate (11:1n-1)","Lipid","Fatty acid, monoene, odd","LC MS neg",NA,NA
+"88","ID_106","114","10-heptadecenoate (17:1n-7)","Lipid","Fatty acid, monoene, odd","LC MS neg",NA,NA
+"89","ID_107","115","10-nonadecenoate (19:1n-9)","Lipid","Fatty acid, monoene, odd","LC MS neg",NA,NA
+"90","ID_108","116","linoleate (18:2n-6)","Lipid","Fatty acid, polyene","LC MS neg","C01595","HMDB00673"
+"91","ID_109","117","dihomolinolenate (20:2n-6)","Lipid","Fatty acid, polyene","LC MS neg",NA,NA
+"92","ID_110","118","linolenate [alpha or gamma; (18:3n-3 or 6)]","Lipid","Fatty acid, polyene","LC MS neg","C06427","HMDB01388"
+"93","ID_111","119","stearidonate (18:4n-3)","Lipid","Fatty acid, polyene","LC MS neg",NA,"HMDB06547"
+"94","ID_112","120","eicosatrienoate (ETA; 20:3n-3)","Lipid","Fatty acid, polyene","LC MS neg",NA,NA
+"95","ID_113","121","5,8,11 eicosatrienoate (20:3n-9)","Lipid","Fatty acid, polyene","LC MS neg",NA,NA
+"96","ID_114","122","arachidonate (20:4n-6)","Lipid","Fatty acid, polyene","LC MS neg","C00219","HMDB01043"
+"97","ID_115","123","eicosapentaenoate (EPA; 20:5n-3)","Lipid","Fatty acid, polyene","LC MS neg","C06428","HMDB01999"
+"98","ID_116","124","adrenate (22:4n-6)","Lipid","Fatty acid, polyene","LC MS neg","C16527","HMDB02226"
+"99","ID_117","125","docosapentaenoate (DPA; 22:5n-3)","Lipid","Fatty acid, polyene","LC MS neg","C16513","HMDB01976"
+"100","ID_118","126","docosahexaenoate (DHA; 22:6n-3)","Lipid","Fatty acid, polyene","LC MS neg","C06429","HMDB02183"
+"101","ID_119","127","3-hydroxydecanoate","Lipid","Fatty acid, saturated, monohydroxy","LC MS neg",NA,"HMDB02203"
+"102","ID_121","129","3-carboxy-4-methyl-5-propyl-2-furanpropanoate (CMPF)","Lipid","Fatty acid, furan, dicarboxylate","LC MS neg",NA,NA
+"103","ID_122","130","oleamide","Lipid","Fatty acid, amide","LC MS pos",NA,NA
+"104","ID_124","132","3-dehydrocarnitine*","Lipid","Carnitine metabolism","LC MS pos","C02636",NA
+"105","ID_125","133","acetylcarnitine (C2)","Lipid","Carnitine metabolism","LC MS pos","C02571","HMDB00201"
+"106","ID_126","134","propionylcarnitine (C3)","Lipid","Carnitine metabolism","LC MS pos","C03017","HMDB00824"
+"107","ID_127","135","butyrylcarnitine (C4)","Lipid","Carnitine metabolism","LC MS pos","C02862","HMDB02013"
+"108","ID_128","136","isobutyrylcarnitine (C4)","Lipid","Carnitine metabolism","LC MS pos",NA,"HMDB00736"
+"109","ID_129","137","isovalerylcarnitine (C5)","Lipid","Carnitine metabolism","LC MS pos",NA,"HMDB00688"
+"110","ID_130","138","2-methylbutyroylcarnitine* (C5)","Lipid","Carnitine metabolism","LC MS pos",NA,"HMDB00378"
+"111","ID_131","139","hexanoylcarnitine (C6)","Lipid","Carnitine metabolism","LC MS pos",NA,"HMDB00705"
+"112","ID_132","140","octanoylcarnitine (C8)","Lipid","Carnitine metabolism","LC MS pos",NA,"HMDB00791"
+"113","ID_133","141","decanoylcarnitine (C10)","Lipid","Carnitine metabolism","LC MS pos","C03299","HMDB00651"
+"114","ID_134","142","laurylcarnitine (C12)","Lipid","Carnitine metabolism","LC MS pos",NA,NA
+"115","ID_136","144","glycerol","Lipid","Glycerolipid metabolism","GC MS","C00116","HMDB00131"
+"116","ID_137","145","glycerol 3-phosphate (G3P)","Lipid","Glycerolipid metabolism","GC MS","C00093","HMDB00126"
+"117","ID_138","146","glycerophosphorylcholine (GPC)","Lipid","Glycerolipid metabolism","LC MS pos","C00670","HMDB00086"
+"118","ID_139","147","1-myristoylglycerophosphocholine* (C14:0)","Lipid","Glycerolipid metabolism","LC MS pos",NA,NA
+"119","ID_140","148","1-palmitoylglycerophosphocholine (C16:0)","Lipid","Glycerolipid metabolism","LC MS pos","C04102",NA
+"120","ID_141","149","1-palmitoleoylglycerophosphocholine* (C16:1)","Lipid","Glycerolipid metabolism","LC MS pos",NA,NA
+"121","ID_142","150","1-heptadecanoylglycerophosphocholine (C17:0)","Lipid","Glycerolipid metabolism","LC MS pos",NA,NA
+"122","ID_143","151","1-stearoylglycerophosphocholine (C18:0)","Lipid","Glycerolipid metabolism","LC MS pos",NA,NA
+"123","ID_144","152","1-oleoylglycerophosphocholine (C18:1)","Lipid","Glycerolipid metabolism","LC MS pos","C03916","HMDB02815"
+"124","ID_145","153","1-linoleoylglycerophosphocholine (C18:2)","Lipid","Glycerolipid metabolism","LC MS pos","C04100",NA
+"125","ID_146","154","1-eicosatrienoylglycerophosphocholine* (C20:3)","Lipid","Glycerolipid metabolism","LC MS pos",NA,NA
+"126","ID_147","155","1-arachidonoylglycerophosphocholine* (20:4)","Lipid","Glycerolipid metabolism","LC MS pos","(C05208)",NA
+"127","ID_148","156","1-docosahexaenoylglycerophosphocholine* (C22:6)","Lipid","Glycerolipid metabolism","LC MS pos",NA,NA
+"128","ID_149","157","myo-inositol","Lipid","Inositol metabolism","GC MS","C00137","HMDB00160"
+"129","ID_150","158","scyllo-inositol","Lipid","Inositol metabolism","GC MS","C06153",NA
+"130","ID_151","159","inositol 1-phosphate (I1P)","Lipid","Inositol metabolism","GC MS","C01177","HMDB00213"
+"131","ID_152","160","1-palmitoylglycerol (C16:0)","Lipid","Monoacylglycerol","GC MS",NA,NA
+"132","ID_153","161","1-stearoylglycerol (C18:0)","Lipid","Monoacylglycerol","GC MS","C13438",NA
+"133","ID_154","162","1-docosahexaenoylglycerol (C22:6)","Lipid","Monoacylglycerol","LC MS pos",NA,NA
+"134","ID_155","163","cholate","Lipid","Bile acid metabolism","LC MS neg","C00695","HMDB00619"
+"135","ID_156","164","glycocholate","Lipid","Bile acid metabolism","LC MS neg","C01921","HMDB00138"
+"136","ID_157","165","taurocholate","Lipid","Bile acid metabolism","LC MS neg","C05122","HMDB00036"
+"137","ID_158","166","chenodeoxycholate","Lipid","Bile acid metabolism","LC MS neg","C02528","HMDB00518"
+"138","ID_159","167","taurochenodeoxycholate","Lipid","Bile acid metabolism","LC MS neg","C05465","HMDB00951"
+"139","ID_160","168","hyodeoxycholate","Lipid","Bile acid metabolism","LC MS neg","C15517","HMDB00733"
+"140","ID_161","169","deoxycholate","Lipid","Bile acid metabolism","LC MS neg","C04483","HMDB00626"
+"141","ID_162","170","glycochenodeoxycholate","Lipid","Bile acid metabolism","LC MS neg","C05466, C05462","HMDB00637"
+"142","ID_163","171","3-hydroxybutyrate (BHBA)","Lipid","Ketone bodies","GC MS","C01089","HMDB00357"
+"143","ID_165","173","lathosterol","Lipid","Sterol/Steroid","GC MS","C01189","HMDB01170"
+"144","ID_166","174","dehydroepiandrosterone sulfate (DHEA-S)","Lipid","Sterol/Steroid","LC MS neg","(C01227)","HMDB01032"
+"145","ID_167","175","epiandrosterone sulfate","Lipid","Sterol/Steroid","LC MS neg","(C07635)","(HMDB00365)"
+"146","ID_168","176","androsterone sulfate","Lipid","Sterol/Steroid","LC MS neg","(C00523)","HMDB02759"
+"147","ID_169","178","cortisol","Lipid","Sterol/Steroid","LC MS pos","C00735","HMDB00063"
+"148","ID_170","179","cortisone","Lipid","Sterol/Steroid","LC MS pos","C00762","HMDB02802"
+"149","ID_171","180","citrate","Energy","Krebs cycle","GC MS","C00158","HMDB00094"
+"150","ID_172","181","alpha-ketoglutarate","Energy","Krebs cycle","GC MS","C00026","HMDB00208"
+"151","ID_173","182","succinate","Energy","Krebs cycle","LC MS neg","C00042","HMDB00254"
+"152","ID_174","183","malate","Energy","Krebs cycle","GC MS","C00149","HMDB00156"
+"153","ID_175","184","oxaloacetate","Energy","Krebs cycle","GC MS","C00036","HMDB00223"
+"154","ID_178","187","pyrophosphate (PPi)","Energy","Oxidative phosphorylation","GC MS","C00013","HMDB00250"
+"155","ID_179","188","xanthine","Nucleotide","Purine metabolism, (hypo)xanthine/inosine containing","LC MS pos","C00385","HMDB00292"
+"156","ID_180","189","hypoxanthine","Nucleotide","Purine metabolism, (hypo)xanthine/inosine containing","GC MS","C00262","HMDB00157"
+"157","ID_181","190","inosine","Nucleotide","Purine metabolism, (hypo)xanthine/inosine containing","LC MS neg","C00294","HMDB00195"
+"158","ID_184","194","allantoin","Nucleotide","Purine metabolism, urate metabolism","GC MS","C02350","HMDB00462"
+"159","ID_185","195","uridine","Nucleotide","Pyrimidine metabolism, uracil containing","LC MS neg","C00299","HMDB00296"
+"160","ID_187","198","threonate","Cofactors and vitamins","Ascorbate and aldarate metabolism","GC MS","C01620","HMDB00943"
+"161","ID_188","199","heme*","Cofactors and vitamins","Hemoglobin and porphyrin metabolism","LC MS pos","C00032","HMDB03178"
+"162","ID_189","200","bilirubin","Cofactors and vitamins","Hemoglobin and porphyrin metabolism","LC MS neg","C00486","HMDB00054"
+"163","ID_190","201","biliverdin","Cofactors and vitamins","Hemoglobin and porphyrin metabolism","LC MS pos","C00500","HMDB01008"
+"164","ID_191","202","pantothenate","Cofactors and vitamins","Pantothenate and CoA metabolism","LC MS pos","C00864","HMDB00210"
+"165","ID_192","203","alpha-tocopherol","Cofactors and vitamins","Tocopherol metabolism","GC MS","C02477","HMDB01893"
+"166","ID_193","204","gamma-tocopherol*","Cofactors and vitamins","Tocopherol metabolism","GC MS","C02483","HMDB01492"
+"167","ID_194","206","hippurate","Xenobiotics","Benzoate metabolism","LC MS pos","C01586","HMDB00714"
+"168","ID_195","208","glycolate (hydroxyacetate)","Xenobiotics","Chemical","GC MS","C00160","HMDB00115"
+"169","ID_196","210","phenol sulfate","Xenobiotics","Chemical","LC MS neg","C02180",NA
+"170","ID_197","211","catechol sulfate","Xenobiotics","Chemical","LC MS neg",NA,NA
+"171","ID_198","216","valproate (2-propylpentanoate)","Xenobiotics","Drug","LC MS neg","C07185","HMDB01877"
+"172","ID_199","217","3-phenylpropionate (hydrocinnamate)","Xenobiotics","Food component/Plant","LC MS neg","C05629","HMDB00764"
+"173","ID_200","218","quinate","Xenobiotics","Food component/Plant","GC MS","C00296","HMDB03072"
+"174","ID_201","219","piperine","Xenobiotics","Food component/Plant","LC MS pos","C03882",NA
+"175","ID_202","220","caffeine","Xenobiotics","Xanthine metabolism","LC MS pos","C07481","HMDB01847"
+"176","ID_203","221","paraxanthine","Xenobiotics","Xanthine metabolism","LC MS pos","C13747","HMDB01860"
+"177","ID_204","222","theobromine","Xenobiotics","Xanthine metabolism","LC MS pos","C07480","HMDB02825"
+"178","ID_205","224","cotinine","Xenobiotics","Tobacco metabolite","LC MS pos",NA,"HMDB01046"
+"179","ID_206","225","erythritol","Xenobiotics","Sugar, sugar substitute, starch","GC MS","C00503","HMDB02994"
+"180","ID_207","226","X-01327","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"181","ID_208","228","X-02249","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"182","ID_209","229","X-02269","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"183","ID_210","230","X-02276","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"184","ID_211","231","X-02277","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"185","ID_213","233","X-03003","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"186","ID_214","234","X-03056","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"187","ID_215","235","X-03078","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"188","ID_216","236","X-03094","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"189","ID_217","237","X-03099","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"190","ID_218","238","X-03100","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"191","ID_219","239","X-03107","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"192","ID_220","240","X-03114","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"193","ID_222","242","X-04272","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"194","ID_223","243","X-04274","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"195","ID_224","244","X-04357","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"196","ID_226","246","X-04986","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"197","ID_227","247","X-05403","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"198","ID_228","248","X-05524","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"199","ID_229","249","X-05847","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"200","ID_230","250","X-05907","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"201","ID_231","251","X-06126","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"202","ID_232","252","X-06227","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"203","ID_233","253","X-06267","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"204","ID_234","254","X-06268","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"205","ID_235","255","X-06307","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"206","ID_236","256","X-06346","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"207","ID_237","258","X-06627","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"208","ID_238","259","X-07765","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"209","ID_239","260","X-08214","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"210","ID_240","261","X-08403","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"211","ID_241","262","X-08766","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"212","ID_242","263","X-08889","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"213","ID_243","264","X-09043","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"214","ID_244","265","X-09044","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"215","ID_245","266","X-09045","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"216","ID_246","267","X-09108","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"217","ID_247","268","X-09726","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"218","ID_248","269","X-09727","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"219","ID_249","270","X-09789","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"220","ID_250","272","X-10395","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"221","ID_251","273","X-10413","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"222","ID_252","274","X-10426","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"223","ID_253","275","X-10432","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"224","ID_255","277","X-10503","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"225","ID_256","278","X-10504","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"226","ID_257","279","X-10507","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"227","ID_258","280","X-10510","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"228","ID_259","281","X-10810","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"229","ID_260","282","X-10812","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"230","ID_261","283","X-10814","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"231","ID_262","284","X-10963","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"232","ID_263","285","X-11086","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"233","ID_264","286","X-11175","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"234","ID_265","287","X-11204","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"235","ID_266","288","X-11231","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"236","ID_267","289","X-11244","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"237","ID_268","290","X-11255","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"238","ID_269","291","X-11261","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"239","ID_270","292","X-11273","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"240","ID_271","293","X-11282","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"241","ID_272","294","X-11302","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"242","ID_273","295","X-11303","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"243","ID_274","296","X-11308","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"244","ID_275","297","X-11315","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"245","ID_276","298","X-11317","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"246","ID_277","299","X-11318","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"247","ID_278","300","X-11319","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"248","ID_279","301","X-11327","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"249","ID_280","302","X-11354","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"250","ID_281","303","X-11372","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"251","ID_282","304","X-11378","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"252","ID_283","305","X-11380","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"253","ID_284","306","X-11381","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"254","ID_285","307","X-11412","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"255","ID_286","308","X-11421","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"256","ID_288","310","X-11431","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"257","ID_289","311","X-11437","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"258","ID_290","312","X-11440","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"259","ID_291","313","X-11441","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"260","ID_292","314","X-11442","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"261","ID_293","315","X-11443","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"262","ID_294","316","X-11444","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"263","ID_295","317","X-11445","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"264","ID_296","318","X-11450","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"265","ID_297","319","X-11452","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"266","ID_298","320","X-11469","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"267","ID_299","322","X-11475","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"268","ID_300","323","X-11476","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"269","ID_301","325","X-11490","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"270","ID_302","327","X-11496","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"271","ID_304","329","X-11498","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"272","ID_305","330","X-11508","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"273","ID_306","331","X-11513","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"274","ID_307","332","X-11521","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"275","ID_308","333","X-11522","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"276","ID_309","334","X-11529","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"277","ID_310","335","X-11530","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"278","ID_311","336","X-11533","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"279","ID_312","337","X-11537","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"280","ID_313","338","X-11538","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"281","ID_314","339","X-11540","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"282","ID_315","340","X-11542","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"283","ID_316","341","X-11549","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"284","ID_318","343","X-11560","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"285","ID_319","344","X-11593","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"286","ID_321","346","X-11730","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"287","ID_322","347","X-11786","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"288","ID_323","348","X-11787","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"289","ID_324","349","X-11793","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"290","ID_325","351","X-11805","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"291","ID_326","352","X-11818","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"292","ID_327","353","X-11820","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"293","ID_328","355","X-11840","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"294","ID_329","356","X-11843","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"295","ID_330","357","X-11850","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"296","ID_331","358","X-11853","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"297","ID_333","360","X-11861","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"298","ID_334","361","X-11864","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"299","ID_335","362","X-11868","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"300","ID_336","363","X-11871","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"301","ID_337","364","X-11884","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"302","ID_338","365","X-11904","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"303","ID_339","366","X-11907","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"304","ID_340","367","X-11908","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"305","ID_341","369","X-12013","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"306","ID_342","371","X-12023","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"307","ID_343","372","X-12039","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"308","ID_344","373","X-12045","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"309","ID_345","374","X-12051","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"310","ID_346","376","X-12063","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"311","ID_347","377","X-12092","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"312","ID_348","378","X-12094","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"313","ID_349","379","X-12095","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"314","ID_350","380","X-12100","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"315","ID_351","381","X-12217","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"316","ID_352","382","X-12230","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"317","ID_353","384","X-12232","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"318","ID_354","385","X-12253","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"319","ID_355","386","X-12261","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"320","ID_356","387","X-12268","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"321","ID_358","389","X-12441","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"322","ID_359","390","X-12442","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"323","ID_360","391","X-12456","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"324","ID_361","392","X-12510","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"325","ID_362","393","X-12536","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"326","ID_363","394","X-12539","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"327","ID_364","395","X-12542","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"328","ID_365","396","X-12607","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"329","ID_366","397","X-12611","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"330","ID_367","398","X-12620","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"331","ID_368","399","X-12627","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"332","ID_369","400","X-12644","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"333","ID_370","401","X-12654","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"334","ID_371","403","X-12750","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"335","ID_372","404","X-12752","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"336","ID_374","410","X-12801","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"337","ID_375","411","X-12842","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"338","ID_376","412","X-12844","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"339","ID_377","414","X-12850","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"340","ID_378","415","X-12851","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"341","ID_379","416","X-12852","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"342","ID_380","417","X-12949","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"343","ID_381","418","X-12990","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"344","ID_382","419","X-13215","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"345","ID_383","421","X-13403","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"346","ID_384","422","X-13425","No Super Pathway","No Sub Pathway","GC MS",NA,NA
+"347","ID_385","423","X-13426","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
+"348","ID_386","424","X-13428","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"349","ID_387","425","X-13429","No Super Pathway","No Sub Pathway","LC MS neg",NA,NA
+"350","ID_388","426","X-13435","No Super Pathway","No Sub Pathway","LC MS pos",NA,NA
