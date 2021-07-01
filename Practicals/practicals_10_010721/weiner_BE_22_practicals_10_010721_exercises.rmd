@@ -22,7 +22,7 @@ toc: no
 
 ```{r,echo=FALSE}
 ## Set default options for the knitr RMD processing
-knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=7,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=7,fig.height=5,cache=TRUE,autodep=TRUE, results="markdown")
 options(crayon.enabled = TRUE)
 options(crayon.colors = 256)
 knitr::knit_hooks$set(output = function(x, options){
@@ -42,9 +42,7 @@ assignInNamespace("num_colors", num_colors, pos="package:crayon")
 ```{r libraries,cache=FALSE,echo=FALSE}
 library(ggplot2)
 library(tidyverse)
-library(DESeq2)
-library(tmod)
-library(edgeR)
+library(pander)
 theme_set(theme_bw())
 options(colorDF_n=30)
 options(width=100)
@@ -55,8 +53,20 @@ options(width=100)
 Please install the following packages:
 
 ```{r eval=FALSE}
-install.packages(c("randomForest", "party", "rpart", "MASS"))
+install.packages(c("randomForest", "party", "rpart", "MASS", "cutpointr", "pROC"))
 ```
+
+Please load the following three data sets:
+
+```{r}
+m_dat      <- read.csv("https://january3.github.io/Bioinformatics/Datasets/metabo_data.csv", 
+                       row.names=1)
+m_samples  <- read.csv("https://january3.github.io/Bioinformatics/Datasets/metabo_coldata.csv", 
+                       row.names=1)
+m_features <- read.csv("https://january3.github.io/Bioinformatics/Datasets/metabo_fdata.csv", 
+                       row.names=1)
+```
+
 
 # Machine learning algorithms
 
@@ -160,10 +170,12 @@ table(pred, iris_test_vv$Species)
 
 **Question.** What is the overall error rate?
 
-**Homework 6**. Repeat the above analysis with the full iris data set
+**Homework 6, alternative 1**. Repeat the above analysis with the full iris data set
 (three classes). You will find that the `scaling` object has now two
 columns, `LD1` and `LD2`. Make boxplots for both of them. Which LD
-discriminates between which species?
+discriminates between which species? [note: instead of this homework, you
+are allowed to choose the "alternative 2" (only if we don't do it together
+during practicals) and "alternative 3" below]
 
 
 # The metabo data set
@@ -186,7 +198,8 @@ coldat <- coldat[-1, ]
 coldat <- coldat %>% mutate(SAMPLE_NAME=gsub("-", "_", SAMPLE_NAME)) %>%
   select(SAMPLE_NAME, GENDER, GROUP1) %>%
   mutate(GROUP1=ifelse(GROUP1 == "A_TST_NEG", "CTRL",
-                       ifelse(GROUP1 == "B_TST_POS", "LTBI", "TB")))
+                       ifelse(GROUP1 == "B_TST_POS", "LTBI", "TB"))) %>%
+  mutate(GROUP2=ifelse(GROUP1 == "TB", "TB", "HEALTHY"))
 colnames(dat) <- coldat[["SAMPLE_NAME"]]
 
 fdat <- read_excel(f, sheet = s, range="A12:G401", col_names = TRUE,
@@ -199,7 +212,258 @@ sel <- vars > quantile(vars, .1)
 fdat <- fdat[sel, ]
 dat  <-  dat[sel, ]
 
+rownames(coldat) <- NULL
+
+write.csv(dat, "../../Datasets/metabo_data.csv")
+write.csv(fdat, "../../Datasets/metabo_fdata.csv")
+write.csv(coldat, "../../Datasets/metabo_coldata.csv")
 ```
 
+The data set consists of three data frames (which we loaded in the
+"Prerequisites" section). 
+
+**Exercise (5m).** Inspect the data files and tell me what they are.
+
+First, we will remove all biochemicals without a known name:
+
+```{r}
+sel <- !grepl("^X-[0-9]*$", m_features$BIOCHEMICAL.NAME)
+m_features <- m_features[sel, ]
+m_dat <- m_dat[sel, ]
+```
+
+
+We will need a data frame containing the features in columns rather than
+rows (we use GROUP2 for classification because it only has two classes):
+
+```{r}
+m_df <- data.frame(GROUP=factor(m_samples$GROUP2), t(m_dat))
+```
+
+
+Here is a PCA plot of the data:
+
+```{r}
+pca <- prcomp(t(m_dat), scale.=TRUE)
+df <- data.frame(GROUP=m_samples$GROUP2, pca$x[,1:5])
+ggplot(df, aes(x=PC1, y=PC2, color=GROUP)) + geom_point()
+```
+
+
+As before, we will create a training and test set selection.
+
+```{r}
+set.seed(12345678)
+n <- nrow(m_samples) # number of samples
+train <- sample(1:n, size=2/3 * n)
+test  <- setdiff(1:n, train)
+```
+
+
+In the following, we will be creating various ML models for the data and
+test their performance.
+
+## Decision trees
+
+To understand a decision tree it is best to just visualize it:
+
+```{r}
+library(party)
+
+ct <- ctree(GROUP ~ ., data=m_df[ train, ])
+plot(ct)
+```
+
+We will now discuss what is on that tree.
+
+**Exercise. (5min)** What are the biochemicals which were selected by the
+algorithm?
+
+
+Now we can apply the model of the tree to the test data set:
+
+```{r}
+preds <- predict(ct, newdata=m_df[ test, ])
+tmp <- table(preds, m_df[ test, ]$GROUP)
+print(tmp)
+```
+
+Remember: columns correspond to the reality and rows to the predictions.
+Therefore, we interpret the numbers as follows:
+
+```{r echo=FALSE}
+data.frame(
+                 Abbr=c("TN", "FP", "FN", "TP"),
+                 Name=c("true negative", "false positive", "false negative", "true positive"),
+                 Description=c(
+                               "prediction: HEALTHY, reality: HEALTHY",
+                               "prediction: TB, reality: HEALTHY",
+                               "prediction: HEALTHY, reality: TB",
+                               "prediction: TB, reality: TB"),
+                 Count=as.vector(tmp)) %>% pander()
+```
+
+**Exercise. (15')** Calculate the sensitivity, specificity, FPR and FDR. Consult
+[Wikipedia](https://en.wikipedia.org/wiki/Sensitivity_and_specificity) if
+necessary, specifically the frame on the right hand side.
+
+## Running a leave-one-out crossvalidation (LOO-CV)
+
+LOO-CV allows us to take advantage of almost all samples in the data set
+when constructing a model, while avoiding overfitting.
+
+The package `caret` contains many useful features for modeling and
+cross-validation, however (i) it will be useful to see how LOO-CV works under
+the hood and (ii) the package is not very straightforward to use.
+Therefore, we will use our own code. With R vectorization it is quite
+simple, really:
+
+```{r cache=TRUE}
+test_one <- function(df, i) {
+  train <- df[-i, ]
+  test  <- df[ i, ]
+  ct <- ctree(GROUP ~ ., train)
+  pred <- as.character(predict(ct, newdata=test))
+  return(pred)
+}
+
+## warning! This takes a while
+preds <- map_chr(1:nrow(m_df), ~ test_one(m_df, .x))
+```
+
+This results in the following performance:
+
+```{r echo=FALSE}
+tmp <- table(preds, m_df$GROUP)
+pander(tmp)
+```
+
+
+
+
+## Random forests
+
+One of the ways to improve the predictions from a decision tree is to
+combine bootstrapping (using only parts of the data) with growing multiple
+trees, each tree making its own decision. The grown "forest" of the trees
+then casts a vote regarding a sample, and the majority wins.
+
+One of the great advantages of random forests is that it delivers
+out-of-bag (OOB) estimates which are nearly as good as the ones that you
+get when doing cross-validation. This is why we are allowed to work here
+with the full data set rather than with the training set.
+
+```{r}
+library(randomForest)
+rf <- randomForest(GROUP ~ ., data=m_df, importance=TRUE)
+print(rf)
+```
+
+**Note** that in the table above, the reality is *in rows*, and predictions are
+*in columns* (reverse of what we were using before). Thus, `class.error`
+corresponds to 1 - specificity (or FNR) and 1 - sensitivity (or FPR).
+
+We now can check what would happen if we actually tested the model using
+the data set that we used to train it:
+
+```{r}
+### INCORRECT!!!
+preds <- predict(rf, m_df)
+table(preds, m_df$GROUP)
+```
+
+The above is *vastly* overfit – no errors at al! But this will not work
+like that in a new data set.
+
+### Variable importance
+
+We cannot check individual trees (well, we can, but its complicated) to see
+which metabolites play a role in the classification, but we can ask what
+variables are most important *overall*:
+
+```{r}
+imp <- rf$importance %>% as.data.frame %>% 
+  arrange(-MeanDecreaseAccuracy) %>% head(20)
+
+merge(m_features, imp, by.x="ID", by.y=0) %>%
+  select(ID, BIOCHEMICAL.NAME, SUB.PATHWAY, HEALTHY, TB, 
+         MeanDecreaseAccuracy) %>% pander()
+```
+
+## ROC curves
+
+To plot a ROC curve, we need a numeric predictor and not binary (yes / no)
+predictions. To get these numeric predictor, we can use `predict` with
+option `prob=TRUE` (this works for other algorithms as well!). *However* we
+cannot do that for random forest: predictions would be overfit! We need the
+*OOB* estimates of the probabilities.  These are stored in the rf object:
+
+```{r}
+probs <- rf$votes
+head(probs)
+```
+
+The two columns indicate the percentage of votes each class got from the
+trees, so `0.124` in column "HEALTHY" indicates that 12% of the trees
+decided that this given sample comes from a healthy person (and 88% trees
+decided that this is a TB patient). 
+
+To plot a ROC curve, we use `roc` from package `pROC`. We need to supply
+the `levels` argument to tell pROC which one is the positive and which one
+is the negative:
+
+```{r}
+library(pROC)
+roc(response=m_df$GROUP, predictor=probs[,1], 
+    levels=c("HEALTHY", "TB"), plot=TRUE)
+```
+
+We can also calculate the area under the curve (AUC) and its confidence
+intervals:
+
+```{r}
+roc(response=m_df$GROUP, predictor=probs[,1], 
+    levels=c("HEALTHY", "TB"), ci=TRUE)
+```
+
+We can compare it with a roc curve from the decision tree model. However,
+for this we need a slight modification of our LOO-CV function:
+
+```{r cache=TRUE}
+test_one <- function(df, i) {
+  train <- df[-i, ]
+  test  <- df[ i, ]
+  ct <- ctree(GROUP ~ ., train)
+  pred <- predict(ct, newdata=test, type="prob")[[1]][1]
+  return(pred)
+}
+
+## warning! This takes a while
+ct_probs <- map_dbl(1:nrow(m_df), ~ test_one(m_df, .x))
+```
+
+And plot the ROC curve:
+
+```{r}
+roc(response=m_df$GROUP, predictor=ct_probs, 
+    plot=TRUE, 
+    levels=c("HEALTHY", "TB"))
+```
+
+
+**Exercise – optional (if we find time)**. Otherwise, **Homework 6,
+alternative 2** (so if we don't manage to run it during practicals
+together, you can do it as a homework). Use the metabo dataset and random
+forests, but instead of "GROUP" take "SEX" as predictor. Which biochemicals
+found in blood are indicative of biological sex?
+
+
+**Homework 6, alternative 3**. Another method of machine learning are the
+Support Vector Machines (learn more
+[here](https://www.datacamp.com/community/tutorials/support-vector-machines-r)).
+An SVM algorithm is implemented in the function `svm` of the package
+`e1071`. Train `svm` on the metabolomic training data set, test it on the
+testing data set (using `predict`), calculate the sensitivity and
+specificity.
 
 

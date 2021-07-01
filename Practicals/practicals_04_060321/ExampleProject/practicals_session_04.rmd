@@ -1,0 +1,121 @@
+---
+title: "Practicals 4"
+author: "January Weiner"
+date: "5/6/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Session 1: Introduction to R
+
+```{r}
+# crap. It did not save it, grr
+## (my oldschool editor saves automatically, so I don't think about it)
+
+#### asdff asdf asdff ####
+
+5 + 7
+a <- 5 + 7
+5 ** 7 # obsolete, but works
+5^7 # same as 5 ** 7
+
+## define function blah
+#' @param par1 first parameter. Does absolutely nothing
+## By the way, this previous line is a formalized way of documenting functions.
+## This comes with the roxygen2 package and is used to document packages.
+myfunc <- function(par1) {
+  
+  ## asdfasdf
+  
+  
+}
+```
+
+Here, we play with operators.
+
+```{r operators}
+
+
+## what does the following do?
+5 %/% 7
+5 / 7
+5 %% 7
+
+
+## to get help on operators, you need to use quotes
+?"%*%"
+?"%%" # what is this operator
+```
+
+So, what do these operators do?
+
+And now for vectorization. Vectorization is really important: everything in R is either a vector, or a more complex data type. Vectors can have length of 1, or even 0 (yes, that is possible)
+
+```{r vectorization}
+## everything is a vector!
+v <- c(1, 2, 3) 
+is.vector(v)
+v <- TRUE
+is.vector(v)
+v <- 1
+is.vector(v)
+
+## vectorization, you need to 
+c(1, 2, 3) * 5
+c(1, 2, 3) * c(2, 5) # error message!
+c(1, 2, 3) * c(1, 5, 10)
+## scalar product
+c(1, 2, 3) %*% c(1, 5, 10)
+```
+
+
+
+## First statistical tests
+
+We define two variables:
+
+$$x \sim f_N(\mu, \sigma)$$
+
+with $\mu = 0$ and $\sigma = 0$, as well as
+
+$$y = x + \epsilon$$
+
+where
+
+$$\epsilon \sim f_N(\mu, \sigma)$$
+And now, for some plotting. The `fig.height` and `fig.width` parameters for the chunk determine the width and height of the resulting figure.
+
+```{r plotting,fig.width=7,fig.height=7}
+## get random numbers and plot them
+x <- rnorm(100)
+y <- x + rnorm(100)
+plot(x, y)
+```
+
+```{r correlations}
+veryveryververyvevyresdrcc <- function()  { }
+## 
+cor(x,y)
+cor(x,y,method="s")
+cor.test(x,y)
+cor.test(x, y, method = "s")
+```
+
+
+```{r}
+myfunc <- function(param1) {
+  
+  param1 <- 10
+  x <- rnorm(100)
+  y <- x + rnorm(100)
+  ret <- list(xx=x, yy=y)
+  return(ret)
+}
+```
+
