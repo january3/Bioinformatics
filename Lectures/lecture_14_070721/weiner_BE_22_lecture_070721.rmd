@@ -1,5 +1,5 @@
 ---
-title: "Lecture 14: Evolution, Sex and Rock & Roll"
+title: "Lecture 14: Sex, Evolution and Rock & Roll"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
 date: "`r Sys.Date()`"
