@@ -1,0 +1,650 @@
+---
+title: "Lecture 14: Evolution, Sex and Rock & Roll"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+outputdupa: html_document
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=FALSE,autodep=TRUE, results="hide",dev="svg")
+library(pander)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(ggplot2)
+library(pROC)
+#source("functions.R")
+```
+
+```{r echo=FALSE,include=FALSE,eval=TRUE,message=FALSE,warning=FALSE}
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+---
+class:empty-slide,myinverse
+background-image:url(images/adam_and_eve.png)
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/neanderthal_movie.png)
+
+---
+
+.pull-left[
+Joachim Neander, 1650 – 1680
+
+Author of "Lobe den Herren, den mächtigen König der Ehren" – priest and
+extremely popular churchsong writer. Fanbase so wild he had to be moved to
+another parish.
+
+When he was in Düsseldorf, he liked to walk to a nearby valley, often
+having sermons there.
+
+The valley was named after him in the XIX century.
+
+]
+
+.pull-right[
+
+![](images/JoachimNeander.jpg)
+
+]
+
+---
+class:empty-slide,mywhite
+background-image:url(images/map.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/neandertal.png)
+
+---
+class:empty-slide,mywhite
+background-image:url(images/neandertal_remains.png)
+
+---
+class:empty-slide,myblack
+background-image:url(images/neandertal_map.png)
+
+---
+class:empty-slide,myblack
+background-image:url(images/neandertal_reconstr.png)
+
+---
+
+.mycenter[
+*Homo stupidus* (Ernst Haeckel)
+]
+
+.myfootnote[
+Fortunately, Haeckel was late naming the species
+]
+
+---
+class:empty-slide,myblack
+background-image:url(images/neandertal_reconstr2.png)
+
+---
+class:empty-slide,mywhite
+background-image:url(images/movie_reconstr.png)
+
+---
+class:empty-slide,mywhite
+background-image:url(images/neandertal_busey.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/human_vs_neanderthal.jpg)
+
+
+---
+## So, who were these neanderthals
+
+ * Human-chimp lineages split ~ 6 millions of years ago
+ * Appearance of neanderthals:
+    * *Homo heidelbergensis*: 600K – 350K years ago
+    * First clear specimens: > 130K years ago
+ * Modern humans appeared in Africa ~ 200K ago and stayed there
+ * Neanderthals colonized Europe earlier than humans
+ * Humans arrived in Europe ~ 40K ago
+ * For ~ 6K years both species coexisted
+ * Neanderthals disappeared
+
+---
+## What happend to them?
+
+ * Did we kill them?
+ * Did we outcompete them?
+ * Or did something else kill them?
+ 
+---
+class:empty-slide,myblack
+background-image:url(images/neandertal_paabo.png)
+
+---
+
+.pull-left[
+
+![](images/paabo_book.png)
+
+]
+
+.pull-right[
+
+Short history of the discovery:
+
+ * 1997: first mitochondrial sequence from DNA isolated from a neandertal bone
+ * 1999: a larger mitochondrial sequence
+ * 2000: reconstructing phylogeny with multiple mtDNA sequences from
+   neandertals 
+ * 2006: 1 million bp from neandertal genome using 2nd generation
+   sequencing
+ * 2007: human FOXP2 variant shared by neandertals
+ * 2010: draft sequence of the neandertal genome
+]
+
+---
+
+## Technical challenges in sequencing of ancient DNA
+
+.mycenter[
+
+![](images/deamination.png)
+]
+
+---
+
+## Technical challenges in sequencing of ancient DNA
+
+.pull-left[
+
+ * Very few samples, very little material
+ * Samples contain mostly bacterial DNA
+ * neandertal DNA may come from multiple individuals
+ * Contamination with human sequences
+ * DNA in small pieces (50-200 bp)
+ * DNA degradation results in apparent mutations (esp. cytosine
+   deamination: C $\rightarrow$ T, G $\rightarrow$ A)
+ 
+]
+
+--
+
+.pull-right[
+
+Solutions:
+
+ * remove bacterial sequencing by targetted digestion
+ * use high-throughput sequencing
+ * direct sequencing (no amplification); pyrosequencing (Roche 454)
+   combined with Illumina short-read sequencing
+ * use meta-genomic bioinformatic methods
+
+]
+
+.myfootnote[*Noonan, James P. "Neanderthal genomics and the evolution of
+modern humans." Genome Research 20.5 (2010): 547-553.*]
+
+
+---
+
+## Important findings
+
+ * Neandertals shared the FOXP2 mutation. Bioinformatic analyses show that
+   the mutation underwent a strong evolutionary selection in the human
+   past. FOXP2 mutations have an impact on speech and language development. 
+ * MC1R: pale skin and red hair – some neandertals seem to have had them!
+ * About 80 findings where neandertals had the ancestral chimp sequence,
+   but it evolved in humans
+ * Neandertals interbred with humans
+
+
+???
+
+Noonan 2010
+
+
+---
+class:empty-slide,myblack
+background-image:url(images/neandertal_share.jpg)
+
+
+???
+
+https://science.sciencemag.org/content/358/6363/655.full
+
+---
+
+## The third twin
+
+.mycenter[
+
+![](images/denisova_cave.png)
+
+]
+
+---
+
+## Meet the Denisovians
+
+.pull-left[
+
+ * only few scattered remains (a finger bone, a tooth, a jaw fragment)
+ * first hominids on the tibetan plateau (Baishiya Karst Cave)
+ * used tools and ornaments
+ * Clearly distinct sequences
+ * ancient: remains 200k - 50k years ago; however may have lived as
+   recently as 14K years ago (6K: Egypt; 5K: Stonehenge)
+ * Denisovians were a sister group of neandertals, but diverged a long time
+   ago
+ * Denisovian alleles found in Melanesian populations (3-6% in aboriginal
+   Australians and in modern New Guineans)
+]
+
+.pull-right[
+
+![](images/denisovian_phylogeny.png)
+
+]
+
+---
+class:empty-slide,myblack
+background-image:url(images/phylogeny_flow.webp)
+
+???
+
+https://www.nature.com/articles/nature12886?report=reader
+
+
+---
+
+## All about Denny
+
+.pull-left[
+
+Mother: neanderthal
+
+Father: Denisovian
+
+]
+
+.pull-right[
+
+![](images/denny.jpg)
+
+]
+
+---
+
+.pull-left[
+
+![](images/phylogeny.jpg)
+
+]
+
+.myfootnote[
+*Warren, Matthew. "Mum's a Neanderthal, Dad's a Denisovan: First discovery of an ancient-human hybrid." Nature 560.7719 (2018): 417-419.*
+]
+
+---
+
+## Phenotypic legacy of neandertals and denisovians
+
+Some alleles were being eliminated – there are regions in our genomes which
+have almost no ingressions from neanderthals / denisovians. (e.g. FOXP2
+region!)
+
+Other seem to have been under positive selection, e.g. 
+
+ * HLA alleles (B\*73:01-C\*15:05 haplotype); HLA-A\*11 provides protection
+   from Epstein-Barr virus
+ * skin phenotypes
+ * some metabolic properties, lipid metabolism
+
+Some alleles are associated with diseases:
+
+ * actinic keratosis 
+ * mood disorders, depression
+ * trombophilia
+ * smoking
+ 
+
+???
+
+B. Vernot, J. M. Akey, Resurrecting surviving Neandertal lineages from modern human genomes. Science 343, 1017–1021 (2014). doi:10.1126/science.1245938pmid:24476670
+
+L. Abi-Rached, M. J. Jobin, S. Kulkarni, A. McWhinnie, K. Dalva, L. Gragert, F. Babrzadeh, B. Gharizadeh, M. Luo, F. A. Plummer, J. Kimani, M. Carrington, D. Middleton, R. Rajalingam, M. Beksac, S. G. Marsh, M. Maiers, L. A. Guethlein, S. Tavoularis, A. M. Little, R. E. Green, P. J. Norman, P. Parham, The shaping of modern human immune systems by multiregional admixture with archaic humans. Science 334, 89–94 (2011). doi:10.1126/science.1209202pmid:21868630
+
+
+---
+
+## Altitude adaptation in Tibetans 
+
+.pull-left[
+
+Altitude adaptation in Tibetans comes from Denisovians
+
+ * Denisovians first colonized the Tibetan plateau
+ * EPAS1 mutations are adaptive for the high altitude
+ * The modern human EPAS1 mutations come from Denisovians
+]
+
+.pull-right[
+
+![:scale 75%](images/haplotypes.webp)
+
+]
+
+???
+
+blue and red arrows – SNPs
+
+top green – denisovians
+
+asterisks: shared with denisovians
+
+---
+
+
+.mycenter[
+
+![:scale 50%](images/dürer.jpg)
+
+]
+
+---
+
+
+.pull-left[
+
+## Mitochondrial Eve
+
+ * mitochondrial DNA inherited only from the mother
+ * we can trace back the phylogeny easily
+ * Most recent common ancestor (MRCA) of all humans – mitochondrial Eve
+ * however, she was not not the only woman alive at that time, and not the
+   only one who contributed to our genetic material
+]
+
+.pull-right[
+
+![](images/mteve.png)
+
+]
+
+---
+
+.pull-left[
+
+**Franz Weidenreich** 1873-1948
+
+In 1920, Weidenreich correctly claimed that the "Piltdown man" was a hoax.
+
+During Nazi times, he had to leave Germany and ended up as a professor in
+China, where he found remains of *Sinanthropus*
+
+]
+
+.pull-right[
+
+
+![](images/weidenreich.jpg)
+
+]
+
+---
+
+.pull-left[
+
+Weidenreich proposed that human evolution run in parallel in many regions
+of the world, thus the ancient hominid remains which can be found there.
+
+]
+
+.pull-right[
+
+![](images/weidenreich_tree.png)
+
+]
+
+---
+
+Also, he though our ancestors were giants.
+
+--
+
+![](images/weidenreich_review.png)
+
+.myfootnote[
+
+From a book review in "American Anthropologist, 1947
+
+]
+
+---
+class:empty-slide,mywhite
+background-image:url(images/outofafrica.png)
+
+---
+
+## Retracing molecular Eve
+
+ * Build phylogeny from mtDNA of humans from all populations
+ * Calibrate the molecular clock (known mutation rate)
+ * Results: ~ 160,000 years ago lived a women to whom we can all trace our
+   mtDNA
+ * The human population size at that time was ~ 10,000 – 20,000
+ * Probably sub-saharan; recent studies indicate Ethiopia
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/human_mt_phylogeny.png)
+
+???
+
+Fu, Qiaomei, et al. "A revised timescale for human evolution based on ancient mitochondrial genomes." Current biology 23.7 (2013): 553-559.
+
+---
+class:empty-slide,mywhite
+background-image:url(images/outofafrica_2.png)
+
+---
+
+## We are all very closely related
+
+ * MRCA for mtDNA does not need to be identical to the *genealogical* MRCA
+ * Estimates show that around 1400 BCE lived a person wo whom *all* humans
+   can trace back their lineage. 
+ * If we go back to ~ 5000 BCE, then there is a group of humans to whom we
+   (all present humans) can trace back *all* of our alleles (in other
+   words, other humans at that time did not contribute at all to our todays
+   genetic makeup)
+
+.myfootnote[
+
+Rohde, Douglas LT, Steve Olson, and Joseph T. Chang. "Modelling the recent common ancestry of all living humans." Nature 431.7008 (2004): 562-566.
+]
+
+
+---
+
+.pull-left[
+
+Phylogeny reconstruction using full genomes
+
+ * 51 human populations
+ * 1065 individuals
+ * 650,000 single nucleotide polymorphisms
+
+]
+
+.pull-right[
+
+![](images/human_phylogeny.png)
+
+]
+
+.myfootnote[
+Li, Jun Z., et al. "Worldwide human relationships inferred from genome-wide patterns of variation." science 319.5866 (2008): 1100-1104.
+]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/migration_map.jpg)
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/evolution_rock_and_roll.png)
+
+.mycenter[
+<span style="font-weight:500;color:white;">
+Do we still evolve?
+</span>
+]
+
+
+---
+
+So, how do we look for traces of selection in the human genome?
+
+.pull-left[
+First, what is a haplotype:
+
+Say, we have three sites (single nucleotide polymorphisms, SNPs) at which a
+variation in human genome occurs, A, B and C. Each can come in variants
+(alleles), say A1-A3, B1-B3, C1-C3. 
+
+The combination of alleles is called a haplotype.
+
+A single haplotype which dominates indicates positive selection.
+
+Moreover, if only one of these SNPs is selected (carries the advantageous
+mutation) then the neighboring SNPs will be selected for as well, resulting
+in a conserved haplotype.
+]
+
+---
+
+![](images/selective_sweep.png)
+
+ * OCA2-HERC2: pigment variation
+ * FOXP2: brain? 
+ * SLC24A5: light skin tone
+ * LCT: lactose tolerance
+
+---
+
+Step 1: Identify "core regions" of the single nucleotide polymorphisms
+
+![](images/core_snps.webp)
+
+
+.myfootnote[
+
+*Sabeti, P. C. et al. Positive natural selection in the human lineage.
+Science 312, 1614–1620 (2006)*
+
+*Sabeti, Pardis C., et al. "Genome-wide detection and characterization of
+positive selection in human populations." Nature 449.7164 (2007): 913-918.*
+
+]
+
+---
+
+Step 2: Extending from the core, find other SNPs and check whether the
+haplotype continues or not. If it persists for a long time, this indicates
+positive selection.
+
+![](images/bifurcating.png)
+
+
+G6PD-CH8: haplotype common (18%) in Africa, absent otherwise. It carries
+the G6PD-202A SNP which is known
+to confer protection from malaria.
+
+???
+
+G6PD is the only source of glutathione in erythrocytes. If people with G6PD
+deficiency are exposed to food containing substances generating oxidants
+(e.g. fava beans, bób) when the glutathione reserves dwindle, erythrocytes
+suffer from oxidative damage.
+
+thickness corresponds to number of samples with that haplotype
+
+---
+
+Step 3: Compute EHH, extended haplotype homozygosity (measures transmission
+of the "long"/extended haplotype without breaking up)
+
+--
+
+Step 4: Find sites with high frequency and high EHH
+
+---
+
+Results:
+
+ * West Africa: LARGE and DMD, polymorphisms associated with the Lassa
+   virus
+ * Europe: SLC4A5 and SLC45A2, associated with skin color
+ * Asia: EDAR and EDA2R involved in development of hair follicles
+
+--
+
+![](images/sabeti_citations.png)
+
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/evolution_rock_and_roll.png)
+
+---
+
+## Pardis Sabeti
+
+.pull-left[
+
+Pardis Sabeti
+
+ * Lead singer and writer of "thousand days"
+ * Professor at Harvard University, MIT and Broad
+ * 30,000 citations, h-index 67, 223 publicatons
+
+]
+
+.pull-right[
+
+![](images/pardis_sabeti.jpg)
+
+]
+
+

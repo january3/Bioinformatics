@@ -34,5 +34,7 @@ You can click on the links below to directly view the HTML presentations.
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09_240621/weiner_BE_22_practicals_09_240621_exercises.html)
  * [Lecture 13 - Machine Learning](https://january3.github.io/Bioinformatics/Lectures/lecture_13_300621/weiner_BE_22_lecture_30062021.html)
     * Practicals: [Exercises and Homework 6](https://january3.github.io/Bioinformatics/Practicals/practicals_10_010721/weiner_BE_22_practicals_10_010721_exercises.html)
+ * [Lecture 14 - Sex, Evolution and Rock & Roll](https://january3.github.io/Bioinformatics/Lectures/lecture_14_070721/weiner_BE_22_lecture_070721.html)
+
 
 
