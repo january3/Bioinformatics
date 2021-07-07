@@ -601,6 +601,8 @@ thickness corresponds to number of samples with that haplotype
 
 ---
 
+## ...
+
 Step 3: Compute EHH, extended haplotype homozygosity (measures transmission
 of the "long"/extended haplotype without breaking up)
 
@@ -610,7 +612,7 @@ Step 4: Find sites with high frequency and high EHH
 
 ---
 
-Results:
+# Results:
 
  * West Africa: LARGE and DMD, polymorphisms associated with the Lassa
    virus
