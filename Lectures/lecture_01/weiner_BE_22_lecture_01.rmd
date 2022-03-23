@@ -14,6 +14,8 @@ output:
       ratio: "16:9"
       beforeInit: "files/macros.js"
 toc: no
+bibliography: bibliography.bib
+nocite: '@*'
 ---
 
 ```{r,echo=FALSE}
@@ -489,7 +491,9 @@ Scientist is a person who reads *and writes* scientific papers.
    results while they are discussed
  * If you want to *cite* a paper, you *must* read it in whole
 
---
+---
+
+## Important ('s why I use CAPSLOCK)
 
  * **DON'T TAKE THE AUTHORS BY THEIR WORD!** Try to find their errors /
    mistakes / omissions, ask "what if", or even "they must be joking"
@@ -777,5 +781,23 @@ RCT:
  - Fisher published his book in 1935
  - Ethics: streptomycin was scarce anyway
 
+[@nieuwenhuis2011erroneous]
 
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(RefManageR)
+BibOptions(check.entries = FALSE, bib.style = "authoryear", style = "markdown",
+           dashed = TRUE)
+file.name <- "bibliography.bib"
+bib <- ReadBib(file.name)
+```
+
+# References
+
+```{r, results='asis', echo=FALSE}
+NoCite(bib, '*')
+PrintBibliography(bib)
+```
 
