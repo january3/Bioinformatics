@@ -1,6 +1,6 @@
 ---
 title: "Lecture 1: What is bioinformatics?"
-subtitle: "BE_22 Bioinformatics SS 21"
+subtitle: "BE_22 Bioinformatics SS 22"
 author: "January Weiner"
 date: "`r Sys.Date()`"
 output:
