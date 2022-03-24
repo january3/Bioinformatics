@@ -25,6 +25,113 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
 library(tidyverse)
 ```
 
+---
+
+
+## Sequence alignments ✪
+
+Examples of alingments of sequences `ACTTGA` and `ACCTGGA`
+
+```
+ACTTG-A    ACTT-GA     AC-TTG-A    ---ACTTGA    ACTTGA-------
+|| || |    || | ||     || | | |         | ||
+ACCTGGA    ACCTGGA     ACCT-GGA    ACC--TGGA    ------ACCTGGA
+```
+
+This is not a correct alignment (but may make sense in a different context):
+
+```
+ACTTG--A
+|| ||  |
+ACCTG-GA
+```
+
+---
+
+## Do not confuse alignments with complementary sequences
+
+.pull-left[
+Alignment:
+
+```
+5'-ACTTG-A-3'
+   || || |
+5'-ACCTGGA-3'
+```
+]
+
+.pull-right[
+Complementary sequence:
+
+```
+5'-ACTTGGA-3'
+   |||||||
+3'-TGAACCT-5'
+```
+]
+
+---
+
+## Dot plots ✪
+
+```
+                         
+
+        A C G G T A      
+      A *         *      
+      C   *              
+      G     * *          
+      T         *        
+      A *         *      
+                         
+                         
+                         
+                         
+                                                         
+```
+
+
+---
+
+## Dot plots
+
+```
+                         Duplication        
+
+        A C G G T A        A C G G T A      
+      A *         *      A *         *      
+      C   *              C   *              
+      G     * *          G     * *          
+      T         *        T         *        
+      A *         *      A *         *      
+                         C   *                            
+                         G     * *                        
+                         T         *                      
+                         A *         *                    
+                                                         
+```
+
+
+---
+
+## Dot plots
+
+```
+                         Duplication        Insertion / Deletion
+
+        A C G G T A        A C G G T A        A C G G G G G G T A 
+      A *         *      A *         *      A *                 * 
+      C   *              C   *              C   *                 
+      G     * *          G     * *          G     * * * * * *     
+      T         *        T         *        T                 *   
+      A *         *      A *         *      A *                 * 
+                         C   *                            
+                         G     * *                        
+                         T         *                      
+                         A *         *                    
+                                                         
+```
+
 
 ---
 
