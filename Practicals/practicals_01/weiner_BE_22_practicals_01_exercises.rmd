@@ -33,6 +33,7 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
 # Alignments and dot plots
 
 What is an alignment? How does it differ from a complementary sequence?
+What is a local alignment? What is a global alignment?
 
 ## Resources
 

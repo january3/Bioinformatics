@@ -661,7 +661,7 @@ of significance." Nature neuroscience 14.9 (2011): 1105-1107.*]
 Groups G1 and G2 were randomly drawn from the same population. They were
 not different at all!
 
-![](images/fig2-1.jpeg)
+![:scale 80%](images/fig2-1.jpeg)
 
 
 
