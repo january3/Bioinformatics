@@ -4,9 +4,9 @@
     <title>Lecture 2: Sequence alignments and sequence search</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2022-03-30" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <meta name="date" content="2022-03-31" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
     <link rel="stylesheet" href="files/style.css" type="text/css" />
   </head>
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # Lecture 2: Sequence alignments and sequence search
 ## BE_22 Bioinformatics SS 21
 ### January Weiner
-### 2022-03-30
+### 2022-03-31
 
 ---
 
@@ -26,9 +26,6 @@ class: center, middle, inverse, title-slide
 
 
 
----
-class:empty-slide,myinverse
-background-image:url(images/joaquin_phoenix.jpg)
 
 ---
 
@@ -47,12 +44,11 @@ background-image:url(images/joaquin_phoenix.jpg)
    results while they are discussed
  * If you want to *cite* a paper, you *must* read it in whole
 
+---
+
  * **DON'T TAKE THE AUTHORS BY THEIR WORD!** Try to find their errors /
    mistakes / omissions, ask "what if", or even "they must be joking"
  * **BE CAREFUL OF PRE-PRINTS, HERE BE DRAGONS**
-
-
-![](images/watsoncrick.png)
 
 ???
 
@@ -244,6 +240,32 @@ Complementary sequence:
 3'-TGAACCT-5'
 ```
 ]
+
+
+---
+
+## Number of possible alignments
+
+.pull-left[
+The number of possible alignments is staggering! For two sequences of
+length `\(n\)` and `\(m\)`, respectively, the number of possible alignments is
+
+
+`$$A(n, m) = \frac{(n + m)!}{m!k!} \approx \frac{2^{2n}}{\sqrt{2 \cdot \pi \cdot n}}$$`
+]
+
+.pull-right[
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+]
+
+
+
+
+
+.footnote[*Eddy, Sean R. "What is dynamic programming?." Nature
+biotechnology 22.7 (2004): 909-910.*]
 
 ---
 
@@ -478,26 +500,6 @@ so many single nucleotide matches
 ## Alignments as paths in the matrix
 
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-
-
-
-
----
-
-## Alignments as paths in the matrix
-
-
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
-
-
-
-
----
-
-## Alignments as paths in the matrix
-
-
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 
@@ -600,11 +602,31 @@ so many single nucleotide matches
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
 ---
 
 ## Step 1: create a score matrix
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -634,24 +656,6 @@ C|   |   |   | ...               A - ....
 ## Step 2: calculate edit operations
 
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
-
-
-
-
----
-## Step 2: calculate edit operations
-
-
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
-
-
-
-
----
-## Step 2: calculate edit operations
-
-
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 
@@ -663,9 +667,7 @@ C|   |   |   | ...               A - ....
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 
----
 
-## Step 2: calculate edit operations
 
 
 ---
@@ -683,7 +685,9 @@ C|   |   |   | ...               A - ....
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
+---
 
+## Step 2: calculate edit operations
 
 
 ---
@@ -701,9 +705,7 @@ C|   |   |   | ...               A - ....
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
----
 
-## Step 2: calculate edit operations
 
 
 ---
@@ -721,7 +723,9 @@ C|   |   |   | ...               A - ....
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
+---
 
+## Step 2: calculate edit operations
 
 
 ---
@@ -740,11 +744,29 @@ C|   |   |   | ...               A - ....
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 
 
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+
+
 ---
 
 ## Step 2: calculate edit operations
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -752,7 +774,7 @@ C|   |   |   | ...               A - ....
 
 .pull-left[
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -808,24 +830,6 @@ for each row of score[]
     score[ row, column ]     &lt;- max(top, left, topleft) or 0
     direction[ row, column ] &lt;- which max(top, left, topleft) or 0
 ```
-
-
----
-## Step 2: calculate edit operations
-
-
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
-
-
-
-
----
-## Step 2: calculate edit operations
-
-
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
-
-
 
 
 ---
@@ -943,6 +947,24 @@ for each row of score[]
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
+
+
 ---
 
 ## Step 3: get the alignment
@@ -956,15 +978,7 @@ for each row of score[]
 ## Step 3: get the alignment
 
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
-
----
-
-## Step 3: get the alignment
-
-
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
-
 
 ---
 
@@ -974,23 +988,13 @@ for each row of score[]
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 
-
-
-
 ---
+
 ## Step 3: get the alignment
 
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
-
-
-
----
-## Step 3: get the alignment
-
-
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
 
 
 
@@ -1018,6 +1022,24 @@ for each row of score[]
 
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -1165,6 +1187,17 @@ BLAST – Basic Local Alignment Search Tool
   `\(E = m\cdot n\cdot 2^{-S'}\)`
 
   where `\(S'\)` is a normalized score and `\(m\)` and `\(n\)` are sequence lengths.
+
+
+---
+
+
+
+# References
+
+&lt;a name=bib-eddy2004dynamic&gt;&lt;/a&gt;[Eddy, S. R.](#cite-eddy2004dynamic)
+(2004NA). "What is dynamic programming?" In: _Nature biotechnology_
+22.7, pp. 909-910.
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

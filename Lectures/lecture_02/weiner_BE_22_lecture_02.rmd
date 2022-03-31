@@ -240,6 +240,37 @@ Complementary sequence:
 ```
 ]
 
+
+---
+
+## Number of possible alignments
+
+.pull-left[
+The number of possible alignments is staggering! For two sequences of
+length $n$ and $m$, respectively, the number of possible alignments is
+
+
+$$A(n, m) = \frac{(n + m)!}{m!k!} \approx \frac{2^{2n}}{\sqrt{2 \cdot \pi \cdot n}}$$
+]
+
+.pull-right[
+
+```{r}
+x <- 1:11
+y <- factorial(2*x)/(factorial(x) * 2)
+plot(x, y, log="y", xlab="Length of one sequence", ylab="Number of alignments", bty="n")
+
+```
+
+]
+
+
+
+
+
+.footnote[*Eddy, Sean R. "What is dynamic programming?." Nature
+biotechnology 22.7 (2004): 909-910.*]
+
 ---
 
 ## Dot plots ✪
@@ -876,4 +907,23 @@ BLAST – Basic Local Alignment Search Tool
   $E = m\cdot n\cdot 2^{-S'}$
 
   where $S'$ is a normalized score and $m$ and $n$ are sequence lengths.
+
+
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(RefManageR)
+BibOptions(check.entries = FALSE, bib.style = "authoryear", style = "markdown",
+           dashed = TRUE)
+file.name <- "bibliography.bib"
+bib <- ReadBib(file.name)
+```
+
+# References
+
+```{r, results='asis', echo=FALSE}
+NoCite(bib, '*')
+PrintBibliography(bib)
+```
 
