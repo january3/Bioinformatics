@@ -908,6 +908,18 @@ BLAST – Basic Local Alignment Search Tool
 
   where $S'$ is a normalized score and $m$ and $n$ are sequence lengths.
 
+---
+
+## Guide to interpret E values:
+
+For protein sequences of moderate length:
+
+ * $E < 10^{-100}$ Practically identical
+ * $10^{-100} < E < 10^{-50}$ Almost identical
+ * $10^{-50} < E < 10^{-10}$ Closely related 
+ * $10^{-10} < E < 1$ Unclear
+ * $E > 1$ Likely nothing
+ * $E > 10$ Nothing
 
 ---
 

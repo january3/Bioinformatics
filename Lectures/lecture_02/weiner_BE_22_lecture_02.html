@@ -612,7 +612,7 @@ so many single nucleotide matches
 
 ![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
-![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
 
 
 ---
@@ -1188,6 +1188,18 @@ BLAST – Basic Local Alignment Search Tool
 
   where `\(S'\)` is a normalized score and `\(m\)` and `\(n\)` are sequence lengths.
 
+---
+
+## Guide to interpret E values:
+
+For protein sequences of moderate length:
+
+ * `\(E &lt; 10^{-100}\)` Practically identical
+ * `\(10^{-100} &lt; E &lt; 10^{-50}\)` Almost identical
+ * `\(10^{-50} &lt; E &lt; 10^{-10}\)` Closely related 
+ * `\(10^{-10} &lt; E &lt; 1\)` Unclear
+ * `\(E &gt; 1\)` Likely nothing
+ * `\(E &gt; 10\)` Nothing
 
 ---
 
@@ -1195,9 +1207,11 @@ BLAST – Basic Local Alignment Search Tool
 
 # References
 
-&lt;a name=bib-eddy2004dynamic&gt;&lt;/a&gt;[Eddy, S. R.](#cite-eddy2004dynamic)
-(2004NA). "What is dynamic programming?" In: _Nature biotechnology_
-22.7, pp. 909-910.
+&lt;a name=bib-altschul1990basic&gt;&lt;/a&gt;[Altschul, S. F., W. Gish, W. Miller, et al.](#cite-altschul1990basic) (1990). "Basic local alignment search tool".
+In: _Journal of molecular biology_ 215.3, pp. 403-410.
+
+&lt;a name=bib-eddy2004dynamic&gt;&lt;/a&gt;[Eddy, S. R.](#cite-eddy2004dynamic) (2004). "What is dynamic programming?" In: _Nature biotechnology_ 22.7, pp.
+909-910.
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

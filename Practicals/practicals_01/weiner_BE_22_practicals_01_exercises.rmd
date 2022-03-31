@@ -171,11 +171,11 @@ You will create global alignments with the NW algorithm (program "needle")
 and the local alignments with the Smith-Waterman algorithm (program
 "water").
 
- 1. Create global and local alignments between sequences 1 and 2 as well as
+ 1. Create global and local alignments between the above sequences 1 and 2 as well as
     3 and 4.
  
  2. The following are the protein sequences corresponding to sequences 1
-    and 2. Run the alignments.
+    and 2. Run the alignments. Any thoughts?
 
 ```
 >sequence1_prot
