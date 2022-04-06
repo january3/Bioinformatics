@@ -1477,7 +1477,7 @@ Abort!
 
 Score: `(0.83 + 0.37 + 0.75 + 1.70)/4 = 0.91 < 1.0`
 
-(threshold for beta helices: 1.0)
+(threshold for extended strands: 1.0)
 
 ---
 
