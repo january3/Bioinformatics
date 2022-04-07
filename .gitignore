@@ -4,3 +4,5 @@
 .Ruserdata
 *.zip
 *_cache
+*.swp
+*_files
