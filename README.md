@@ -37,4 +37,6 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 14 - Sex, Evolution and Rock & Roll](https://january3.github.io/Bioinformatics/Lectures/lecture_14_070721/weiner_BE_22_lecture_070721.html)
 
 
+# Additional resources
 
+ * [Editing files](https://github.com/january3/Bioinformatics/blob/main/Resources/Editing_files/editing_text_files.pdf) – this guide tells you more about how to edit text files (not only in bioinformatics!)
