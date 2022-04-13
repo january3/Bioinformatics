@@ -4,7 +4,7 @@
     <title>Lecture 4: Multiple alignments, motifs and logos</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2022-04-07" />
+    <meta name="date" content="2022-04-13" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # Lecture 4: Multiple alignments, motifs and logos
 ## BE_22 Bioinformatics SS 21
 ### January Weiner
-### 2022-04-07
+### 2022-04-13
 
 ---
 
@@ -337,8 +337,8 @@ BATF::JUN heterodimer
 
 .pull-left[
 
- * Kozak sequence in eukaryotes (detected by scanning throught the PIC,
-   pre-initiation complex.
+ * Kozak sequence in eukaryotes (detected by scanning by the PIC,
+   pre-initiation complex, which contains S40).
 
  ![:scale 90%](images/kozak_logo.png)
  ]
@@ -346,6 +346,20 @@ BATF::JUN heterodimer
 .pull-right[
  ![:scale 50%](images/marylin_kozak.png)
  ]
+
+???
+
+Lynn Dalgarno (top middle)
+
+John Shine (top left)
+
+---
+
+ * Bacteria: Shine Dalgarno seqence or leaderless transcripts (which start
+   with ATG)
+ * Archaea: Shine Dalgarno, Kozak, leaderless transcripts
+ * Eukaryota: Kozak sequence
+
 
 ---
 
@@ -491,6 +505,27 @@ three matrices together).
 ---
 class:empty-slide,myinverse
 background-image:url(images/cute_puppy.jpg)
+
+---
+
+# Position specific iterated BLAST (PSI-BLAST)
+
+ * Find a bunch of hits with regular BLAST
+ * run a multiple sequence alignments on selected hits
+ * create a PSSM
+ * get better hits
+ * rinse and repeat
+
+---
+
+![](images/psiblast.png)
+
+
+---
+
+# Hidden Markov Models
+
+![](images/A_profile_HMM_modelling_a_multiple_sequence_alignment.png)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

@@ -356,8 +356,8 @@ BATF::JUN heterodimer
 
 .pull-left[
 
- * Kozak sequence in eukaryotes (detected by scanning throught the PIC,
-   pre-initiation complex.
+ * Kozak sequence in eukaryotes (detected by scanning by the PIC,
+   pre-initiation complex, which contains S40).
 
  ![:scale 90%](images/kozak_logo.png)
  ]
@@ -365,6 +365,20 @@ BATF::JUN heterodimer
 .pull-right[
  ![:scale 50%](images/marylin_kozak.png)
  ]
+
+???
+
+Lynn Dalgarno (top middle)
+
+John Shine (top left)
+
+---
+
+ * Bacteria: Shine Dalgarno seqence or leaderless transcripts (which start
+   with ATG)
+ * Archaea: Shine Dalgarno, Kozak, leaderless transcripts
+ * Eukaryota: Kozak sequence
+
 
 ---
 
@@ -510,4 +524,25 @@ three matrices together).
 ---
 class:empty-slide,myinverse
 background-image:url(images/cute_puppy.jpg)
+
+---
+
+# Position specific iterated BLAST (PSI-BLAST)
+
+ * Find a bunch of hits with regular BLAST
+ * run a multiple sequence alignments on selected hits
+ * create a PSSM
+ * get better hits
+ * rinse and repeat
+
+---
+
+![](images/psiblast.png)
+
+
+---
+
+# Hidden Markov Models
+
+![](images/A_profile_HMM_modelling_a_multiple_sequence_alignment.png)
 
