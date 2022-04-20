@@ -13,7 +13,7 @@ You can click on the links below to directly view the HTML presentations.
     * Practicals: [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_01/weiner_BE_22_practicals_01_exercises.html)
  * [Lecture 2 - Sequence searches and alignments](https://january3.github.io/Bioinformatics/Lectures/lecture_02/weiner_BE_22_lecture_02.html)
  * [Lecture 3 - Protein sequences and structures](https://january3.github.io/Bioinformatics/Lectures/lecture_03/weiner_BE_22_lecture_03.html)
- * [Lecture 4 - Motifs, logos and multiple alignments](https://january3.github.io/Bioinformatics/Lectures/lecture_04_210421/weiner_BE_22_lecture_21042021.html)
+ * [Lecture 4 - Motifs, logos and multiple alignments](https://january3.github.io/Bioinformatics/Lectures/lecture_04/weiner_BE_22_lecture_04.html)
     * Practicals: [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_02/weiner_BE_22_practicals_02_exercises.html)
  * [Lecture 5 - Structures](https://january3.github.io/Bioinformatics/Lectures/lecture_05/weiner_BE_22_lecture_05.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_03_290421/weiner_BE_22_practicals_03_290421_exercises.html) 
