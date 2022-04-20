@@ -298,6 +298,47 @@ $i$.
 
 ---
 
+## Distance and score
+
+ * Score is calculated by the "sum of all pairs" approach
+ * Using an appropriate function, we can always convert a score into a
+   distance
+
+For example, the original clustalw algorithm used the following distance
+function:
+
+$$D_{i,j} \stackrel{def}{=} 1 - P_{i,j}$$
+
+Where $P_{i,j}$ is the percentage identity between sequences $i$ and $j$.
+The reason for using this simple function was its speed.
+
+---
+
+## Distance and score
+
+Feng and Doolittle method (1996):
+
+ * Calculate the pairwise score between two matrices using an approppriate matrix $S_{real}$
+ * Determine "background" scoring of randomly shuffled sequences (average
+   between several sequences, $S_{rand}$
+ * Determine the "maximum possible" score by aligning first and second
+   sequences to itself and determining the average, $S_{iden} = \frac{S_{1,1} + S_{2,2}}{2}$
+
+Then calculuate the normalized score:
+
+$$S = \frac{S_{real} - S_{rand}}{S_{iden} - S_{rand}} \times 100$$
+
+And the distance
+
+$D = -\log{S}$
+
+.footnote[Feng, Da-Fei, and Russell F. Doolittle. "[21] Progressive
+alignment of amino acid sequences and construction of phylogenetic trees
+from them." Methods in enzymology. Vol. 266. Academic Press, 1996.
+368-382.]
+
+---
+
 ## ClustalW algorithm
 
 ![:scale 80%](images/clustal_algo_0.png)

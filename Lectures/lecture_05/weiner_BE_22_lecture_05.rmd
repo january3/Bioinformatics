@@ -484,8 +484,58 @@ Zanamivir – influenza treatment; neuraminidase inhibitor
 
 ![](images/zanamivir.png)
 
-(*Von Itzstein, Mark, et al. "Rational design of potent sialidase-based
+(*Von Itzstein, Mark, et al.* "Rational design of potent sialidase-based
 inhibitors of influenza virus replication." Nature 363.6428 (1993):
 418-423.)
+
+
+
+---
+
+## AlphaFold
+
+ * Based on the Alphabet ("Google") DeepMind team
+ * outclassed all competition in the CASP13 (2018) and CASP14 (2020)
+   competitions
+ * open source
+ * game changer
+
+---
+
+## How does it work?
+
+![](images/alphafold2.png)
+
+
+---
+
+ * Find homologous proteins from other organisms and create an MSA
+ * In parallel, look for similar structures and create a "pairwise"
+   amino-acid contact matrix (how likely each amino acid is to interact
+   with another amino acid) ("template")
+ * this two parts of information are passed to so called *transformers*
+   (which interact, so the information is exchanged between these two).
+   This creates a better representation of MSA and the 
+
+But that is just the start.
+
+---
+
+## Evoformer
+
+ * The key idea is that MSA and the template are not only *inputs*, but
+   also *outputs* of the neuronal network. That is, the information from
+   the template allows to construct a better MSA, and a better MSA allows
+   achieving a better template.
+ * This is so-called "transformer" architecture. Being no specialist in
+   deep learning, I cannot tell you much about that. Please read
+   [this](https://www.blopig.com/blog/2021/07/alphafold-2-is-here-whats-behind-the-structure-prediction-miracle/)
+   if you are interested.
+ * In fact, none of the ideas behind AlphaFold 2 are revolutionary: this
+   has been cooking (and used by other algorithms as well) for several
+   years. However, AlphaFold 2 is still superior to all the other solutions
+   – potentially because it is better made.
+
+
 
 
