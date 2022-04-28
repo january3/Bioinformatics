@@ -24,6 +24,20 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
 ```{r libraries,cache=FALSE}
 ```
 
+## Questionnaire
+
+Please fill out the following questionnaire:
+
+[https://forms.gle/XDVMAZhQ9qPKBmYQ8](https://forms.gle/XDVMAZhQ9qPKBmYQ8)
+
+
+```{r}
+plot(qr_code("https://forms.gle/XDVMAZhQ9qPKBmYQ8"))
+```
+
+
+
+
 
 ## Introduction
 
