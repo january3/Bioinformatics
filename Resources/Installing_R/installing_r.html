@@ -1,0 +1,21 @@
+<p>There are two options for you:</p>
+<ol type="1">
+<li><p>Use R from Rstudio. This is the way I will be using it during lectures / practicals, because I am more familiar with it.</p></li>
+<li><p>Use R from Jupyter Notebook. That way is recommended by the university.</p></li>
+</ol>
+<p>Installation instructions:</p>
+<h1 id="installing-r-with-rstudio">Installing R with Rstudio</h1>
+<p>There are two parts to that. First you need to install R, and <em>then</em> you need to install Rstudio. Please choose a recent version of R (&gt; 4.0).</p>
+<p>Here are the links which will guide you through the installation process:</p>
+<ul>
+<li><a href="https://medium.com/@GalarnykMichael/install-r-and-rstudio-on-mac-e911606ce4f4">Installing R/Rstudio on MacOS</a> (however, please install a more recent version of R)</li>
+<li><a href="https://techdecodetutorials.com/data-science/how-to-download-r-and-install-rstudio-on-windows-10/">Installing R/Rstudio on Windows 10</a></li>
+<li>Install R on Ubuntu / Linux: should be straightforward, just go to the software app and search for rstudio; this will install R automatically as well.</li>
+<li><a href="https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu">Here is another link</a> for the three OS</li>
+</ul>
+<h1 id="installing-r-for-use-with-jupyter-notebook">Installing R for use with Jupyter Notebook</h1>
+<p>This assumes that you have Jupyter Notebook already installed. What you now need is a so-called “kernel” – the part that actually runs R.</p>
+<p>First, install R on your system (refer to the tutorials above on how to do it).</p>
+<p>Then, open R and at its command line type the following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;IRkernel&quot;</span>)</span></code></pre></div>
+<p>More detailed instructions can be found <a href="https://richpauloo.github.io/2018-05-16-Installing-the-R-kernel-in-Jupyter-Lab/">here</a> and <a href="https://developers.refinitiv.com/en/article-catalog/article/setup-jupyter-notebook-r">here</a>.</p>
