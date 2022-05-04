@@ -70,7 +70,7 @@ do on the screen rather then be left to do the exercises.
 
 ---
 
-## Exercise
+## Exercise 
 
   * Start R studio $\rightarrow$ File $\rightarrow$ New project
     $\rightarrow$ New directory $\rightarrow$ New project and create a new
