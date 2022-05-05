@@ -4,8 +4,8 @@
     <title>Practicals 04: Working with R</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2021-05-20" />
-    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <meta name="date" content="2022-05-05" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
     <link rel="stylesheet" href="files/style.css" type="text/css" />
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # Practicals 04: Working with R
 ## BE_22 Bioinformatics SS 21
 ### January Weiner
-### 2021-05-20
+### 2022-05-05
 
 ---
 
@@ -26,22 +26,132 @@ class: center, middle, inverse, title-slide
 
 
 
-## Working with Rmarkdown (cont.)
+## What to do if you are bored, or: the alternative project.
+
+Here is an ambitious project. Create an evolutionary simulator as follows.
+There are 15 individuals of a race called "Smock". These individuals sit
+next to each other in one row. Each individual has (initially) an arm of
+length 2. Each smock starts with 100 hit points. Each turn all smocks loose
+some hit points (the amount they loose depends on the parameter which can
+be set up).
+
+A fly comes flying at a random spot. It flies horizontally above all
+individuals at height of 4, and the individuals try to catch it. However,
+as initially all individuals start with an arm of length 2, they can't. The
+fly then lowers its flight. Sooner or later one of the individuals catches
+the fly.
+
 
 ---
 
-## Working with markdown
+## What to do if you are bored, or: the alternative project (2)
+
+When a smock catches a fly it (1) restores its hit points and (2) can
+reproduce. The reproduction is not without errors: the offspring can
+mutate. The mutation means it has a shorter or longer arm then the parent.
+
+The offspring replaces the individual with the lowest hit points (or a
+random if there are several with the same lowest hit point).
+
+---
+
+## What to do if you are bored, or: the alternative project (3)
+
+The project requires you to submit *both* a program *and* a report. The
+report must be written in markdown or Rmarkdown or Jupyter Notebook. It
+must describe your algorithm, your solution and, in the results part, show
+how evolution depends on the mutation rate and selective pressure.
+
+---
+
+## R language basics (demo)
+
+ Assignment and variables: `a &lt;- 2` or `myBigVar &lt;- "test"`
+
+ Note: there are no "singletons" (single values), everything is a vector
+ (but often of length one)
+
+ .footnote[Assignment assigns a value (vector or another data type) to a
+ "label"; just like in maths. This "label" is called a *variable*]
+
+---
+
+## R data structures
+
+The basic data structure in R is a *vector*. It is just a number of variables of
+the same type.
+
+Types of vector variables:
+
+ * integer (..., -1, 0, 1, 2, ...)
+ * numeric (floating point a.k.a. double)
+ * character (string)
+
+There are other basic data structures (list, data frame) and many, many
+specialized *classes*. We will figure them out when we come across them.
+
+---
+
+## R operators
+
+ * operators: 
+   * `3 + 5` 
+   * `a * 7` 
+   * `5 / /` 
+   * `5 %% 7` 
+   * `5 %/% 7` 
+   * `5^7`
+   * operators often are "vectorized", that is they work with vectors:
+      * `c(1, 5, 7) * 8`
+
+---
+
+## R functions
+
+R functions work very much like mathematical functions. They take certain
+arguments and return a value.
+
+ * functions: `sum(c(1, 2, 3))`
+   * basically everything is a function, even the operators
+
+.footnote[In many other programming languages it is common to have so
+called *side effects*, that is, a function modifies something in the
+environment. This can be done in R, but you should not do it. R is a
+functional language!]
+
+---
+
+## Exercises
+
+ * create variables: a string, a number using the `&lt;-` operator
+   * how to create the variables?
+   * how to view the variables?
+ * what does `1:5` do?
+ * what happens when you add a number to a vector? (i.e. `c(3, 1, 4) + 5`)
+ * what happens when you multiply a vector with a number?
+ * what happens when you add two vectors?
+
+ * What does the `length()` function do?
+
+---
+
+
+## Exercise: Working with markdown
 
  1. Try out the following: creating **bold** (`**bold**`), *italics*
-    (`*italics*`)
- 2. Make a footnote:
+    (`*italics*`), monospace font (`\`function\``)
+
+ 2. Make a footnote (not in Jupyter):
 
             Text with a footnote^[This is the footnote.].
-
- 3. Download an image to your working directory. Insert it into the
+ 
+ 3. Download an image to your working directory (not in Jupyter!). Insert it into the
     rmarkdown document:
 
           ![Image caption](image_file_name.jpg)
+
+
+ 3. For Jupyter: simply drag &amp; drop an image into a cell.
 
  4. Create a bullet point and numbered list. What happens if you use
      different numbers or change the order of the numbers? 
@@ -49,6 +159,11 @@ class: center, middle, inverse, title-slide
  5. Create a link to Google scholar with
 
            [Google scholar](https://scholar.google.com)
+
+## Exercise: Lists 
+
+ * Create some lists:
+ 
 
 ```
  * one
@@ -97,7 +212,7 @@ Before you start doing *anything*, take a look at the iris data set (if you
 don't see it, run `data(iris)`). That is, run a few descriptive analyses.
 
 **Note:** Store *every* analysis in Rmarkdown, that is the point of the
-exercise.
+exercise. Add your comments!
 
  1. Use the function `summary()` on the iris data set.
 
@@ -125,7 +240,7 @@ pca &lt;- prcomp(iris[,1:4], scale.=TRUE)
 ## Analysis of the iris data set (simple stats)
 
  1. The pca object is a list. What elements does it contain? How can you
-    check that?
+    check that? (try the `names` function)
  2. The element `x` (`pca$x`) contains the principal components. How many
     principal components are there? (why?)
  3. Try using the basic plot function `plot(x, y)` to plot first two
@@ -155,7 +270,7 @@ ggplot(df, aes(x=PC1, y=PC2, color=Species)) +
 
 .pull-right[
 
-![](weiner_BE_22_practicals_05_200521_exercises_files/figure-html/pcaplot-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_practicals_05_files/figure-html/pcaplot-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -172,7 +287,7 @@ ggplot(df, aes(x=PC1, y=PC2, color=Species)) +
   geom_point() + ggthemes::theme_tufte()
 ```
 
-![](weiner_BE_22_practicals_05_200521_exercises_files/figure-html/pcaplot2-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_practicals_05_files/figure-html/pcaplot2-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -186,7 +301,7 @@ ggplot(df, aes(x=PC1, y=PC2, color=Species)) +
   geom_point() + ggthemes::theme_economist_white()
 ```
 
-![](weiner_BE_22_practicals_05_200521_exercises_files/figure-html/pcaplot3-1.png)&lt;!-- --&gt;
+![](weiner_BE_22_practicals_05_files/figure-html/pcaplot3-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -225,7 +340,7 @@ t.test(ver_sw, vir_sw)
 
 ## t.test object
 
- 1. Save the output of t.test to a variable.
+ 1. Save the output of t.test to a variable. (use the assignment operator)
 
  2. Examine this variable. Is that a list? What elements does it have?
     Which elements correspond to the output?
