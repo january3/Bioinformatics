@@ -431,8 +431,10 @@ two ways of dealing with bibliography:
 
 ## Adding bibliography (in Jupyter)
 
- This seems not to be very straightforward. If you do not to make manual
- references, please start with reading [this answer](https://stackoverflow.com/questions/30061902/how-to-handle-citations-in-ipython-notebook) from StackOverflow.
+This seems not to be very straightforward. If you do not to make manual
+references, please start with reading 
+[this documentation](https://nbviewer.org/github/ipython/nbconvert-examples/blob/master/citations/Tutorial.ipynb)
+and [this answer](https://stackoverflow.com/questions/30061902/how-to-handle-citations-in-ipython-notebook) from StackOverflow.
 
 ---
 
