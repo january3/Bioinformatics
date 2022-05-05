@@ -149,7 +149,9 @@ functional language!]
           ![Image caption](image_file_name.jpg)
 
 
- 3. For Jupyter: simply drag & drop an image into a cell.
+ 3. For Jupyter: simply drag & drop an image into a cell. (or use the HTML
+    syntax, but the file must be in the same folder as the jupyter notebook
+    file or in a subdirectory)
 
  4. Create a bullet point and numbered list. What happens if you use
      different numbers or change the order of the numbers? 
@@ -424,6 +426,14 @@ two ways of dealing with bibliography:
     line `csl: nature.csl` (or whatever the file is called). Knit and look
     at the output.
 
+
+---
+
+## Adding bibliography (in Jupyter)
+
+ This seems not to be very straightforward. If you do not to make manual
+ references, please start with reading [this answer](https://stackoverflow.com/questions/30061902/how-to-handle-citations-in-ipython-notebook) from StackOverflow.
+
 ---
 
 ## Homework: Rmarkdown analysis of the iris data set
@@ -434,5 +444,10 @@ two ways of dealing with bibliography:
  * Make sure the Rmd file can be knitted.
  * Submit the Rmd file (only the Rmd file) as your homework.
 
+Alternatively, use Jupyter Notebook:
 
+ * Create a new Jupyter Notebook
+ * As above: repeat the steps from the practicals
+ * Add short comments for each step, indicating what the step is doing.
+ * Submit your ipynb file as your homework.
 
