@@ -270,7 +270,7 @@ ggplot(df, aes(x=PC1, y=PC2, color=Species)) +
 
 .pull-right[
 
-```{r pcaplot}
+```{r pcaplot,eval=TRUE,echo=FALSE}
 ```
 
 ]
