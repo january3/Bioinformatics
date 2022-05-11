@@ -710,3 +710,62 @@ criminal case." Proceedings of the National Academy of Sciences 99.22
 
 ![](images/upgma/cropped_img053.png)
 
+---
+
+# Neighbor joining
+
+.pull-left[
+
+ * very similar to UPGMA
+ 
+ * in each step:
+   * based on the scores, calculate the "Q matrix" which can be understood
+     as distance between two species *in relation* to their distances to
+     other species
+   * join the two species with the smallest Q value
+   * recalculate the distances
+
+]
+
+.pull-right[
+
+![:scale 70%](images/njoining.png)
+
+]
+
+---
+
+Calculation of the Q matrix:
+
+$$q_{i,j} \stackrel{def}{=} d_{i,j}\cdot (n-2) - \sum_{k = 1}^n d(i, k) - \sum_{k = 1}^n d(j, k)$$
+
+Where $d_{i,j}$ is the distance between nodes $i$ and $j$.
+
+---
+
+Recalculating the distances:
+
+
+When a new node is created (say, node $u$) from nodes $i$ and $j$, we need
+to calculate first the distances of $i$ and $j$ to this new node:
+
+$$d_{i,u} \stackrel{def}{=} \frac{d_{i,j}}{2} + \frac{\sum_{k=1}^n d_{i, k} - \sum_{k=1}^n d_{j, k}}{2\cdot n \cdot (n-2) }$$
+
+
+We also need the new distances from that node to the remaining nodes:
+
+$$d_{u, k} \stackrel{def}{=} \frac{(d_{i, k} - d_{i, u}) + (d_{j, k} - d_{j, u})}{2}$$
+
+
+---
+
+## A note on distances
+
+In this lecture, we do not go further into evolutionary modelling
+(maximum likelihood methods, bayesian methods etc), and also into how
+exactly distances are calculated.
+
+It is important to understand that the distances are calculated by assuming
+a certain model of evolution, including substitution rates.
+
+
