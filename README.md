@@ -22,7 +22,7 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 7 – Evolution and phylogenies](https://january3.github.io/Bioinformatics/Lectures/lecture_07/weiner_BE_22_lecture_07.html)
     * Practicals 5: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_05/weiner_BE_22_practicals_05.html)
  * [Lecture 8 – Omics](https://january3.github.io/Bioinformatics/Lectures/lecture_08/weiner_BE_22_lecture_08.html)
-    * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_06_270521/weiner_BE_22_practicals_06_270521_exercises.html)
+    * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_06/weiner_BE_22_practicals_06.html)
  * [Lecture 9 - Clustering](https://january3.github.io/Bioinformatics/Lectures/lecture_09_020621/weiner_BE_22_lecture_02062021.html)
  * [Lecture 10 - Differential gene expression](https://january3.github.io/Bioinformatics/Lectures/lecture_10_090621/weiner_BE_22_lecture_09062021.html)
     * [QC analysis output](https://january3.github.io/Bioinformatics/Lectures/lecture_10_090621/multiqc.all_samples.all_mates.qc_report.html)
