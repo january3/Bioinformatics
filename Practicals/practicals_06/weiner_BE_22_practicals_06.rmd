@@ -58,7 +58,7 @@ We will start with our beloved hemoglobin example.
 ```{r reading_msa}
 library(phangorn)
 library(seqinr)
-url <- "https://january3.github.io/Bioinformatics/Practicals/practicals_02_220421/data/hba.aln"
+url <- "https://january3.github.io/Bioinformatics/Practicals/practicals_02/data/hba.aln"
 msa <- read.alignment(url, format="clustal")
 ```
 
