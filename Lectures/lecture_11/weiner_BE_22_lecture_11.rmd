@@ -79,7 +79,7 @@ background-image:url(images/arnolfini.jpg)
 ```{r}
 covar <- readRDS("../../Datasets/covar.rds")
 cnts  <- readRDS("../../Datasets/counts.rds")
-annot <- readRDS("../../Datasets/annot.rds")
+annot <- readRDS("../../Datasets_not_mirrored/annot.rds")
 ```
 
 ```{r deseq2,cache=TRUE}
