@@ -36,6 +36,7 @@ practicals.
 
 ```{r, eval=FALSE}
 install.packages(c("phangorn", "seqinr", "BiocManager", "ape"))
+install.packages("BiocManager")
 BiocManager::install("msa")
 ```
 
@@ -46,7 +47,7 @@ the practicals is.
 
 It is possible, of course, to create multiple sequence alignments using R
 (e.g. with the `msa` package from Bioconductor). However, it is also
-possible to read in an MSA in the phangorn package.
+possible to read in an existing MSA in the phangorn package.
 Here, we will start with an amino acid alignment. 
 
 As you can see in the script that follows, you can supply an URL to R and
@@ -62,8 +63,13 @@ url <- "https://january3.github.io/Bioinformatics/Practicals/practicals_02/data/
 msa <- read.alignment(url, format="clustal")
 ```
 
+Take a look at the `msa` object. It is a list which contains a few
+elements. You can access them using the `$` operator, for example
+`msa$nam`. What is stored in these elements?
+
 The `msa` object has been created by the seqinr package and we need to
-modify it a bit before proceeding.
+modify it a bit before proceeding. We will use the `gsub` function to
+remove the prefix `HBA_` or `HBA2_` (and everything that comes before that).
 
 ```{r modify_msa}
 ## remove the boring identifiers from the sequence names,
@@ -144,11 +150,13 @@ write.tree(nj_tree)
 Look up the help for the function `plot.phylo` which is called when you
 plot a tree. What are the other types of trees? View them all.
 
+
 ---
 
-The tree on the left sucks: clearly, GADMO (Gadus morhua, atlantic cod) and
+The tree above sucks: clearly, GADMO (Gadus morhua, atlantic cod) and
 POGSC (Saddleback, also a fish) are the outgroup here. We need to *root* the tree
 correctly.
+
 
 ```{r root_nj}
 nj_tree <- root(nj_tree, outgroup=c("GADMO", "POGSC"))
@@ -188,7 +196,10 @@ The `boot` object contains now a 100 of different phylogenetic trees. We
 can plot some of them.
 
 ```{r plot_bs_trees,fig.width=15,fig.height=10}
+## the command below allows to put six plots 
+## in two rows and three columns on one figure
 par(mfrow=c(2,3))
+
 for(i in 1:6) {
   plot(boot[[i]])
 }
@@ -241,12 +252,25 @@ Note that `nj_tree_pml` is no longer an object of class `phylo`: pml added
 extra information to that tree. The actual tree is stored in
 `nj_tree_pml$tree`. Yeah, I know it is confusing. Welcome to R and bioinformatics!
 
+AIC, Akaike Information Criterion is a measure which can be used to
+optimize a model; it represents the compromise between the number of
+parameters and the goodness of fit:
+
+$$AIC \stackreal{def}{=} 2\cdot k - 2\cdot \log{L}$$
+
+Where $L$ is the log-likelihood function and k is the number of parameters.
+
+The lower AIC, the better.
+
+![](The-Akaike-Information-Criterion-determines-the-optimum-trade-off-between-model-error-and.png)
+
 However, this is still our boring NJ-generated tree. We can try to find a
 better one, using some heuristics which starts with an initial tree and
 then tries to improve it:
 
 ```{r ml_tree, fig.width=12}
-ml_tree <- optim.pml(nj_tree_pml, rearrangement="NNI")
+ml_tree <- optim.pml(nj_tree_pml, model="JTT", 
+                     rearrangement="NNI")
 ml_tree
 AIC(ml_tree)
 
@@ -266,7 +290,7 @@ sequences). For example, for amino acid sequences there are the models
 Blosum62, Jones-Taylor-Thornton (JTT), Dayhoff (of the PAM matrix fame),
 Whelan and Goldman (WAG).  Try all of them; which of them fits the data
 best? (the higher the log likelihood, the better; the lower the AIC, the
-better).
+better). You can find out what all the models are via `?optim.pml`.
 
  2. Plot all the trees you have created in the previous point (WAG, JTT,
     Dayhoff, Blosum62) and compare them to the NJ tree.
