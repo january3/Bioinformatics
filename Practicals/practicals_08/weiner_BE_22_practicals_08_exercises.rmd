@@ -138,6 +138,7 @@ First two steps are below:
 
 ```{r, cache=TRUE}
 library(DESeq2)
+rownames(covar) <- covar$label
 ds2 <- DESeqDataSetFromMatrix(countData=counts, 
                               colData=covar,
                               design= ~ group)
