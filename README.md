@@ -40,3 +40,13 @@ You can click on the links below to directly view the HTML presentations.
 # Additional resources
 
  * [Editing files](https://github.com/january3/Bioinformatics/blob/main/Resources/Editing_files/editing_text_files.pdf) – this guide tells you more about how to edit text files (not only in bioinformatics!)
+
+# Marking
+
+  The final mark consists of three parts:
+
+   * Exam (multiple choice), 20 questions each for 2 points: maximum 40 points
+   * Homeworks, 6 homeworks each rewarded with 5 points
+   * Report: maximum 30 points
+
+
