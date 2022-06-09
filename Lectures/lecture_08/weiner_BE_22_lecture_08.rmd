@@ -595,3 +595,17 @@ Library size = total number of reads in a sample
 ### Paired end vs single-end
 
 (draw)
+
+---
+
+## Some advice
+
+ * New technologies and new applications arise all the time
+ * New technology curve: first steeply up, then steeply down, then level out
+ * In 10 years, the landscape will be very different (high throughput cheap
+   single cell proteomics? spatial single cell transcriptomics?)
+ * Learn the meta-trade, not the trade, so you can adapt to new
+   technologies:
+   * Learn how to program
+   * Teach yourself to figure out how to use existing workflows
+   * Stick to the reproducibility principles
