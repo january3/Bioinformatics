@@ -240,12 +240,4 @@ out; eg. 88% of the households in West Germany had teabags, but only 61%
 households in Austria. Cluster the countries by the foods; how many
 clusters do you see? You are free to use whichever method is available. Submit the assignment as an Rmarkdown file. Alternatively, use your own data set – whatever you like (except for iris data set, obviously).
 
----
-
-## Differential gene expression analysis
-
-This part of the exercise which will be, at this point, mostly a
-demonstration.
-
-
 
