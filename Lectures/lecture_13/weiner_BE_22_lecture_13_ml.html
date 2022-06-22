@@ -31,38 +31,6 @@ class: center, middle, inverse, title-slide
 
 
 
-```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
-## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1
-```
-
-```
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter()     masks stats::filter()
-## ✖ dplyr::group_rows() masks kableExtra::group_rows()
-## ✖ dplyr::lag()        masks stats::lag()
-```
-
-```
-## Type 'citation("pROC")' for a citation.
-```
-
-```
-## 
-## Attaching package: 'pROC'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     cov, smooth, var
-```
 
 
 
@@ -114,6 +82,7 @@ The idea:
 
 
 ```r
+set.seed(12345)
 library(ggplot2)
 library(tidyverse)
 theme_set(theme_bw())
@@ -154,17 +123,18 @@ To discriminate, define a cutoff between the two groups.
 cutoff &lt;- 0.08
 
 ml_guess &lt;- ifelse(df$PC1 &lt; cutoff, 
-                   "versicolor", "virginica")
-table(ml_guess, df$Species)
+                   "virginica", "versicolor")
+tmp &lt;- table(ml_guess, df$Species)
+print(tmp)
 ```
 
 &lt;pre class="r-output"&gt;&lt;code&gt;##             
 ## ml_guess     versicolor virginica
-##   versicolor          9        41
-##   virginica          41         9
+##   versicolor         41         9
+##   virginica           9        41
 &lt;/code&gt;&lt;/pre&gt;
 
-Error rate `\(= (11+8)/100 = 19%\)`
+Error rate = `\((9 + 9)/100  = 18.0%\)`
 
 ]
 
@@ -185,6 +155,8 @@ Error rate `\(= (11+8)/100 = 19%\)`
  * We *test* the model with the *same* data set.
  * Testing efficiency on the data that was used to predict the model is
    *overfitting*
+
+
 
 ---
 
@@ -217,7 +189,8 @@ Results in training set:
 train_pred &lt;- ifelse(df_train$PC1 &gt; cutoff, 
                      "versicolor",
                      "virginica")
-table(train_pred, df_train$Species)
+tmp &lt;- table(train_pred, df_train$Species)
+print(tmp)
 ```
 
 &lt;pre class="r-output"&gt;&lt;code&gt;##             
@@ -226,7 +199,7 @@ table(train_pred, df_train$Species)
 ##   virginica           5        25
 &lt;/code&gt;&lt;/pre&gt;
 
-Error rate `\(= (7 + 5)/66 = 18%\)`
+Error rate = `\((7 + 5)/66  = 18.2%\)`
 ]
 
 ---
@@ -239,7 +212,8 @@ test_pred_df &lt;- data.frame(predict(model, iris[test, 1:4]))
 test_pred &lt;- ifelse(test_pred_df$PC1 &gt; cutoff, 
                      "versicolor",
                      "virginica")
-table(test_pred, iris[test, ]$Species)
+tmp &lt;- table(test_pred, iris[test, ]$Species)
+print(tmp)
 ```
 
 &lt;pre class="r-output"&gt;&lt;code&gt;##             
@@ -248,7 +222,7 @@ table(test_pred, iris[test, ]$Species)
 ##   virginica           3        13
 &lt;/code&gt;&lt;/pre&gt;
 
-Error rate `\(= 8/34 = 24%\)`
+Error rate = `\((5 + 3)/34  = 23.5%\)`
 
 ---
 

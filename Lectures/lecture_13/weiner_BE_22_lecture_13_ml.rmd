@@ -93,6 +93,7 @@ The idea:
 .pull-left[
 
 ```{r iris_pca,eval=FALSE}
+set.seed(12345)
 library(ggplot2)
 library(tidyverse)
 theme_set(theme_bw())
@@ -133,11 +134,12 @@ To discriminate, define a cutoff between the two groups.
 cutoff <- 0.08
 
 ml_guess <- ifelse(df$PC1 < cutoff, 
-                   "versicolor", "virginica")
-table(ml_guess, df$Species)
+                   "virginica", "versicolor")
+tmp <- table(ml_guess, df$Species)
+print(tmp)
 ```
 
-Error rate $= (11+8)/100 = 19%$
+Error rate = $(`r tmp[1,2]` + `r tmp[2,1]`)/`r sum(tmp)`  = `r sprintf("%.1f%%", 100 * (tmp[1,2] + tmp[2,1])/ sum(tmp))`$
 
 ]
 
@@ -161,6 +163,8 @@ ggplot(df, aes(x=PC1, y=PC2, color=Species)) +
  * We *test* the model with the *same* data set.
  * Testing efficiency on the data that was used to predict the model is
    *overfitting*
+
+
 
 ---
 
@@ -191,10 +195,11 @@ Results in training set:
 train_pred <- ifelse(df_train$PC1 > cutoff, 
                      "versicolor",
                      "virginica")
-table(train_pred, df_train$Species)
+tmp <- table(train_pred, df_train$Species)
+print(tmp)
 ```
 
-Error rate $= (7 + 5)/66 = 18%$
+Error rate = $(`r tmp[1,2]` + `r tmp[2,1]`)/`r sum(tmp)`  = `r sprintf("%.1f%%", 100 * (tmp[1,2] + tmp[2,1])/ sum(tmp))`$
 ]
 
 ---
@@ -206,10 +211,11 @@ test_pred_df <- data.frame(predict(model, iris[test, 1:4]))
 test_pred <- ifelse(test_pred_df$PC1 > cutoff, 
                      "versicolor",
                      "virginica")
-table(test_pred, iris[test, ]$Species)
+tmp <- table(test_pred, iris[test, ]$Species)
+print(tmp)
 ```
 
-Error rate $= 8/34 = 24%$
+Error rate = $(`r tmp[1,2]` + `r tmp[2,1]`)/`r sum(tmp)`  = `r sprintf("%.1f%%", 100 * (tmp[1,2] + tmp[2,1])/ sum(tmp))`$
 
 ---
 
