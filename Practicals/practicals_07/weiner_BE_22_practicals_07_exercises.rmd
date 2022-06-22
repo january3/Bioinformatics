@@ -232,6 +232,9 @@ install.packages("cluster.datasets")
 library(cluster.datasets)
 data(european.foods)
 ?european.foods
+
+# hint:
+ef_mtx <- t(european.foods[ , -1:-2])
 ```
 
 This is data frame showing percentages of housholds in several countries

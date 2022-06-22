@@ -30,7 +30,7 @@ You can click on the links below to directly view the HTML presentations.
     * Practicals: [Exercises and Homework 5](https://january3.github.io/Bioinformatics/Practicals/practicals_07_100621/weiner_BE_22_practicals_07_100621_exercises.html) 
  * [Lecture 11 - Gene set enrichments](https://january3.github.io/Bioinformatics/Lectures/lecture_11/weiner_BE_22_lecture_11.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08_170621/weiner_BE_22_practicals_08_170621_exercises.html)
- * [Lecture 12 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_12_230621/weiner_BE_22_lecture_23062021.html)
+ * [Lecture 12 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_12/weiner_BE_22_lecture_12_visualizations.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09_240621/weiner_BE_22_practicals_09_240621_exercises.html)
  * [Lecture 13 - Machine Learning](https://january3.github.io/Bioinformatics/Lectures/lecture_13_300621/weiner_BE_22_lecture_30062021.html)
     * Practicals: [Exercises and Homework 6](https://january3.github.io/Bioinformatics/Practicals/practicals_10_010721/weiner_BE_22_practicals_10_010721_exercises.html)

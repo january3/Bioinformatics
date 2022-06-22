@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 12: Visualizing Bioinformatics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2022-06-15" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 12: Visualizing Bioinformatics
+]
+.subtitle[
+## BE_22 Bioinformatics SS 21
+]
+.author[
+### January Weiner
+]
+.date[
+### 2022-06-15
+]
+
+---
+
+
+
+
+
+
+
+
+
+class:empty-slide,myinverse
+background-image:url(images/napoleon.jpg)
+
+???
+
+Napoleon invasion 24.6 1812
+
+ * lack of supply
+ * bad roads – slow supply train
+ * lack of water and heat
+ * desertion
+
+---
+
+class:empty-slide,myinverse
+background-image:url(images/map_invasion.jpg)
+
+---
+
+.mycenter[
+Charles Joseph Minard
+]
+
+???
+
+1781-1870
+
+civil engineer: dams, canals, bridges
+
+napoleon campaign map – 1869
+
+retired with 70
+
+---
+class:empty-slide,myinverse
+background-image:url(images/minard.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/minard_english.png)
+
+---
+
+.mycenter[A gallery of bioinformatic visualisations]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/taco.webp)
+
+???
+
+https://www.nature.com/articles/ncomms10519
+
+---
+## Density plots
+
+
+
+
+.center[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/densityplots-1.svg)&lt;!-- --&gt;
+]
+
+---
+## Correlograms
+
+
+```r
+library(ggcorrplot)
+
+# Correlation matrix
+data(mtcars)
+corr &lt;- round(cor(mtcars), 1)
+
+# Plot
+ggcorrplot(corr, hc.order = TRUE, 
+           type = "lower", 
+           lab = TRUE, 
+           lab_size = 3, 
+           method="circle", 
+           colors = c("tomato2", "white", "springgreen3"), 
+           title="Correlogram of mtcars", 
+           ggtheme=theme_bw)
+```
+
+---
+
+
+## Correlograms
+
+.center[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/correlogram-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/sequence_bundle.webp)
+
+???
+
+https://bmcproc.biomedcentral.com/articles/10.1186/1753-6561-8-S2-S8
+
+---
+class:empty-slide,myinverse
+background-image:url(images/reassortment.gif)
+
+???
+
+https://pubmed.ncbi.nlm.nih.gov/23939975/
+
+---
+class:empty-slide,myinverse
+background-image:url(images/mechanical.png)
+
+???
+
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0204309
+
+E - Elastic
+
+G – shear
+
+epsilon – strain to failure
+
+sigma t – tensile strength
+
+sigma c – compressive strength
+
+sigma f – flexural strength
+
+KIC fracture toughness
+
+uR resillience
+
+H hardness
+
+IS impact strength
+
+---
+class:empty-slide,myinverse
+background-image:url(images/Coexpression-clustering1.jpg)
+
+???
+
+https://www.nature.com/articles/nature13182
+
+---
+class:empty-slide,myinverse
+background-image:url(images/wordcloud.png)
+
+---
+
+## Edward Tufte
+
+.pull-left[
+.center[
+*“Graphical excellence is that which  
+gives to the viewer the greatest
+number of ideas in the shortest time 
+with the least ink in the smallest
+space.”*
+]
+]
+
+.pull-right[
+![](images/tufte.png)
+]
+
+---
+class:empty-slide,mywhite
+background-image:url(images/tufte-books.png)
+
+---
+
+.mycenter[
+Data visualization is all about communication.
+
+Just like in graphics design, less is more. 
+
+To get a good graphics remove
+all excess ink.
+]
+
+---
+
+## Reproducibility of visualisations
+
+ * It should be absolutely clear what data was used to generate the
+   visualization
+ * The data must be accessible (some journals require a data file for each
+   figure!)
+ * The visualization code should likewise be published
+
+
+---
+
+## Checklist for making graphs
+
+ * What do I want to say?
+ * What do I *need* to say? 
+ * What part of my information is redundant?
+ * What is the standard way of displaying the information in my field?
+ * Is the data accessible for others?
+
+Resist the temptation of showing every bit of data. If necessary, put it in
+the supplementary materials.
+
+---
+
+## Average MPG depending on number of cylinders
+
+
+```r
+p &lt;- mtcars %&gt;% group_by(cyl) %&gt;% 
+      summarise(mean_mpg=mean(mpg)) %&gt;%
+      mutate(cyl=factor(cyl)) %&gt;% 
+      ggplot(aes(x=cyl, y=mean_mpg, fill=cyl))
+p + geom_bar(stat="identity", mapping=aes(fill=cyl)) + 
+  theme(axis.line=element_line(size=1, arrow=arrow(length=unit(0.1, "inches"))))
+```
+
+---
+
+## All bells and whistles
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_01-1.svg)&lt;!-- --&gt;
+
+---
+
+.mycenter[*“Clutter and confusion are failures of design, not attributes of
+information.”* (Tufte)]
+
+---
+
+## Remove legend
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_02-1.svg)&lt;!-- --&gt;
+
+---
+
+## Remove axes
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_03-1.svg)&lt;!-- --&gt;
+
+---
+
+## Remove color
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_04-1.svg)&lt;!-- --&gt;
+
+---
+
+## Narrow bars
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_05-1.svg)&lt;!-- --&gt;
+
+---
+
+## Remove vertical grid
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_06-1.svg)&lt;!-- --&gt;
+---
+
+
+## Remove grey background
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_07-1.svg)&lt;!-- --&gt;
+
+---
+
+## Add meaningful labels
+
+.pull-left[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_01b-1.svg)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/barplot_08-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+
+
+
+---
+
+
+.pull-left[
+### Box plots: default R:
+
+
+```r
+boxplot(hwy ~ class, data=mpg)
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/boxplot_01-1.svg)&lt;!-- --&gt;
+]
+
+.pull-right[
+### Box plots: ggplot2
+
+
+```r
+mpg %&gt;% ggplot(aes(x=class, y=hwy)) + geom_boxplot()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/boxplot_3-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+
+## Box + scatter plots
+
+.pull-left[
+
+```r
+mpg %&gt;% ggplot(aes(x=class, y=hwy)) + 
+  geom_boxplot() +
+	geom_dotplot(binaxis="y", 
+               stackdir="center", 
+               fill="grey", 
+               dotsize=.3)
+```
+]
+
+.pull-right[
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/boxplot_4-1.svg)&lt;!-- --&gt;
+
+]
+
+---
+
+## Box plots: Tufte
+
+.pull-left[
+
+```r
+toupper1st &lt;- function(x) 
+  paste0(toupper(substring(x, 1, 1)), 
+         substring(x, 2))
+mpg %&gt;% mutate(class=toupper1st(class)) %&gt;% 
+  ggplot(aes(class, hwy)) + 
+  geom_tufteboxplot() + 
+  theme_tufte() + xlab("") + 
+  theme(axis.text=element_text(size=14), 
+        axis.title.y=
+          element_text(size=18, 
+                       margin=margin(0,20,0,0))) +
+  theme(axis.ticks.x=element_blank()) +
+  theme(axis.text.x=
+        element_text(margin=margin(30,0,0,0)))
+```
+
+]
+
+.pull-right[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/boxplot_02-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+.center[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/scatter_themes-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+.mycenter[
+*“Above all else show the data.”* (Tufte)
+]
+
+---
+
+
+.mycenter[
+Common problems and solutions
+]
+
+---
+
+## Avoid bar charts
+
+ * Bar charts have their purpose: showing proportions or absolute
+   quantities (1 value per bar)
+ * Y axis must always start at 0, because bar charts communicate with the
+   bar surface area
+ * Bar charts are often misused to show sample means and sample spread;
+   they should be replaced by box plots, violin plots or dot plots.
+   
+
+*Editorial. "Kick the bar chart habit." Nature Methods 11 (2014): 113.*
+
+---
+
+![](images/pnas_1.png)
+
+.myfootnote[
+*Kramer, Adam DI, Jamie E. Guillory, and Jeffrey T. Hancock. "Experimental evidence of massive-scale emotional contagion through social networks." Proceedings of the National Academy of Sciences 111.24 (2014): 8788-8790.*
+]
+
+---
+
+![](images/pnas_2.png)
+
+.myfootnote[
+*Kramer, Adam DI, Jamie E. Guillory, and Jeffrey T. Hancock. "Experimental evidence of massive-scale emotional contagion through social networks." Proceedings of the National Academy of Sciences 111.24 (2014): 8788-8790.*
+]
+
+---
+
+![](images/barplots.png)
+
+---
+
+
+
+## Avoid pie charts
+
+ * Pie charts are bad at communicating information, just don't use them
+ * Don't even mention 3D pie charts
+ * There are tons of alternatives to pie charts
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-5-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-6-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-7-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-8-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-9-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-10-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-11-1.svg)&lt;!-- --&gt;
+
+---
+class:empty-slide,mywhite
+background-image:url(images/pacman.png)
+
+
+---
+
+
+
+.mycenter[
+
+It is not important which tools you use. It is important that you first
+come up with the idea how you want the data to be plotted, and that you can
+plot it – with whatever means you can. (Where should you look for a lost
+watch?)
+
+]
+
+---
+
+## Bitmap vs vector graphics
+
+.pull-left[
+Bitmap graphics (JPG, PNG, TIFF)
+
+&lt;img src="weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-12-1.png" width="200%" height="200%" /&gt;
+]
+
+--
+
+.pull-right[
+Vector graphics (PDF¹, SVG)
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-13-1.svg)&lt;!-- --&gt;
+]
+
+.myfootnote[
+  ¹ PDF and SVG can also include bitmap graphics, so converting
+a bitmap file to PDF does not result in a higher quality.
+]
+
+---
+
+
+## Example session
+ 
+We will now use world inequality data to create a bar plot.
+
+WIID (world income inequality database) includes quintiles of the income
+distribution. 
+
+E.g. if `\(q_{1} = 10\)`, it means that the lower (in terms of income) `\(1/5\)` of the population
+gets 10% of the total GDP.
+
+In other words, if we order 100 persons according to their income, from
+lowest to highest, then the first 20 are getting 10% of the overall income.
+
+The closer the quintiles are to 20% for each group, the more egalitarian
+the society.
+
+---
+
+First, we prepare the data using tidyverse.
+
+
+```r
+wid &lt;- read_excel("../../Datasets/WIID_19Dec2018.xlsx")
+wid &lt;- wid %&gt;% drop_na(gini_reported, q1:q5, d1:d10)
+wid2015 &lt;- wid %&gt;% filter(year==2015 &amp; 
+                          region_un == "Europe" &amp; 
+                          population &gt; 5e6)
+wid2015sel &lt;- wid2015  %&gt;% 
+  filter(quality=="High") %&gt;%
+  filter(!duplicated(country)) %&gt;% 
+  select(country, gini_reported, q1:q5, d1:d10)
+
+## we mess the quantiles on purpose
+data &lt;- wid2015sel %&gt;% 
+  gather(q1:q5, key="quantile", value="proportion") %&gt;%
+  mutate(quantile=factor(quantile, levels=paste0("q", c(2, 1, 5, 4, 3))))
+```
+
+---
+
+## Example session
+
+Now we pass the data to ggplot.
+
+
+```r
+p &lt;- data %&gt;%
+  ggplot(aes(country, proportion, fill=quantile)) +
+  geom_bar(stat="identity") + coord_flip()
+p
+```
+
+ * `coord_flip()` so the bar plot is horizontal
+ * `geom_bar()` uses the `fill` esthetics
+
+---
+
+## Example session
+ 
+.center[
+&lt;img src="weiner_BE_22_lecture_12_visualizations_files/figure-html/wid01-1.svg" width="70%" /&gt;
+]
+
+---
+
+## First, reorder the quantile factor
+
+
+```r
+data &lt;- data %&gt;% mutate(quantile=factor(quantile, levels=paste0("q", 5:1)))
+p &lt;- data %&gt;%
+  ggplot(aes(country, proportion, fill=quantile)) +
+  geom_bar(stat="identity") + coord_flip()
+p
+```
+
+&lt;img src="weiner_BE_22_lecture_12_visualizations_files/figure-html/wid2-1.svg" width="50%" /&gt;
+
+---
+
+## Reorder the countries
+
+
+```r
+data &lt;- wid2015sel %&gt;% 
+  mutate(country=reorder(country, desc(gini_reported))) %&gt;%
+  gather(q1:q5, key="quantile", value="proportion") %&gt;%
+  mutate(quantile=factor(quantile, levels=paste0("q", 5:1)))
+p &lt;- data  %&gt;%
+  ggplot(aes(country, proportion, fill=quantile)) +
+  geom_bar(stat="identity") + coord_flip()
+p
+```
+
+&lt;img src="weiner_BE_22_lecture_12_visualizations_files/figure-html/wid3-1.svg" width="50%" /&gt;
+
+---
+
+## Make it nice!
+
+
+```r
+p + theme_tufte() + scale_fill_brewer(palette="Blues") +
+  ylab("Proportion of wealth") + xlab("Country") +
+  guides(fill=guide_legend(reverse=TRUE))
+```
+
+---
+
+## Make it nice!
+
+.center[
+&lt;img src="weiner_BE_22_lecture_12_visualizations_files/figure-html/wid4-1.svg" width="70%" /&gt;
+]
+
+---
+
+
+### Eine kleine Farbenlehre
+
+Farbenlehre = Color theory
+
+ * What is the function of color on the plot?
+ * Does the color help or distract?
+ * Do I *really* need color?
+ * If you need more than five distinct colors (I don't mean a gradient),
+   you probably are doing something
+   wrong.
+
+---
+
+## Representing colors
+
+There are many ways to represent colors. In R, we most frequently use the
+RGB scheme in which each color is composed of three values for each of the
+three colors: red, green and blue.
+
+One way is to choose values between 0 and 1; another, between 0 and 255.
+The latter can be represented using hexadecimal notation, in which the
+value goes from 0 to FF (`15 * 16 + 15 = 255`). This is a very common
+notation, used also in HTML:
+
+  * `"#FF0000"` or `c(255, 0, 0)`: red channel to the max, blue and green
+    to the minimum. The result is color red.
+  * `"#00FF00"`: bright green
+  * `"#000000"`: black
+  * `"#FFFFFF"`: white
+
+---
+
+## Getting the colors
+
+   * To get the color from numbers in 0…1 range:
+
+        rgb(0.5, 0.7, 0) # returns "#80B300"
+
+   * To get the color from numbers in 0…255 range:
+       
+        rgb(255, 128, 0, maxColorValue=255)
+
+---
+
+## Alpha channel: transparency
+
+Useful way to handle large numbers of data points. `#FF000000`: fully
+transparent; `#FF0000FF`: fully opaque.
+
+
+```r
+x &lt;- rnorm(10000)
+y &lt;- x + rnorm(10000)
+p1 &lt;- ggplot(NULL, aes(x=x, y=y)) + geom_point() + 
+  theme_tufte() + theme(plot.margin=unit(c(2,1,1,1), "cm"))
+p2 &lt;- ggplot(NULL, aes(x=x, y=y)) + geom_point(color="#6666661F") + 
+  theme_tufte() + theme(plot.margin=unit(c(2,1,1,1),"cm"))
+plot_grid(p1, p2, labels=c("Black", "#6666661F"))
+```
+
+---
+
+## Alpha channel: transparency
+
+Useful way to handle large numbers of data points. `#FF000000`: fully
+transparent; `#FF0000FF`: fully opaque.
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/scatter-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+## Other color systems
+
+There are several other representations of color space, and they do not give
+exactly the same results. Two common representations are HSV and HSL: Hue,
+Saturation and Value, and Hue, Saturation and Luminosity. 
+
+![](images/hsvhsl.png)
+
+---
+
+## Manipulating colors
+
+There are many packages to help you manipulate the colors using hsl and hsv.
+For example, my package `plotwidgets` allows you to change it using the HSL model.
+
+
+```r
+library(plotwidgets)
+## Now loop over hues
+pal &lt;- plotPals("zeileis")
+v &lt;- c(10, 9, 19, 9, 15, 5)
+
+a2xy &lt;- function(a, r=1, full=FALSE) {
+  t &lt;- pi/2 - 2 * pi * a / 360
+  list( x=r * cos(t), y=r * sin(t) )
+}
+
+plot.new()
+par(usr=c(-1,1,-1,1))
+hues &lt;- seq(0, 360, by=30)
+pos &lt;- a2xy(hues, r=0.75)
+for(i in 1:length(hues)) {
+  cols &lt;- modhueCol(pal, by=hues[i])
+  wgPlanets(x=pos$x[i], y=pos$y[i], w=0.5, h=0.5, v=v, col=cols)
+}
+
+pos &lt;- a2xy(hues[-1], r=0.4)
+text(pos$x, pos$y, hues[-1])
+```
+
+---
+
+## Manipulating colors
+
+There are many packages to help you manipulate the colors using hsl and hsv.
+For example, my package `plotwidgets` allows you to change it using the HSL model.
+
+.center[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/plotwidgets-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Palettes
+
+It is not easy to get a nice combination of colors (see default plot in ggplot2
+to see how *not* to do it).
+
+There are numerous palettes in numerous packages.  One of the most popular is
+`RColorBrewer`. You can use it with both base R and `ggplot2`.
+
+---
+
+## RColorBrewer palettes
+
+
+```r
+library(RColorBrewer)
+par(mar=c(0,4,0,0))
+display.brewer.all()
+```
+
+---
+
+## RColorBrewer palettes
+
+.center[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/rcolorbrewer-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## RColorBrewer palettes: color blind
+
+
+```r
+par(mar=c(0,4,0,0))
+display.brewer.all(colorblindFriendly=T)
+```
+
+---
+
+## RColorBrewer palettes: color blind
+
+.center[
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/rcolorbrewer2-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Iris data set
+
+.pull-left[
+```r
+data("iris")
+```
+]
+
+.pull-right[
+![](images/iris.svg)
+]
+
+.myfootnote[
+*The use of multiple measurements in taxonomic problems as an example of linear
+discriminant analysis.* Fisher 1936
+]
+
+---
+
+## Gallery of RColorBrewer palettes: Dark2
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/pals01-1.svg)&lt;!-- --&gt;
+
+---
+
+## Pastel1
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/pals02-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Paired
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/pals03-1.svg)&lt;!-- --&gt;
+
+---
+
+## Set2
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/pals04-1.svg)&lt;!-- --&gt;
+
+---
+
+## The viridis scale
+
+For base R, use the following code:
+
+
+```r
+library(scales)
+pal &lt;- viridis_pal()(n=6)
+show_col(pal)
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/viridis1-1.svg)&lt;!-- --&gt;
+
+---
+
+## The viridis scale
+
+Implemented in ggplot functions:
+
+ * `scale_(color|fill)_viridis_(c|d)`
+ * `c` for continuous, `d` for discrete
+ 
+e.g. 
+
+
+```r
+ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point(size=4) + scale_color_brewer(palette="Set2") + theme_tufte() + 
+  theme(axis.title.y=element_text(margin=margin(0,10,0,0)), 
+        axis.title.x=element_text(margin=margin(10, 0, 0, 0))) +
+  scale_color_viridis_d()
+```
+
+---
+
+## The viridis scale
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/pals_viridis-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Other sources
+
+ * my package `plotwidgets` implements a couple of other palettes
+ * You can always define your own colors!
+ * Use a color picker to "steal" palettes that you think are nice
+ * You can use [this tool](https://davidmathlogic.com/colorblind/) 
+   or [this one](https://projects.susielu.com/viz-palette)
+   to design colorblind friendly palettes
+
+---
+
+## plotwidget palettes
+
+
+&lt;img src="weiner_BE_22_lecture_12_visualizations_files/figure-html/plotwidgetspals-1.svg" width="70%" /&gt;
+
+---
+
+## The gapminder data set
+
+
+```r
+library(gapminder)
+data(gapminder)
+```
+
+
+---
+
+.mycenter[
+
+Gallery of shame
+
+]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/useless_murders.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/useless_deaths.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/useless_welfare.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/useless_welfare.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/useless_global_warming.png)
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/useless_global_warming_2.png)
+
+
+
+---
+
+
+## From data to figures
+
+ * What is the message of the figure?
+ * What data should be shown on a plot?
+ * What relationships do you want to illustrate?
+ * If it is tricky – I start with a pencil and a clean piece of paper!
+
+---
+
+
+## Factfulness
+
+.mycenter[
+*“The world cannot be understood without numbers. But the world cannot be understood with numbers alone.”*
+
+― Hans Rosling, Factfulness: *Ten Reasons We're Wrong About the World—and Why Things Are Better Than You Think*
+]
+
+---
+
+
+## Loading the gapminder data set
+
+
+```r
+library(ggplot2)
+theme_set(theme_bw())
+library(gapminder)
+knitr::kable(head(gapminder))
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; country &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; continent &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; lifeExp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pop &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gdpPercap &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Afghanistan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1952 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.801 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8425333 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 779.4453 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Afghanistan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1957 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.332 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9240934 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 820.8530 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Afghanistan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1962 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31.997 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10267083 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 853.1007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Afghanistan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1967 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34.020 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11537966 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 836.1971 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Afghanistan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1972 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.088 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13079460 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 739.9811 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Afghanistan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1977 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38.438 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14880372 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 786.1134 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+## First plot
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=gdpPercap, y=lifeExp, color=year)) + geom_point()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-16-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## First plot
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=gdpPercap, y=lifeExp, color=year)) + geom_point() +
+  scale_x_log10()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-17-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## First plot
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=gdpPercap, y=lifeExp, color=year)) + geom_point() +
+  scale_x_log10() + scale_color_viridis_c()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-18-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Select only one year
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent)) + geom_point() +
+  scale_x_log10() + scale_color_brewer(palette="Dark2")
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-19-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Add population data
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)) + geom_point() +
+  scale_x_log10() + scale_color_brewer(palette="Dark2")
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-20-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+## Nicer colors from gapminder
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=country)) + 
+  geom_point(alpha=.7, show.legend=FALSE) +
+  scale_color_manual(values=country_colors) +
+  scale_x_log10()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-21-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+## Comparison year 1952 and 2007
+
+
+```r
+g1952 &lt;- gapminder %&gt;% filter(year == 1952) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent)) + geom_point() +
+  scale_color_brewer(palette="Dark2") +
+  xlim(range(gapminder$gdpPercap)) + 
+  ylim(range(gapminder$lifeExp)) + scale_x_log10()
+
+g2007 &lt;- gapminder %&gt;% filter(year == 2007) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent)) + geom_point() +
+  scale_color_brewer(palette="Dark2") +
+  xlim(range(gapminder$gdpPercap)) + 
+  ylim(range(gapminder$lifeExp)) + scale_x_log10()
+
+plot_grid(g1952, g2007)
+```
+
+---
+
+
+
+## Comparison year 1952 and 2007
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/gapminder1-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Comparison year 1952 and 2007
+
+Much easier!
+
+
+```r
+gapminder %&gt;% filter(year %in% c(1952, 2007)) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent)) +
+  scale_color_brewer(palette="Dark2") +
+  geom_point() + facet_grid(. ~ year) + scale_x_log10()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-22-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+## Add population data
+
+
+```r
+gapminder %&gt;% filter(year %in% c(1952, 2007)) %&gt;%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)) +
+  scale_color_brewer(palette="Dark2") +
+  geom_point() + facet_grid(. ~ year) + scale_x_log10()
+```
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/unnamed-chunk-23-1.svg)&lt;!-- --&gt;
+
+---
+
+
+
+## Slope diagram
+
+
+```r
+tmp &lt;- gapminder %&gt;% filter(year %in% c(1952, 2007)) %&gt;% 
+  group_by(continent, year) %&gt;% 
+  summarise(mean=mean(gdpPercap), median=median(gdpPercap))
+tmp %&gt;% ggplot(aes(x=year, y=mean, color=continent)) + 
+  geom_point() + geom_line() + 
+  scale_y_log10() + 
+  geom_label(aes(label=continent), hjust="outward", show.legend=F) + xlim(1945, 2020)
+```
+
+---
+
+
+## Slope diagram
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/gapminder_slope-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Dumbbell chart
+
+
+```r
+gapminder %&gt;% filter(year %in% c(1952, 2007) &amp; continent=="Europe") %&gt;% 
+  arrange(gdpPercap, year) %&gt;% 
+  mutate(country=factor(country, levels=unique(country))) %&gt;%
+  ggplot(aes(x=gdpPercap, y=country, color=year)) + 
+  geom_point() + geom_line()
+```
+
+---
+
+
+## Dumbbell chart
+
+![](weiner_BE_22_lecture_12_visualizations_files/figure-html/gapminder_dmb-1.svg)&lt;!-- --&gt;
+
+---
+
+
+## Let's move it
+
+
+```r
+library(gganimate)
+g &lt;- gapminder %&gt;% ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)) + 
+  geom_point(alpha=.8) + 
+  scale_color_brewer(palette="Dark2") +
+  scale_x_log10() + 
+  scale_size(range = c(2, 12)) +
+  transition_time(year) + 
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  ease_aes("linear")
+
+animate(g, duration = 15, fps = 20, width = 800, height = 500, renderer = av_renderer())
+anim_save("gapminder.mp4")
+```
+
+**Warning:** `gganimate` has *huge* installation requirements, because you
+need a renderer library. Depending on your system, this might take a lot of
+disk space / a lot of headache. For example, using the `gifski` package
+requires you to install the rust environment. Also, including in rmarkdown
+might be problematic.
+
+---
+
+
+## Let's move it
+
+&lt;video controls autoplay&gt;&lt;source src="images/gapminder.mp4" type="video/mp4"&gt;&lt;/video&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
