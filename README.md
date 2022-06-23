@@ -32,11 +32,11 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 2: Sequence logos, MSA [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_02/weiner_BE_22_practicals_02_exercises.html)
   * Practicals 3: Secondary structures [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_03/weiner_BE_22_practicals_03.html) 
   * Practicals 4: Working with R [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04/weiner_BE_22_practicals_04_exercises.html)
-  * Practicals 5: Working with R, part 2[Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_05/weiner_BE_22_practicals_05.html)
+  * Practicals 5: Working with R, part 2 [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_05/weiner_BE_22_practicals_05.html)
   * Practicals 6: Phylogeny reconstruction [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_06/weiner_BE_22_practicals_06.html)
-  * Practicals 7: Clustering and transcriptomics[Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_07/weiner_BE_22_practicals_07_exercises.html)
-  * Practicals 8: Gene set enrichments (we skipped this!)[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08/weiner_BE_22_practicals_08_exercises.html)
-  * Practicals 9: Visualization workshop[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09/weiner_BE_22_practicals_09_exercises.html)
+  * Practicals 7: Clustering and transcriptomics [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_07/weiner_BE_22_practicals_07_exercises.html)
+  * Practicals 8: Gene set enrichments (we skipped this!) [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08/weiner_BE_22_practicals_08_exercises.html)
+  * Practicals 9: Visualization workshop [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09/weiner_BE_22_practicals_09_exercises.html)
 
 # Additional resources
 
