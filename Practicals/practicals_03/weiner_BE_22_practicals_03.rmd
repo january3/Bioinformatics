@@ -1,5 +1,5 @@
 ---
-title: "Practicals 01: Sequence search (intro)"
+title: "Practicals 03: Secondary structure prediction"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
 date: "`r Sys.Date()`"

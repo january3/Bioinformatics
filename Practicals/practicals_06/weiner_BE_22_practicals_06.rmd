@@ -318,7 +318,7 @@ cattle.
 **Homework 4.**
 
 Use the data from 
-`https://january3.github.io/Bioinformatics/Practicals/practicals_02/data/globin.aln`
+[https://january3.github.io/Bioinformatics/Practicals/practicals_02/data/globin.aln](https://january3.github.io/Bioinformatics/Practicals/practicals_02/data/globin.aln)
 to reconstruct phylogeny using a suitable amino acid substitution model. As
 outgroups, use the sequence of myoglobin (`MYG_HUMAN`).  Just like in case
 of homework 3, you are expected to provide an Rmd file which can be
