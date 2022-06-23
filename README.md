@@ -31,7 +31,7 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 11 - Gene set enrichments](https://january3.github.io/Bioinformatics/Lectures/lecture_11/weiner_BE_22_lecture_11.html)
     * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08_170621/weiner_BE_22_practicals_08_170621_exercises.html)
  * [Lecture 12 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_12/weiner_BE_22_lecture_12_visualizations.html)
-    * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09_240621/weiner_BE_22_practicals_09_240621_exercises.html)
+    * Practicals: [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09/weiner_BE_22_practicals_09_exercises.html)
  * [Lecture 13 - Machine Learning](https://january3.github.io/Bioinformatics/Lectures/lecture_13/weiner_BE_22_lecture_13_ml.html)
     * Practicals: [Exercises and Homework 6](https://january3.github.io/Bioinformatics/Practicals/practicals_10_010721/weiner_BE_22_practicals_10_010721_exercises.html)
  * [Lecture 14 - Sex, Evolution and Rock & Roll](https://january3.github.io/Bioinformatics/Lectures/lecture_14_070721/weiner_BE_22_lecture_070721.html)

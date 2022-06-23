@@ -604,6 +604,28 @@ AUC = `r sprintf("%.2f [95%% CI %.2f-%.2f]", rp$ci[2], rp$ci[1], rp$ci[3])`
 
 ---
 
+## Some other important TLA's (three-letter acronyms)
+
+ * Prevalence: $\frac{TP + FN}{TP + FN + TN + FP} = \frac{P}{P + N}$
+
+ * Positive predictive value (PPV), precision: $\frac{TP}{TP + FP}$
+ 
+ * False discovery rate (FDR) $\frac{FP}{TP + FP} = 1 - PPV$
+
+ * Negative predictive value (NPV), $\frac{TN}{TN + FN}$
+
+Where
+
+ * FN = false negative
+ 
+ * FP = false positive
+ 
+ * TN = true negative
+
+ * TP = true positive
+
+---
+
 ## Cross-validation
 
 Splitting data set into training and test set:
