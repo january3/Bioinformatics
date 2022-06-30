@@ -386,7 +386,7 @@ imp <- rf$importance %>% as.data.frame %>%
   arrange(-MeanDecreaseAccuracy) %>% head(20)
 
 merge(m_features, imp, by.x="ID", by.y=0) %>%
-  select(ID, BIOCHEMICAL.NAME, SUB.PATHWAY, HEALTHY, TB, 
+  dplyr::select(ID, BIOCHEMICAL.NAME, SUB.PATHWAY, HEALTHY, TB, 
          MeanDecreaseAccuracy) %>% knitr::kable()
 ```
 
@@ -394,7 +394,7 @@ Fine, but does that make sense? Let us plot some of the molecules.
 
 ```{r}
 sel <- c("ID_24", "ID_169", "ID_70", "ID_139")
-df <- m_df %>% select(all_of(c("GROUP", sel))) %>% 
+df <- m_df %>% dplyr::select(all_of(c("GROUP", sel))) %>% 
   pivot_longer(starts_with("ID"), names_to="ID", values_to="level")
 ggplot(df, aes(x=GROUP, y=level))+   geom_boxplot() + 
   facet_wrap(~ ID, ncol=2) 

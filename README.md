@@ -37,6 +37,7 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 7: Clustering and transcriptomics [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_07/weiner_BE_22_practicals_07_exercises.html)
   * Practicals 8: Gene set enrichments (we skipped this!) [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08/weiner_BE_22_practicals_08_exercises.html)
   * Practicals 9: Visualization workshop [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_09/weiner_BE_22_practicals_09_exercises.html)
+  * Practicals 9: Machine learning [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_10/weiner_BE_22_practicals_10_ml.html)
 
 # Additional resources
 
