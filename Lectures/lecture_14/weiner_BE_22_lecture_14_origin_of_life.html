@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 14: Life, Universe &amp; Everything</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2022-07-01" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 14: Life, Universe &amp; Everything
+]
+.subtitle[
+## BE_22 Bioinformatics SS 21
+]
+.author[
+### January Weiner
+]
+.date[
+### 2022-07-01
+]
+
+---
+
+
+
+
+
+
+---
+
+.pull-left[
+
+Where did life come from?
+
+When did life begin?
+
+How did life arise?
+
+What can we find out about the beginning of life?
+
+And what is life, anyway?
+
+]
+
+
+.pull-right[
+
+![:scale 75%](images/universe.png)
+
+]
+
+
+.myfootnote[ All hand-drawn illustrations by Kazimierz Wisniak are from my
+book, "A Planet Awakens" (Przebudzenie planety) which will be published,
+hopefully, some time this year. Unfortunately – only in Polish...]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/history_of_universe.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/hadean.jpg)
+
+???
+
+Hadean accretion – 4.54 Billions of years ago
+
+---
+class:empty-slide,myinverse
+background-image:url(images/moon.webp)
+
+???
+
+Moon formation - 4.5 Ga
+
+---
+
+.pull-left[
+
+![](images/bombardowanie.png)
+
+]
+
+.pull-right[
+
+# Approach 1: paleontology
+
+ * fossils
+ * oldest rocks
+ * traces of life in isotope ratios
+
+]
+
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/oldest_rock.png)
+
+---
+
+# What was it like on prebiotic Earth?
+
+ * end of the asteroid bombardement / cooling down: ca. 4-3.8 Ga
+ * Sun at 71% efficiency – Earth should have been frozen, but wasn't
+   (methane induced global warming?)
+
+---
+
+# Oldest fossils on Earth
+
+Let us take a trip back in time...
+
+???
+
+For a long time, people thought that life started in the cambrian period,
+because that is where the oldest macrofossils come from
+
+---
+class:empty-slide,myinverse
+background-image:url(images/burgess_shale.webp)
+
+???
+
+Burgess shale fossils: 508 Ma (mid-Cambrian)
+
+---
+class:empty-slide,mywhite
+background-image:url(images/Opabinia.jpg)
+
+???
+Opabinia
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/Marella.jpg)
+
+???
+Marella
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/Hallucigenia.jpg)
+
+???
+Hallucigenia
+
+---
+class:empty-slide,myinverse
+background-image:url(images/ediacara.jpg)
+
+???
+
+Ediacaran fauna: 635-575 Ma
+
+---
+class:empty-slide,myinverse
+background-image:url(images/stromatolites.jpg)
+
+???
+
+Stromatolites: more than 3 Ga
+
+---
+
+# Indirect fossils traces of life
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/banded_irons.png)
+
+???
+
+3.7 Ga
+
+---
+
+# Finding traces of life using isotopes
+
+`\(\delta^{13}C\)` – measurement of the ratio of `\(^{13}C\)` to `\(^{12}C\)`,
+normalized to a common standard.
+biological processes preferably take the lighter `\(^{12}C\)` isotope.
+
+
+`$$\delta^{13}C = \left(\frac{\left(\frac{^{13}C}{^{12}C}\right)_{sample}}{\left(\frac{^{13}C}{^{12}C}\right)_{standard}} - 1\right) \times 1000$$`
+
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/pdb.png)
+
+???
+
+PDB, Belemnitella americana from Pee Dee formation 
+
+Do not confuse with 14C/12C ratio! the mechanism is completely different
+
+organic matter has low delta 13C values – -20 or so; bicarbonate has like 0
+(standard is high in 13C)
+
+Water can be detected using 18O / 16O ratio: water loses 18O and the
+minerals absorb it, increasing its fraction
+
+
+---
+
+# `\(\delta^{13}C\)` values in different rocks
+
+![](images/delta13.png)
+
+
+???
+
+chert – silicate inclusions in limestones; of biological origin
+
+shows that BIFs are depleted in 14C
+
+
+---
+
+# Oldest traces of life:
+
+ * 1979 – 2014: 3.7 Ga
+ * 2001: 3.8 Ga
+ * 2019: 3.95 Ga
+ * some report even 4.1 Ga
+
+???
+
+Basically, life started almost immediately
+
+This is as far as paleontology takes us. What next?
+
+---
+
+# Approach #2: LUCA
+
+LUCA: Last Universal Common Ancestor
+
+ * Reconstruct phylogeny
+ * Use molecular clock
+ * Attempt to reconstruct the LUCA
+
+---
+
+![](images/woese_table.jpeg)
+
+
+.myfootnote[
+Woese, Carl R., and George E. Fox. "Phylogenetic structure of the
+prokaryotic domain: the primary kingdoms." Proceedings of the National
+Academy of Sciences 74.11 (1977): 5088-5090.  ]
+
+???
+
+Woese et al included some exotic thermophilic bacteria. Since they were so
+different, they called them "Archebacteria". They were not arche nor
+bacteria.
+
+---
+
+# Archaea – a new domain of life
+
+ * single cell organisms (but multicellular sophisticated colonies present
+   in some species)
+ * no organelles
+ * circular chromosomes, but 
+ * transcription / translation machinery similar to Eukaryota
+ * initially found in hot springs, but meanwhile found even in our mouts
+   and guts
+ * no archeal pathogens known (why? no idea)
+
+---
+
+.pull-left[
+![](images/tol.webp)
+]
+
+.pull-right[
+
+Hug, Laura A., Brett J. Baker, Karthik Anantharaman, Christopher T. Brown, Alexander J. Probst, Cindy J. Castelle, Cristina N. Butterfield et al. "A new view of the tree of life." Nature microbiology 1, no. 5 (2016): 1-6.
+
+]
+
+???
+
+The red dots show sequences from environmental sequencing
+
+---
+
+# We are Archaea from Ásgarðr
+
+.pull-left[
+![](images/archea.webp)
+
+]
+
+.pull-right[
+
+The Asgard group of Archaea:
+  - even more similar to Eukaryotes (cytoskeleton, several proteins found
+    otherwise only in Eukaryota)
+  - Lokiarcheota
+  - Heimdallarcheota
+  - Odinarcheota
+  - Thorarcheota (etc.)
+
+*Spang, A., Saw, J. H., Jørgensen, S. L., Zaremba-Niedzwiedzka, K.,
+Martijn, J., Lind, A. E., ... &amp; Ettema, T. J. (2015). Complex archaea that
+bridge the gap between prokaryotes and eukaryotes. Nature, 521(7551),
+173-179.*
+
+]
+
+---
+
+.pull-left[
+
+![](images/2dtree.jpg)
+
+]
+
+.pull-right[
+
+*Williams, T. A., Cox, C. J., Foster, P. G., Szöllősi, G. J., &amp; Embley, T.
+M. (2020). Phylogenomics provides robust support for a two-domains tree of
+life. Nature ecology &amp; evolution, 4(1), 138-147.*
+
+]
+
+???
+
+Yeah, so first I introduced a new domain, making 3, and now it seems that
+there are 2 after all...
+
+---
+
+# When was LUCA
+
+.pull-left[
+
+![](images/whenluca.webp)
+
+]
+
+.pull-right[
+
+
+*Williams, T. A., Cox, C. J., Foster, P. G., Szöllősi, G. J., &amp; Embley, T.
+M. (2020). Phylogenomics provides robust support for a two-domains tree of
+life. Nature ecology &amp; evolution, 4(1), 138-147.*
+
+]
+
+???
+
+Using a molecular clock, it is possible to date LUCA.
+
+
+---
+
+## Who was LUCA
+
+ * Build phylogenetic trees for all protein families
+ * If the ur-protein was present in the LUCA, then all branches of the tree
+   (in all domains of life) should have this protein (even if individual
+   species lost it)
+
+---
+
+## Who was LUCA
+
+.pull-left[
+
+ Probably more than 350 families of proteins already present in LUCA,
+ including:
+
+ * translation machinery – ribosomes, tRNA synthesis
+ * genetic code, nucleotide modifying enzymes
+ * proton gradient-dependent ATP synthase
+ * genes characteristic for thermophilic organisms
+
+*"LUCA [was] anaerobic, CO2-fixing, H2-dependent with a Wood–Ljungdahl
+pathway, N2-fixing and thermophilic."*
+
+*Weiss, M. C., Sousa, F. L., Mrnjavac, N., Neukirchen, S., Roettger, M.,
+Nelson-Sathi, S., &amp; Martin, W. F. (2016). The physiology and habitat of the
+last universal common ancestor. Nature microbiology, 1(9), 1-8.*
+
+]
+
+.pull-right[
+
+
+![](images/luca.webp)
+
+]
+
+???
+
+WLP: Wood-Ljungdahl pathway; reactions based on hydrogen and carbon
+dioxide, resulting in organic molecules
+
+Note: HGT
+
+---
+
+.pull-left[
+
+![](images/invitro.bmp)
+
+]
+
+.pull-right[
+
+# Approach 3: experiments
+
+]
+
+
+---
+
+![](images/4-28-Oparin-Dali-sidyat.jpg)
+
+
+---
+
+.pull-left[
+
+![](images/urey.png)
+
+]
+
+
+.pull-right[
+
+
+![](images/miller_photo.jpg)
+
+
+]
+
+???
+
+---
+
+
+
+
+---
+
+.pull-left[
+
+![](images/jajkokura.png)
+
+]
+
+.pull-right[
+
+# The chicken and egg problem
+
+ * Metabolism / enzymes are necessary for replication of the DNA
+ * DNA is required to encode the proteins
+
+What kind of molecule or molecule system is self-replicating?
+
+]
+
+???
+
+we need to start 
+
+
+---
+
+# The world of RNA
+
+ * RNA forms complex structures
+ * ribozymes: RNA-based enzymes capable of catalysing reactions
+
+---
+
+
+.pull-left[
+
+![](images/3Q1Q.png)
+
+]
+
+
+.pull-right[
+
+# Ribonuclease P
+
+ * common to all domains of life
+ * protein part is variable, but the RNA molecule has similar structures in
+   all domains of life
+ * required for one of the fundamental processes in a living cell:
+   producing tRNA and rRNA
+]
+
+---
+
+.pull-left[
+
+![](images/ribosome_2.png)
+
+]
+
+.pull-right[
+
+![](images/ribosome.png)
+
+ * structural analysis shows that amino acid residues are not participating
+   in peptide synthesis
+ * the reactive site is generated by the rRNA molecule only
+ 
+
+
+]
+
+.myfootnote[
+Cech, Thomas R. "The ribosome is a ribozyme." Science 289.5481 (2000): 878-879.
+]
+
+---
+
+## RNA world
+
+ * It is quite clear now that an RNA world existed before LUCA
+ * Whether or not life started with RNA is another matter
+   * RNA is not very stable
+   * the structure is simple, but the 
+
+---
+
+# Yes, but can they replicate themselves?
+
+---
+
+.pull-left[
+
+![](images/szostak.jpg)
+
+Jack W. Szostak (Nobel prize laureate for telomeres)
+
+]
+
+.pull-right[
+
+# First in vitro selection of replicating molecules
+
+ * start with `\(1,6 \times 10^15\)` random RNA molecules, each 220 bases long
+ * fishing for ribozymes having a ligase activity using a bait (short RNA
+   molecule) – ribozymes which can ligate the bait with their own sequence
+   will be retreived from the mixture
+
+]
+
+---
+
+.pull-left[
+
+![](images/barton.jpeg)
+
+*Johnston, W. K., Unrau, P. J., Lawrence, M. S., Glasner, M. E., &amp; Bartel,
+D. P. (2001). RNA-catalyzed RNA polymerization: accurate and general
+RNA-templated primer extension. Science, 292(5520), 1319-1325.*
+
+]
+
+.pull-right[
+
+## Combining mutation and selection
+
+ * create random mutations of a simple RNA-based RNA polymerase/ligase by adding 
+   random fragments
+ * template ligated with the polymerase
+ * modified substrate (nucleotides) allowed isolation of the molecules that incorporated
+   the largest number of nucleotides
+ * the selected molecules were amplified with PCR and a new round was
+   started
+ * all in all, with only 18 rounds, a substantial increase in the activity
+   was observed (the polymerase was able to synthetase up to 14
+   nucleotides)
+ 
+
+
+]
+
+---
+
+# Do we have self-replicating molecules?
+ 
+ * currently, some of the molecules are able (in certain conditions) to
+   synthetize up to 200 nucleotides
+ * replication process is very slow
+ * conditions must be very favorable and substrate must be abundant
+ * even though a PCR-like exponential reaction can be achieved, no truly
+   self-replicating molecules have yet been created
+
+---
+
+## RNA-based replication
+
+ * it is possible to construct a system that replicates itself,
+   based only on RNA
+ * Joyce et al:
+
+  `$$A' + B' \overset{E} \rightarrow E'$$`
+
+  `$$A + B \overset{E'} \rightarrow E$$`
+
+ * the system is not based on replication, but on the ligase reaction, and
+   the fragments A, A', B, B' must be introduced to the mixture
+
+---
+
+
+
+.pull-left[
+
+![](images/eigen.jpg)
+
+Manfred Eigen (1927-2019), Nobel prize for the temperature jump method of
+measuring rapid reaction rates.
+
+]
+
+.pull-right[
+
+# Eigen's paradox
+
+Eigen constructed a mathematical model of nucleotide replication based
+evolution, involving an *error threshold*. Basically,
+
+ * evolution is possible when the error rate is below the error threshold
+ * error threshold depends on the number of nucleotides
+ * therefore, the maximum length of the RNA molecule able to replicate
+   depends on the threshold.
+
+The paradoxon:
+
+ * short molecules have high error rates, but
+ * high error rates require even shorter molecules
+
+For example, at 90% fidelity, the replicating molecule cannot be longer
+than 12 nucleotides.
+
+
+
+]
+
+---
+
+.pull-left[
+
+![](images/kominy.png)
+
+]
+
+.pull-right[
+
+# What else is there?
+
+
+
+
+]
+
+???
+
+there are many other areas I have not discussed
+
+for example the environment in which life arose
+
+black smokers, white smokers, cold sandwich, hot sandwich, Darwin's pizza
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

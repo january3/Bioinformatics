@@ -171,7 +171,7 @@ table(pred, iris_test_vv$Species)
 **Question.** What is the overall error rate?
 
 **Homework 6, alternative 1**. Repeat the above analysis with the full iris data set
-(three classes). You will find that the `scaling` object has now two
+(three classes). You will find that the `x` part of the prediction object has now two
 columns, `LD1` and `LD2`. Make boxplots for both of them. Which LD
 discriminates between which species? [note: instead of this homework, you
 are allowed to choose the "alternative 2" (only if we don't do it together

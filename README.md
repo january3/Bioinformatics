@@ -23,7 +23,7 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 11 - Gene set enrichments](https://january3.github.io/Bioinformatics/Lectures/lecture_11/weiner_BE_22_lecture_11.html)
  * [Lecture 12 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_12/weiner_BE_22_lecture_12_visualizations.html)
  * [Lecture 13 - Machine Learning](https://january3.github.io/Bioinformatics/Lectures/lecture_13/weiner_BE_22_lecture_13_ml.html)
- * [Lecture 14 - Sex, Evolution and Rock & Roll](https://january3.github.io/Bioinformatics/Lectures/lecture_14_070721/weiner_BE_22_lecture_070721.html)
+ * [Lecture 14 - Life, Universe & Everything](https://january3.github.io/Bioinformatics/Lectures/lecture_14/weiner_BE_22_lecture_14_origin_of_life.html)
 
 # Practicals
 
