@@ -163,7 +163,7 @@ There is no correct answer.
 
 ## What about AI (ChatGPT, Bing search, copilot...)
 
- Use it! But...
+ Use it! It's the new Wikipedia, Google, Github. But...
 
  * Know its limits
  * Understand how it works
