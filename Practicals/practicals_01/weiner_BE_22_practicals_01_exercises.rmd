@@ -39,8 +39,8 @@ What is a local alignment? What is a global alignment?
 
 For the dot plots and alignments you will be using EMBOSS. EMBOSS is a
 suite of command line tools for bioinformatics, you can download it from
-[here](http://emboss.sourceforge.net/download/). Feel free to download and
-use it from command line. Alternatively, download
+[here](http://emboss.sourceforge.net/download/). If you are brave, feel
+free to download and use it from command line. Alternatively, download
 [Jemboss](http://emboss.sourceforge.net/Jemboss/) and use the GUI Java
 interface.
 
@@ -50,8 +50,8 @@ course.
 
 Links to online interfaces (use the one that you like)
 
- * European Bioinformatic Institute: [https://www.ebi.ac.uk/Tools/emboss/](https://www.ebi.ac.uk/Tools/emboss/)
  * bioinformatics.nl: [https://www.bioinformatics.nl/cgi-bin/emboss/](https://www.bioinformatics.nl/cgi-bin/emboss/)
+ * (slower) European Bioinformatic Institute: [https://www.ebi.ac.uk/Tools/emboss/](https://www.ebi.ac.uk/Tools/emboss/)
 
 [EMBOSS reference](https://www.cell.com/trends/genetics/fulltext/S0168-9525(00)02024-2): *Rice, Peter, Ian Longden, and Alan Bleasby. "EMBOSS: the
 European molecular biology open software suite." Trends in genetics 16.6
