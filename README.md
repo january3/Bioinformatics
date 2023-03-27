@@ -9,6 +9,8 @@ make sure that you have the newest version of all files.
 You can click on the links below to directly view the HTML presentations.
 
  * [Lecture 1, 2023-03-23 - Introduction](https://january3.github.io/Bioinformatics/Lectures/lecture_01/weiner_BE_22_lecture_01_2023_03_23.html)
+ * [Lecture 2, 2023-03-27 - Alignments and sequence search](https://january3.github.io/Bioinformatics/Lectures/lecture_02/weiner_BE_22_lecture_02.html)
+
 # Practicals
 
   * Practicals: [Intro, 2023-03-23](https://january3.github.io/Bioinformatics/Practicals/practicals_01/weiner_BE_22_practicals_01.html)

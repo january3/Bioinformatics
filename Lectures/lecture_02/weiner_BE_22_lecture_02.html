@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 2: Sequence alignments and sequence search</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="January Weiner" />
+    <meta name="date" content="2023-03-27" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="files/style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 2: Sequence alignments and sequence search
+]
+.subtitle[
+## BE_22 Bioinformatics SS 21
+]
+.author[
+### January Weiner
+]
+.date[
+### 2023-03-27
+]
+
+---
+
+
+
+
+
+
+
+---
+
+## Sequences and sequence searches
+
+.pull-left[
+ * Nucleotide sequences:
+ 
+```
+5'-ACCCGTAAAG-3'
+
+5'-AAAAA...AAAA-3'
+
+5'-TAA-3' (fig. on the right)
+```
+]
+
+.pull-right[
+![:scale 50%](images/dna.png)
+]
+
+---
+
+## Sequences and sequence searches
+
+ * Amino acid sequences:
+ 
+```
+N-Ala-Val-Cys-C (fig. below)
+
+N-AVC-C (fig. below)
+```
+
+![:scale 80%](images/protein.png)
+
+---
+
+## Sequences and sequence searches
+
+![:scale 80%](images/aa_overview.png)
+
+---
+
+## Dot plots ✪
+
+```
+                         
+
+        A C G G T A      
+      A *         *      
+      C   *              
+      G     * *          
+      T         *        
+      A *         *      
+                         
+                         
+                         
+                         
+                                                         
+```
+
+
+---
+
+## Dot plots
+
+```
+                         Duplication        
+
+        A C G G T A        A C G G T A      
+      A *         *      A *         *      
+      C   *              C   *              
+      G     * *          G     * *          
+      T         *        T         *        
+      A *         *      A *         *      
+                         C   *                            
+                         G     * *                        
+                         T         *                      
+                         A *         *                    
+                                                         
+```
+
+
+---
+
+## Dot plots
+
+```
+                         Duplication        Insertion / Deletion
+
+        A C G G T A        A C G G T A        A C G G G G G G T A 
+      A *         *      A *         *      A *                 * 
+      C   *              C   *              C   *                 
+      G     * *          G     * *          G     * * * * * *     
+      T         *        T         *        T                 *   
+      A *         *      A *         *      A *                 * 
+                         C   *                            
+                         G     * *                        
+                         T         *                      
+                         A *         *                    
+                                                         
+```
+
+---
+
+## Dot plots
+
+![:scale 50%](images/dotplots.png)
+
+---
+
+## Dot plots
+
+![:scale 60%](images/dotplot_2.png)
+
+---
+
+
+---
+
+## Why do we have to search for sequences?
+
+ * identify the organism from which a sequence comes from
+ * find similar sequences
+    * similarity -&gt; common ancestry -&gt; common function
+    * understand the evolution of organisms (or viruses)
+ * technical reasons: PCR, RNA-Seq etc.
+
+---
+
+## Homology, common ancestry and function ✪  
+
+ * Homology: identity by descent -&gt; if and only if there is a common
+   ancestor
+
+     * We can determine homology only by considering *phylogeny*
+     * Homologous sequences often have similar functions, but exceptions
+       are aplenty
+--
+
+ * Similarity: something we can easily calculate with a computer by doing
+   an *alignment*
+
+     * Similarity may indicate homology, but is not the same
+     * Homologous sequences may not be very similar (e.g. large
+       evolutionary distances)
+     * Similar sequences (esp. short) may be result of chance, convergence or 
+       structural constraints (e.g.  coiled-coil structures)
+--
+
+ * When we calculate the similarity between two sequences, we need some
+    sort of statistics to measure similarity
+    (e.g., whether sequences are very similar or really different)
+
+---
+
+## More on homology ✪
+
+.pull-left[
+
+![](images/orthology.png)
+
+]
+
+.pull-right[
+
+There are specific types of homology:
+
+ * **orthology**: sequences are created by
+   a speciation event. For example, alpha hemoglobin in humans and chimps
+     * Very often, orthologous sequences have similar functions
+
+]
+
+--
+
+.pull-right[
+ * **paralogy**: sequenes are created by a duplication event in the genome.
+   E.g., human alpha hemoglobin and human beta hemoglobin
+     * Very often, paralogs have different function, for example due to
+       neofunctionalization or subfunctionalization
+
+]
+
+More on these topics later.
+
+
+---
+
+## If sequences are similar, are they homologous? ✪
+
+
+ * Similarity is a good indicator of homology
+ * *Lack of similarity* is not a good indicator of *lack of homology*
+ * To know for sure, you need to dive into phylogenetic reconstructions
+
+---
+
+## Why do we need to make alignments? ✪
+
+Sequences always differ:
+
+ * evolution -&gt; mutations
+ * post-processing (e.g. transcript isoforms)
+ * sequencing errors
+
+ =&gt; you cannot search by simple "Find"!
+
+---
+
+## Sequence alignments ✪
+
+Examples of alingments of sequences `ACTTGA` and `ACCTGGA`
+
+```
+ACTTG-A    ACTT-GA     AC-TTG-A    ---ACTTGA    ACTTGA-------
+|| || |    || | ||     || | | |         | ||
+ACCTGGA    ACCTGGA     ACCT-GGA    ACC--TGGA    ------ACCTGGA
+```
+
+This is not a correct alignment (but may make sense in a different context):
+
+```
+ACTTG--A
+|| ||  |
+ACCTG-GA
+```
+
+---
+
+## Do not confuse alignments with complementary sequences
+
+.pull-left[
+Alignment:
+
+```
+5'-ACTTG-A-3'
+   || || |
+5'-ACCTGGA-3'
+```
+]
+
+.pull-right[
+Complementary sequence:
+
+```
+5'-ACTTGGA-3'
+   |||||||
+3'-TGAACCT-5'
+```
+]
+
+---
+
+## Scoring an alignment
+
+.pull-left[
+
+ * Which alignment is correct?
+ * What makes an alignment better?
+ * How do we compare alignments?
+
+]
+
+.pull-right[
+
+Which one is better?
+
+```
+ACTTG-A    ---ACTTGA
+|| || |         | ||
+ACCTGGA    ACC--TGGA
+```
+
+]
+
+???
+
+A good alignment reflects evolutionary history.
+
+Better: parsimony principle: each deletion is an event, each mismatch is an
+event. Find the lowest number of events.
+
+
+---
+
+## Scoring an alignment
+
+.pull-left[
+ * Maximize matches, minimize gaps
+ * Simplest scoring: 
+   * each match receives a score
+   * mismatches receive a lower score than matches between identical
+     residues
+   * gaps receive penalties
+]
+
+--
+
+.pull-right[
+
+Example scoring:
+
+ * match: +2
+ * mismatch: 0
+ * gap: -1
+
+```
+ACTTG-A    ---ACTTGA
+|| || |         | ||
+ACCTGGA    ACC--TGGA
+```
+
+
+]
+
+???
+
+We will talk more about scores when we come to scoring matrices
+
+---
+
+## Number of possible alignments
+
+.pull-left[
+The number of possible alignments is staggering! For two sequences of
+length `\(n\)` and `\(m\)`, respectively, the number of possible alignments is
+
+
+`$$A(n, m) = \frac{(n + m)!}{m!k!} \approx \frac{2^{2n}}{\sqrt{2 \cdot \pi \cdot n}}$$`
+]
+
+.pull-right[
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+]
+
+
+
+
+
+.footnote[*Eddy, Sean R. "What is dynamic programming?." Nature
+biotechnology 22.7 (2004): 909-910.*]
+
+---
+
+## Needleman-Wunsch algorithm
+
+ * Possibly the most famous algorithm in bioinformatics
+ * Still used if you want to have an exact alignment
+ * Go on, try to implement it!
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+
+## Alignments as paths in the matrix
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+---
+
+## Step 1: create a score matrix
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+
+## Step 2: calculate edit operations
+
+ * "Moving" horizontally or vertically means including a gap, hence: gap penalty!) – e.g. -1
+
+```
+   A | C | T ...
+--------------
+A|   -&gt;  |                       A C T ...
+--------------                   |
+C|   |   |   | ...               A - ....
+```
+
+
+ * "Moving" diagonally means we are getting the score in the matrix (here: 0 or 1)
+
+
+
+---
+
+## Step 2: calculate edit operations
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+
+---
+
+## Step 2: calculate edit operations
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+
+---
+
+## Step 2: calculate edit operations
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Step 2: calculate edit operations
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
+## Step 2: calculate edit operations
+
+.pull-left[
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+
+.pull-right[
+
+Note: if you add the scores along the arrows, you will get the score of the
+alignment!
+
+1 + 1 + 1 - 1 + 1 + 1 = 4
+
+Here the alignment:
+
+```
+ACC-GT
+||| ||
+ACCGGT
+```
+
+Five matches minus one gap = 4, indeed.
+
+]
+
+---
+
+## Step 2: calculate edit operations
+
+.pull-left[
+ * Start with top left corner
+ * proceed column-wise, then row-wise
+ * For each cell, determine from which direction it is optimal to "get in"
+ * Store the information
+    * where did we came from
+    * what was the optimal score
+]
+
+.pull-right[
+
+![](images/nw_1.png)
+
+]
+
+Pseudocode:
+
+```
+score     &lt;- matrix[ 0:n1, 0:n2 ]
+direction &lt;- matrix[ 0:n1, 0:n2 ]
+
+for each row of score[]
+  for each column of score[]
+    top     &lt;- score[ row - 1, column     ]
+    left    &lt;- score[ row,     column - 1 ]
+    topleft &lt;- score[ row - 1, column - 1 ]
+    score[ row, column ]     &lt;- max(top, left, topleft) or 0
+    direction[ row, column ] &lt;- which max(top, left, topleft) or 0
+```
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+
+
+
+
+---
+## Step 2: calculate edit operations
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Step 3: get the alignment
+
+ * We now start from the *lower*, *right* corner
+ * The score in the lower right corner is the score of the alignment
+ * We *trace back* the alignment to the beginning
+
+---
+
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+
+```
+## [1] "*" "d" "d" "d" "d" "t" "d"
+## [1] "*" "d" "d" "d" "t" "d" "d"
+```
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+
+```
+## [1] "*" "d" "d" "d" "d" "t" "d"
+## [1] "*" "d" "d" "d" "t" "d" "d"
+```
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+
+```
+## [1] "*" "d" "d" "d" "d" "t" "d"
+## [1] "*" "d" "d" "d" "t" "d" "d"
+```
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+
+```
+## [1] "*" "d" "d" "d" "d" "t" "d"
+## [1] "*" "d" "d" "d" "t" "d" "d"
+```
+
+
+
+
+---
+## Step 3: get the alignment
+
+
+![](weiner_BE_22_lecture_02_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
+
+```
+## [1] "*" "d" "d" "d" "d" "t" "d"
+## [1] "*" "d" "d" "d" "t" "d" "d"
+```
+
+
+---
+
+## That was hard, have a cat
+
+![:scale 80%](images/cutecat.jpg)
+
+---
+
+## Time complexity of NW  ✪
+
+`\(\sim O(n^2)\)`
+
+ * polynomial time complexity
+
+"big O" notation – describes the type of relationship on an important parameter
+(like sequence length) rather than the precise relationship.
+
+
+
+It is more important to know how the performance *changes* when you
+increase the input than whether it will run 5 minutes or 10.
+
+---
+
+## Global vs local alignments
+
+ * global: try to align the full length of both sequences
+    * doesn't make sense if one sequence is a fragment of the other (think:
+      searching for a gene in a genome) 
+    * often genes or proteins may share homologous regions only (e.g.
+      multidomain proteins)
+ * local: find the best sub-alignment – only a relevant fragment match
+
+```
+ACG-AG-GTGTGAAGGTCTAAAG--AGGCGA
+ |  |  |    ||||||||  |  | |  |
+GCCCATAGAC--AAGGTCTA--GCCAAGAAA
+```
+
+vs.
+
+```
+            AAGGTCTA
+            ||||||||
+            AAGGTCTA
+```
+
+
+
+
+---
+
+## Smith-Waterman algorithm
+
+Basically identical to NW, but:
+
+ * set all negative scores to 0
+ * find the position in the matrix with the highest score and start from
+   there
+
+---
+
+## Different gap penalties
+
+```
+AAGGGGTCTA    AAGGGGTCTA
+||||  ||||    ||| | ||||
+AAGG--TCTA    AAG-G-TCTA
+```
+
+Same score, but different number of evolutionary events.
+
+Solution: introduce a higher gap opening penalty to differentiate these two
+situations.
+ 
+ * gap opening penalty (e.g. 10)
+ * gap extension penalty (e.g. 1)
+
+---
+
+## Different gap penalties
+
+High gap opening penalty:
+
+```
+HBA_HUMAN          1 MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLS     50
+                     |.|:..::|.:.:.|.|:...|...|.|.|||:|||.|.||||||||||.
+HBAZ_HUMAN         1 MSLTKTERTIIVSMWAKISTQADTIGTETLERLFLSHPQTKTYFPHFDLH     50
+```
+
+Low gap opening penalty (equal to gap extension penalty)
+
+```
+HBA_HUMAN          1 MVLSPADKTN--VKAAWGKVGAHAGE-YGAEALERMFLSFPTTKTYFPHF     47
+                     |.|:..::|   | :.|.|:...| : .|.|.|||:|||.|.||||||||
+HBAZ_HUMAN         1 MSLTKTERT-IIV-SMWAKISTQA-DTIGTETLERLFLSHPQTKTYFPHF     47
+```
+
+
+---
+
+## The BLAST algorithm
+
+BLAST – Basic Local Alignment Search Tool
+
+![](images/blast.png)
+
+![](images/blast_2.png)
+
+---
+
+## The BLAST algorithm
+
+![](images/blast_algorithm.jpg)
+
+---
+
+## The BLAST algorithm
+
+
+ * Advantage: `\(O(n)\)` – linear time complexity
+ * Compromise between speed and sensitivity
+ * Heuristic, not exact
+ * Primary output: HSP, high scoring segment pairs (possibly multiple per
+   sequence pair)
+
+---
+
+## Important BLAST parameters
+
+ * Type of BLAST (which program)
+ * Database (more on that tomorrow)
+ * Word size (lower word size = slower but more sensitive)
+ * Filter low complexity regions (e.g. repeats)
+
+---
+
+## BLAST E-value
+
+ * Expected number of HSP's which have a score equal or better to the given
+   result
+ 
+  `\(E = m\cdot n\cdot 2^{-S'}\)`
+
+  where `\(S'\)` is a normalized score and `\(m\)` and `\(n\)` are sequence lengths.
+
+  `\(S' = \frac{\lambda S - \log{K}}{\log 2}\)`
+
+  where S is the raw score
+
+???
+
+S depends on the scoring system, S' does not
+
+---
+
+## Guide to interpret E values:
+
+For protein sequences of moderate length:
+
+ * `\(E &lt; 10^{-100}\)` Practically identical
+ * `\(10^{-100} &lt; E &lt; 10^{-50}\)` Almost identical
+ * `\(10^{-50} &lt; E &lt; 10^{-10}\)` Closely related 
+ * `\(10^{-10} &lt; E &lt; 1\)` Unclear
+ * `\(E &gt; 1\)` Likely nothing
+ * `\(E &gt; 10\)` Nothing
+
+---
+
+
+
+---
+
+## Burrow-Wheeler Aligner ✪
+
+ * BLAST is good for finding a long sequence against a database of billions
+   of sequences
+ * In second generation sequencing, we need to align quickly millions or
+   billions of short (~ 50-200 nt) sequences against a genome with billions of
+   nucleotides, but the alignments are
+   almost perfect
+
+The BWA algorithm is based on the Burrow-Wheeler Transform (BWT) which
+allows quickly looking up short sequences in a genome
+
+---
+
+## BWA algorithm (overview):
+
+ * Create the BWT of the genome
+ * Create an index that allows fast searching of the genome
+
+---
+
+## BANANA genetics
+
+We will use the string `BANANA` to represent our genome.
+
+We will try to find the string `NANA` in the genome.
+
+---
+
+ * naive search
+ * suffix search
+ * BWA search
+
+---
+
+## Naive search 
+
+We go from beginning to end, and each time we try to find a match:
+
+Search: `NANA`  in `BANANA`
+
+ * Go to `B`. Is it a match? No. continue.
+ * Go to `A`. Is it a match? No. continue.
+ * Go to `N`. Is it a match? Yes.
+ * Match the `A` from `NANA`. Does it work? if yes, continue checking. If no, abort
+   and continue searching in the genome.
+
+Time complexity: `\(O(m\times n)\)`. This is too slow!
+
+---
+
+## Suffixes and Prefixes ✪  
+
+**pre**fix &lt;- this is a prefix
+confu**sion** &lt;- this is a sufix
+
+Suffix search: build a database of suffixes 
+
+---
+
+`BANANA` -&gt; `BANANA$`
+
+The `$` denotes end of our genome. When sorting alphabetically, we put it
+before any other characters.
+
+ 1. Create all possible suffixes.
+ 2. Sort suffixes alphabetically.
+
+---
+
+```
+Suffix   Pos
+BANANA$  0
+ANANA$   1
+NANA$    2
+ANA$     3
+NA$      4
+A$       5
+```
+
+
+---
+
+```
+Suffix   Pos
+BANANA$  0           A$       5
+ANANA$   1           ANA$     3
+NANA$    2     -&gt;    ANANA$   1
+ANA$     3           BANANA$  0
+NA$      4           NA$      4
+A$       5           NANA$    2
+```
+
+Now we can search using efficient searching algorithms, because the index
+is sorted.
+
+---
+
+## Suffix search
+
+Time complexity: `\(O(\log{n})\)`.
+
+This is much better than naive search, but the memory requirements are
+huge: you need to build a suffix array of the whole human genome, this is
+gigantic!
+
+---
+
+## BWT algorithm
+
+```
+unsorted           sorted
+BANANA$            $BANANA         A
+ANANA$B            A$BANAN         N
+NANA$BA            ANA$BAN         N
+ANA$BAN    -&gt;      ANANA$B   -&gt;    B
+NA$BANA            BANANA$         $
+A$BANAN            NA$BANA         A
+$BANANA            NANA$BA         A
+```
+
+---
+
+## BWT algorithm
+
+BANANA -&gt; ANNB$AA
+
+This is more efficient to store. For example:
+
+BWT compression
+`peter_piper_picked_a_peck_of_pickled_peppers_a_peck_of
+_pickled_peppers_peter_piper_picked_if_peter_piper_picked
+_a_peck_of_pickled_peppers_wheres_the_peck_of_pickled_
+peppers_peter_piper_picked` `\(\rightarrow\)`
+`ddsddkkkkaeaaddddsfsrrrrffffrrrrss___eeeeiiiiiiiieeeeeeeehpp
+ppkkkkllllpppppppptttthpppprppppiooootwpppppppp_pppp
+cccccccccccckkkk____________iiiipppp_______________eee
+eeeeeeeeeeeeeerrrereeee__` `\(\rightarrow\)`
+`2d1s3k1a1e2a4d1s1f1s4r4f2s3_4e8i8e1h4p4k4l8p4t1h4p1r4p1i4o1t1w8p1_4p12c4k12_4i4p12_16e3r1e1r4e2_`
+
+(much shorter!)
+
+---
+
+## BWT algorithm
+
+The real snag is that we can *reverse* this transform!
+(if we simply sorted all characters, we would not be able to do it)
+
+`$$iBWT(BWT(T)) = T$$`
+
+iBWT - inverse Burrow-Wheeler Transform
+
+BANANA -&gt; ANNB$AA -&gt; BANANA
+
+---
+
+## BWT algorithm
+
+```
+......A    $.....A    $B....A      $BANANA
+......N    A.....N    A$....N      A$BANAN
+......N    A.....N    AN....N      ANA$BAN
+......B -&gt; A.....B -&gt; AN....B ...  ANANA$B
+......$    B.....$    BA....$      BANANA$
+......A    N.....A    NA....A      NA$BANA
+......A    N.....A    NA....A      NANA$BA
+```
+
+---
+
+## BWA aligner
+
+That actually was simple; the BWA is more complex. However, it builds upon
+BWT to create an index of the genome.
+
+ * BWA index is *much* smaller than the suffix array
+ * **but** we can use the BWT to search for suffixes with a clever trick!
+ * without getting into details, we need to also store some additional
+   information (FM index), which allows us to use the BWT as a suffix array
+   and directly look up any sequence
+
+---
+
+
+# References
+
+&lt;a name=bib-altschul1990basic&gt;&lt;/a&gt;[Altschul, S. F., W. Gish, W. Miller, et al.](#cite-altschul1990basic) (1990). "Basic local alignment search tool".
+In: _Journal of molecular biology_ 215.3, pp. 403-410.
+
+&lt;a name=bib-eddy2004dynamic&gt;&lt;/a&gt;[Eddy, S. R.](#cite-eddy2004dynamic) (2004). "What is dynamic programming?" In: _Nature biotechnology_ 22.7, pp.
+909-910.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="files/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
