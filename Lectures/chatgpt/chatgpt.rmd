@@ -1,0 +1,47 @@
+---
+title: "How to use ChatGPT"
+subtitle: "ChatGPT and other large language models"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=FALSE,autodep=TRUE, results="markdown")
+```
+
+## ChatGPT and other LLMs
+
+.pull-left[
+ * Are they useful?
+ * Are they real persons?
+ * Can they lie, deceive, have emotions?
+ * Can they make errors?
+]
+
+.pull-right[
+
+![](images/data.jpeg)
+
+]
+
+---
+
+## Conclusions
+
+ * It is very useful
+ * It is more limited that you may think
+ * Responses are (somewhat) random, asking the same thing twice can lead to
+   different results
+ * Responses often contain **factual errors** or confabulations
