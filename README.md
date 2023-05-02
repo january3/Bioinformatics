@@ -11,7 +11,8 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 1, 2023-03-23 - Introduction](https://january3.github.io/Bioinformatics/Lectures/lecture_01/weiner_BE_22_lecture_01_2023_03_23.html)
  * [Lecture 2, 2023-03-27 - Alignments and sequence search](https://january3.github.io/Bioinformatics/Lectures/lecture_02/weiner_BE_22_lecture_02.html)
  * [Lecture 3, 2023-04-11 - Protein sequences and protein similarity](https://january3.github.io/Bioinformatics/Lectures/lecture_03/weiner_BE_22_lecture_03.html)
- * [Lecture 3, 2023-04-20 - Multiple sequence alignments, logos, PSSMs](https://january3.github.io/Bioinformatics/Lectures/lecture_04/weiner_BE_22_lecture_04.html)
+ * [Lecture 4, 2023-04-20 - Multiple sequence alignments, logos, PSSMs](https://january3.github.io/Bioinformatics/Lectures/lecture_04/weiner_BE_22_lecture_04.html)
+ * [Lecture 5, 2023-05-04 - Reproducible bioinformatics](https://january3.github.io/Bioinformatics/Lectures/lecture_05/weiner_BE_22_lecture_05.html)
 
 # Practicals
 
