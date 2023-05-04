@@ -20,7 +20,7 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 1: Sequence searches [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_01/weiner_BE_22_practicals_01_exercises.html)
   * Practicals 2: Sequence logos and MSA [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_02/weiner_BE_22_practicals_02_exercises.html)
   * Practicals 3: Sequence structures [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_03/weiner_BE_22_practicals_03.html)
-  * Practicals 4: Introduction to R and programming[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04/weiner_BE_22_practicals_04.html)
+  * Practicals 4: Introduction to R and programming[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04/weiner_BE_22_practicals_04_exercises.html)
 
 # Additional resources
 
