@@ -24,7 +24,7 @@ You can click on the links below to directly view the HTML presentations.
 
 # Additional resources
 
- * [Writing report](https://github.com/january3/Bioinformatics/Exam/Report/report_guidelines.html)
+ * [Writing report](https://january3.github.io/Bioinformatics/Exam/Report/report_guidelines.html)
  * [Editing files](https://github.com/january3/Bioinformatics/blob/main/Resources/Editing_files/editing_text_files.pdf) – this guide tells you more about how to edit text files (not only in bioinformatics!)
 
 # Marking
