@@ -1,0 +1,181 @@
+---
+title: "Writing the report"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+outputdupa: html_document
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: true
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=FALSE,autodep=TRUE, results="hide")
+library(pander)
+library(knitr)
+library(kableExtra)
+source("functions.R")
+```
+
+```{r echo=FALSE,include=FALSE,eval=TRUE}
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+
+
+```{r libraries,cache=FALSE}
+library(tidyverse)
+```
+
+
+
+
+## Introduction to the report
+
+The goal of the report is to demonstrate your ability to write a
+scientific, reproducible report.
+
+You should not spend too much time on it; also, submitting a half-baked,
+unfinished, error-ridden report is **infinitely better** than not submitting
+anything at all.
+
+My estimated effort of writing the entire report is 2-3 hours if you work
+quickly (and were present during the practicals), and a day if not.
+
+## rules ✪
+
+ * *In any case*, you will do the report in Rmarkdown or Jupyter lab book.
+ * There are three main options:
+  * Differential gene expression analysis, combined with some functional
+     analysis
+  * Writing your own Python or R program (some ideas will follow) that actually
+    does calculate something on its own
+  * Anything else that you have came up with
+ * The main criterion is that your program or your Jupyter notebook or your
+   Rmarkdown actually works and can produce a document (HTML, Word,
+   whatever)
+ * Report is 30% of the grade! (but you can get more, see below!)
+
+
+I encourage you to use whatever help which is necessary; you can use
+Codepilot, Wikipedia, ChatGTP... however: 
+
+ * no plagiarism. Getting caught with plagiarism is automatic 0 points.
+ * if you blindly copy code from somewhere, without understanding
+   what it does, it probably will not work. Make sure that the code works,
+   and make sure that you understand what it does. 
+ * Should any doubts about your code or the authorship of your report
+   arise, you might be asked to explain your code or your report.
+   
+ 
+
+## Report on differential gene expression analysis
+
+ * Run a basic differential gene expression analysis as shown in the
+   course
+ * There will be three different data sets, each consisting of a matrix of
+   count data. Make sure you write which of the data sets you are using.
+ * Look up the data set in the GEO database and write a short description
+   of the experiment in the "Introduction" part.
+ * Create a visualisation of the results (volcano plot)
+ * In addition, do one of the following:
+   * Select one of the top results and describe its structure *or*
+   * Find homologs and make an MSA + phylogenetic tree, *or*
+   * Run a gene set enrichment analysis
+ * Document all things you have done in a *replicable* manner
+ * Use the "Discussion" part to describe your opinion on the results,
+   speculations, and what els could one do
+
+
+
+## Report on your own program
+
+ * document the program in your Rmarkdown document / Jupyter lab book (what
+   does it do? What did you do with it? what were the results? what are the
+   limitations?)
+ * Document all things you have done in a *replicable* manner
+ * Use the Discussion part to show what else could one do with the program,
+   or how it could be expanded
+ * It is more important that the program works and that you have documented
+   it well than that is has all the features one could dream of
+
+
+
+## Writing the report
+
+ * Once you have completed your tasks, write the report
+ * Report must be written in Rmarkdown or Jupyter lab book
+ * You must create a bibliography file and include the references
+ * Like a scientific paper, the report must include the following parts:
+    * Abstract: short description of your work
+    * Introduction: explain what is the background of your work (e.g. why
+      analysing proteins is important)
+    * Methods: describe, *in detail*, the methods you will apply. Cite sources!
+    * Results: describe, *with figures*, your findings. 
+    * Discussion: what is your opinion? what else should / could one do?  What did you learn?
+    * Bibliography
+
+
+There are three types of statements:
+
+ * Statements by others: you must cite them.
+ * Statements derived from your findings: you must back them up with results
+ * Statements which are speculative: you must label them clearly as such
+
+
+## Marking criteria
+
+ * Structure of the report
+ * Reproducibility of the results (i.e., I can run the markdown / jupyter
+   notebook)
+ * Citing the sources
+ * Documenting the code
+ * There is a bonus (generally 5% of the grade) for 
+  - doing something extraordinary
+  - making me laugh
+  - doing something really smart
+  - coming up with a really good idea 
+ * The bonus allows you to get 100% of the final mark, even if you have not
+   gotten full marks on the exam or the homeworks.
+ * What is **not** important for the marking:
+   - whether the code actually is correct (as long as it runs!)
+   - whether you copied the code from practicals or the internet
+   - whether your statements are correct
+   - whether your results are correct
+   - whether your program is useful
+   - whether your program is well written
+   - whether your report is long and full of complicated words 
+
+## Submission
+
+You will submit a single `.zip` or `.tar.gz` or `.rar` file. The file name
+must include your first name, last name, immatriculation number and the
+word "report" (e.g. `january_weiner_1234567_report.zip`).
+The archive should contain the following:
+
+ * The Rmarkdown / Jupyter notebook file
+ * The generated HTML / Word / PDF report
+ * Any further data necessary to run the report (e.g. the data files)
+
+Please make sure that the report source code does not contain absolute 
+
+**Submission date:** 2021-07-14 23:59:59 CEST
