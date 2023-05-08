@@ -24,6 +24,11 @@ You can click on the links below to directly view the HTML presentations.
 
 # Additional resources
 
+ * Installing R and Rstudio
+   * [Guide for all platforms](https://rstudio-education.github.io/hopr/starting.html)
+   * [How to install R packages](https://www.dataquest.io/blog/install-package-r/)
+   * Please install also the package colorDF
+   * Windows users might need to install the [RTools](https://cran.r-project.org/bin/windows/Rtools/) package
  * [Writing report](https://january3.github.io/Bioinformatics/Exam/Report/report_guidelines.html)
  * [Editing files](https://github.com/january3/Bioinformatics/blob/main/Resources/Editing_files/editing_text_files.pdf) – this guide tells you more about how to edit text files (not only in bioinformatics!)
 
