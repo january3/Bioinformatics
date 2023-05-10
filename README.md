@@ -13,6 +13,7 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 3, 2023-04-11 - Protein sequences and protein similarity](https://january3.github.io/Bioinformatics/Lectures/lecture_03/weiner_BE_22_lecture_03.html)
  * [Lecture 4, 2023-04-20 - Multiple sequence alignments, logos, PSSMs](https://january3.github.io/Bioinformatics/Lectures/lecture_04/weiner_BE_22_lecture_04.html)
  * [Lecture 5, 2023-05-04 - Reproducible bioinformatics](https://january3.github.io/Bioinformatics/Lectures/lecture_05/weiner_BE_22_lecture_05.html)
+ * [Lecture 6, 2023-05-11 - Sequence evolution](https://january3.github.io/Bioinformatics/Lectures/lecture_06/weiner_BE_22_lecture_06.html)
 
 # Practicals
 
@@ -29,6 +30,7 @@ You can click on the links below to directly view the HTML presentations.
    * [How to install R packages](https://www.dataquest.io/blog/install-package-r/)
    * Please install also the package colorDF
    * Windows users might need to install the [RTools](https://cran.r-project.org/bin/windows/Rtools/) package
+   * My own [installation instructions](https://january3.github.io/Bioinformatics/Resources/installing_r.html)
  * [Writing report](https://january3.github.io/Bioinformatics/Exam/Report/report_guidelines.html)
  * [Editing files](https://github.com/january3/Bioinformatics/blob/main/Resources/Editing_files/editing_text_files.pdf) – this guide tells you more about how to edit text files (not only in bioinformatics!)
 
