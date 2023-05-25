@@ -1,27 +1,39 @@
 ---
 title: "Practicals 05: Working with R - cont."
-subtitle: "BE_22 Bioinformatics SS 22"
 author: "January Weiner"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    toc: true
+    toc: yes
     toc_float:
-        collapsed: true
-        smooth_scroll: true
+      collapsed: yes
+      smooth_scroll: yes
     toc_depth: 3
     fig_caption: yes
-    number_sections: true
-abstract: |
+    number_sections: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+subtitle: BE_22 Bioinformatics SS 22
+abstract: null
 ---
 
 ```{r,echo=FALSE}
-## Set default options for the knitr RMD processing
-knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=TRUE,autodep=TRUE, results="hide")
+
 ```
 
-```{r libraries,cache=FALSE}
+```{r libraries, echo=FALSE, cache=FALSE}
 ```
+
+```{r empty_chunk, echo=TRUE}
+x <- 5
+```
+
+```{r echo=TRUE}
+print(x)
+```
+
+
 
 # Self-check
 
