@@ -1,0 +1,752 @@
+---
+title: "Lecture 7: Omics"
+subtitle: "BE_22 Bioinformatics SS 21"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+outputdupa: html_document
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=FALSE,autodep=TRUE, results="hide")
+library(pander)
+library(knitr)
+library(kableExtra)
+#source("functions.R")
+```
+
+```{r echo=FALSE,include=FALSE,eval=TRUE}
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+
+
+```{r libraries,cache=FALSE}
+library(tidyverse)
+```
+
+
+## Omics
+
+genome – genomics, transcriptome – transcriptomics, proteome – proteomics,
+metabolome – metabolomics, metagenome – metagenomics
+
+--
+
+symbiome, nutrimetabonomics, morphome, CircadiOmics, consciousome,
+interactomics, vaccinomics, regulomics, glycomics, interactomics...
+
+--
+
+Eisenomics (sequencing of genomes named after Gustav Eisen)¹ – https://eisenomics.wordpress.com/
+
+.myfootnote[
+¹ launched on April 1st, 2012
+]
+
+---
+
+## Ridiculome
+
+.pull-left[
+"As the -ome names imply, we expect such data to be complete collections of
+components and/or properties. The problem is that they are neither complete
+nor correct. It has been argued that they often do not help understanding,
+and have occasionally been called the 'ridiculome'."
+]
+
+.pull-right[
+
+So, what exactly does the following figure tell us:
+
+![](images/network.jpg)
+
+*Yu, Hui, et al. "Combinatorial network of transcriptional regulation and
+microRNA regulation in human cancer." BMC systems biology 6.1 (2012):
+1-11.*
+
+]
+
+.myfootnote[
+Blinov, Michael L., and Ion I. Moraru. "Logic modeling and the ridiculome under the rug." BMC biology 10.1 (2012): 1-8.
+]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/arnolfini.jpg)
+
+.right[
+.invminifootnote[
+Jan Van Eyck, Arnolfini portrait, 1434
+]
+]
+
+???
+
+Jan Van Eyck, Arnolfini portrait, 1434
+
+---
+class:empty-slide,myinverse
+background-image:url(images/arnolfini_2.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/arnolfini_3a.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/arnolfini_3.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/arnolfini_4.jpg)
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/monet_4.jpg)
+
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/monet_3.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/monet_2.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/monet.jpg)
+
+.right[
+.invminifootnote[
+<span style="color:#999999">
+Claude Monet, Saint-Georges majeur au crépuscule, 1908
+</span>
+]
+]
+
+???
+
+Claude Monet, Saint-Georges majeur au crépuscule, 1908
+
+---
+class:empty-slide,myinverse
+background-image:url(images/sangiorgio.jpg)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/monet_all.png)
+
+---
+
+## Common characteristics of high throughput data sets
+
+  * a lot more variables than samples, $p >> n$
+  * many unknown / uncharacterized variables
+  * atypical distributions
+  * frequently:
+      * batch effects
+      * systematic bias
+      * relative data (as opposed to absolute measurements in SI units)
+      * large uncertainties for individual data points
+      * huge files
+      
+---
+
+
+---
+
+## Genomics
+
+ * Study of genomes (also: metagenomics $\sim$ comparative genomics)
+ * Broader: any gene-related omics, including approaches combining several
+   -omics
+
+---
+
+## Genomics: science of genomes
+
+.pull-left[
+Techniques:
+
+ * High throughput sequencing
+ * SNP arrays
+ 
+Bioinformatics:
+
+ * Sequence assembly
+ * Annotation (sequence searches)
+ * Phylogenomics
+ * Functional predictions (binding sites, homologies etc)
+ * Variant analysis
+ * Genome-wide association studies
+]
+
+.pull-right[
+
+![](images/gold.png)
+
+]
+
+---
+
+# Sequencing
+
+---
+
+.pull-left[
+
+### Cluster amplification
+
+ * ligation of the cDNA to the flowcell
+ * amplification in situ
+ * results in spots ("clusters") with homogenous DNA
+
+   ]
+
+.pull-right[
+
+![](images/illumina_2.png)
+
+]
+
+---
+
+.pull-left[
+
+### Sequencing
+
+ * "Sequencing by synthesis": Step-wise extension of the sequences
+ * in each cycle, only one nucleotide is added: a protective group (-OH)
+   does not allow incorporation of another nucleotide
+ * a snapshot of the flow cell is taken; each cluster appears as a dot, the
+   color corresponds to the last dNTP incorporated
+ * fluorescence is deactivated, -OH protective group removed and another
+   cycle begins
+
+   ]
+
+.pull-right[
+
+![](images/illumina_3.png)
+
+]
+
+
+---
+
+.pull-left[
+
+### Sequencing
+
+ * "Sequencing by synthesis": Step-wise extension of the sequences
+ * in each cycle, only one nucleotide is added: a protective group (-OH)
+   does not allow incorporation of another nucleotide
+ * a snapshot of the flow cell is taken; each cluster appears as a dot, the
+   color corresponds to the last dNTP incorporated
+ * fluorescence is deactivated, -OH protective group removed and another
+   cycle begins
+
+   ]
+
+.pull-right[
+
+![](images/illumina.webp)
+
+]
+
+
+
+---
+
+.pull-left[
+
+### Sequencing
+
+ * "Sequencing by synthesis": Step-wise extension of the sequences
+ * in each cycle, only one nucleotide is added: a protective group (-OH)
+   does not allow incorporation of another nucleotide
+ * a snapshot of the flow cell is taken; each cluster appears as a dot, the
+   color corresponds to the last dNTP incorporated
+ * fluorescence is deactivated, -OH protective group removed and another
+   cycle begins
+
+]
+
+.pull-right[
+
+![](images/illumina.webp)
+
+]
+
+---
+
+
+.pull-left[
+
+### Bioinformatics
+
+ * convert image data to (compressed) text files (fastq files)
+ * demultiplex: split sequences based on the index
+ * trim adapters
+ * align to a genome / exome (SAM/BAM files)
+ * using a gene model (GTF files) count reads per gene
+ * Quality Control
+
+]
+
+.pull-right[
+
+![](images/alignment.png)
+
+]
+
+---
+
+## FASTQ files
+
+![](images/fastq.png)
+
+Lines:
+
+ 1. Identifier
+ 2. Sequence of the read
+ 3. End of the sequence (`+`), optionally identifier again
+ 4. Phred quality score
+
+
+---
+
+## Phred quality score
+
+ $$Q \stackrel{\text{def}}{=} -10 \cdot \log_{10}P$$
+
+
+So if $Q = 10$, then error probability is 1 in 10 (one zero); if $Q = 50$, error
+probability is 1 in $100,000$ (five zeros).
+
+The $P$ (probability) is derived empirically from the signal / noise ratio
+(and other metrics) in the raw data.
+
+The number is then mapped on ASCII codes of characters, e.g. `A` has the
+code of 65, which corresponds to $Q = 65 - 33 = 32$; `]` has the ASCII code
+93, so $Q = 93 - 33 = 60$.
+
+---
+
+## SAM and BAM files
+
+![](images/bam.png)
+
+ * contain information about alignment
+ * SAM = human readable text format (huge), BAM = same data but binary for
+   smaller size and quicker access
+ 
+---
+
+## Long read sequencing
+
+ Short reads: 50-300 bp (Illumina), 300-600 bp (Ion Torrent). Problems:
+
+ * repetitive regions (long terminal repeats - LTRs; retrotransposons; LINE
+   elements - long interspersed nuclear elements)
+ * structural variants (e.g. inversions, translocations, duplications)
+
+Long read sequencing:
+
+ * Methods:
+   * PacBio: 10,000-100,000 bp
+   * Oxford Nanopore, 10,000-1,000,000 bp
+ 
+ * Problems of long read sequencing:
+   * high error rate (but some methods / newest chemistry have much higher accuracy,
+     e.g. PacBio HiFi or newest chemistry from Oxford Nanopore)
+   * high cost
+   * low throughput
+
+
+---
+
+## Long read sequencing:PacBio
+
+.pull-left[
+PacBio: DNA polymerase with attached fluorescent nucleotides
+  * a single molecule of DNA polymerase is immobilized on a surface in a "nanophotonic well"
+  * DNA is added to the surface
+  * DNA polymerase incorporates fluorescent nucleotides
+  * fluorescence is detected in real time
+  * fluorescence is deactivated
+  * DNA polymerase incorporates another nucleotide
+  * repeat
+]
+
+.pull-right[
+![](images/pacbio.png)
+]
+
+---
+
+## Long read sequencing: Oxford Nanopore
+
+.pull-left[
+Oxford Nanopore: 
+  * DNA is pulled through a nanopore
+  * the current is measured
+  * the current changes depending on the nucleotide
+  * repeat
+]
+
+.pull-right[
+
+![](images/nanopore.png)
+
+]
+
+
+---
+
+## DNA methylation
+
+.pull-left[
+Techniques:
+
+ * bisulfite sequencing
+ * pyrosequencing
+ * methylation arrays
+
+Bioinformatics:
+
+ * Differential methylation analysis
+]
+
+.pull-right[
+
+![](images/methylation.jpg)
+
+]
+
+
+---
+
+## DNA binding
+
+.pull-left[
+
+
+Techniques:
+
+ * ChIP (-on-chip, -Seq)
+ * ATAC (-Seq)
+
+Bioinformatics:
+
+ * Peak identification
+ * Differential binding
+ * Motif prediction and motif search
+
+]
+
+.pull-right[
+
+![](images/chipseq.jpg)
+]
+
+---
+
+## Transcriptomics
+
+.pull-left[
+
+Techniques:
+
+ * RNA-Seq (2nd generation sequencing)
+ * Microarrays
+ * Nanostring
+ * QPCR
+
+Bioinformatics:
+
+ * Multivariate analyses (PCA etc)
+ * Differential expression analysis (statistics)
+ * Gene clustering
+ * Functional analysis (gene enrichments – finding regulated pathways)
+ * Differential transcripts
+ 
+]
+
+.pull-right[
+
+![](images/rnaseq.png)
+
+]
+
+---
+
+## Transcriptomic methods
+
+ * QPCR: precise, low-throughput
+ * Nanostring: precise, mid-throughput (~ 500-1000 genes)
+ * Microarray: less exact, high-throughput, pre-defined genes
+ * RNA-Seq: very flexible, less exact, high-throughput
+
+
+---
+
+## Transcriptomic parameters
+
+(serves as an example of the complexity of each method)
+
+ * Experimental design: number of samples needed? Which groups of samples?
+   Which controls?
+ * paired end or single end?
+ * library size / read depth? (number of reads per sample: 5 millions, 10
+   millions, 20 millions?)
+ * library preparation:
+    * globin depletion?
+    * amplification?
+    * UMI barcodes? (unique molecular identifiers)
+
+---
+
+## RNA-Seq
+
+.pull-left[
+### Library preparation
+
+ * cDNA synthesis (for RNA-Seq)
+ * fragmentation
+ * ligation of adapter and index sequences (and possibly UMIs, universal
+   molecular identifiers)
+ * purification (e.g. removing globin sequences)
+ * amplification
+   ]
+
+.pull-right[
+
+![](images/illumina_1.jpg)
+
+]
+
+
+---
+
+## Count data
+
+ * Matrix with integer data
+ * Rows = genes (or transcripts)
+ * Columns = samples
+
+---
+
+## Alternative representations of count data
+
+Library size = total number of reads in a sample
+
+ * (log) counts per million (normalized to library size)
+ * RPKM: reads per kilobase of transcript per million reads (normalized to
+   transcript length and library size)
+ * FPKM: fragments per kilobase of transcript per million reads (normalized
+   to transcript length and library size)
+ * TPMs: Transcript Per Million, normalized to transcript length and
+   library size (but differently)
+
+
+---
+
+## Stranded vs non-stranded
+
+![:scale 80%](images/strand_specificity.png)
+
+---
+
+## Paired end vs single-end
+
+![](images/paired_vs_single.jpg)
+
+
+---
+
+## Proteomics
+
+.pull-left[
+ 
+Techniques:
+
+ * mass spectrometry
+    * separation: chromatography
+    * ionization: MALDI / ESI
+    * analysis:
+       * time of flight (TOF, e.g, MALDI-TOF)
+       * Ion trap (e.g. Orbitrap)
+       * quadrupole (mass filter)
+    * tandem MS (MS/MS)
+
+Bioinformatics:
+
+ * spectrum analysis
+    * protein identification
+ * protein quantification, differential abundance etc.
+ * functional analysis
+ * protein-protein interaction networks
+
+]
+
+.pull-right[
+
+]
+
+---
+
+## Targeted proteomics
+
+.pull-left[
+e.g. antibody-based methods
+
+ * Luminex (antibodies coupled to fluorescent beads, measurement via a
+   specialized instrument)
+ * OLINK (proximity extension assay: antibodies coupled to DNA oligos,
+   measurement via qPCR)
+]
+
+.pull-right[
+
+![](images/olink.png)
+
+]
+
+---
+
+## Others
+
+.pull-left[
+
+ * Phosphoproteomics:
+
+    * phosphorylation of proteins
+    * radioisotpes for detection
+
+ * Glycoproteomics:
+   * identification of glycosylated proteins and other glycosylated
+     molecules
+   * cell-cell interactions
+   * immune responses (glycosylation of immunoglobulins)
+
+
+]
+
+--
+
+.pull-right[
+ * Lipidomics
+    * Mass spectrometry
+
+ * Metabolomics
+    * Mass spectrometry
+
+]
+
+---
+
+## Single cell methods
+
+.pull-left[
+
+e.g. sc-RNA-Seq
+
+ * each cell uniquely labelled
+ * sequencing reaction separated (e.g. in nanodroplets)
+ * transcriptome of each cell (but with low coverage)
+
+]
+
+.pull-right[
+
+![](images/scrnaseq.jpg)
+
+]
+
+---
+
+## Single cell RNA-Seq
+
+ * Data normalization: samples should fit to each other
+ * Cluster identification: find clusters of cells with similar expression
+   profiles
+ * Cell type identification: identify cell types based on known marker
+   genes, or other (prior) analyses
+ * Pseudobulk analysis: 
+  * Split data by clusters
+  * For each cluster and sample, generate a "pseudobulk" sample, i.e. add
+    the expression of all cells
+  * Perform a differential expression analysis on the pseudobulk samples
+
+---
+
+![](images/single_cell.png)
+
+???
+
+Source: Dynamic Interstitial Cell Response during Myocardial Infarction
+Predicts Resilience to Rupture in Genetically Diverse Mice, Cell Reports
+2020
+
+---
+
+## Flow cytometry
+
+.pull-left[
+
+ * cells labelled with fluorescent antibodies
+ * cells pass through a laser beam
+ * fluorescence is detected
+ * cells are sorted based on fluorescence
+ * cells are collected in tubes
+ * cells are analysed by other methods (e.g. RNA-Seq)
+
+]
+
+.pull-right[
+
+![](images/flow_cytometry.jpg)
+
+]
+
+---
+
+## Some advice
+
+ * New technologies and new applications arise all the time
+ * New technology curve: first steeply up, then steeply down, then level out
+ * In 10 years, the landscape will be very different (high throughput cheap
+   single cell proteomics? spatial single cell transcriptomics?)
+ * Learn the meta-trade, not the trade, so you can adapt to new
+   technologies:
+   * Learn how to program
+   * Teach yourself to figure out how to use existing workflows
+   * Stick to the reproducibility principles
