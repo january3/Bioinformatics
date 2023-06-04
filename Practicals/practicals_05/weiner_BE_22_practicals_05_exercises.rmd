@@ -16,6 +16,7 @@ output:
     toc_depth: '3'
 subtitle: BE_22 Bioinformatics SS 22
 abstract: null
+bibliography: bibliography.bib
 ---
 
 ```{r,echo=FALSE}
@@ -99,10 +100,10 @@ species is significantly different from the versicolor species.
 
 ```{r,echo=TRUE,eval=TRUE,results="markdown"}
 # select only values from the Sepal.Width column where the Species is setosa
-setosa_sw     <- iris$Sepal.Width[iris$Species=="setosa"]
+setosa_sw     <- iris$Sepal.Width[ iris$Species == "setosa" ]
 
 # same, but for versicolor and using the "subset" function
-versicolor_sw <- subset(iris$Sepal.Width, iris$Species=="versicolor")
+versicolor_sw <- subset(iris$Sepal.Width, iris$Species == "versicolor")
 
 t.test(setosa_sw,versicolor_sw)
 ```
@@ -183,7 +184,7 @@ graphics are very simple and easy to use, but the ggplot2 system is more
 powerful and allows for more complex visualizations.
 
 ```{r}
-plot(iris$Sepal.Length,iris$Sepal.Width)
+plot(iris$Sepal.Length, iris$Sepal.Width)
 ```
 
 Now we add the color of the points according to the species of the
@@ -195,7 +196,7 @@ function correspond to colors: 1 is black, 2 is red etc. The `pch`
 parameter sets the shape of the points. 
 
 ```{r}
-plot(iris$Sepal.Length,iris$Sepal.Width,col=iris$Species,pch=19)
+plot(iris$Sepal.Length, iris$Sepal.Width, col=iris$Species, pch=19)
 ```
 
 However, at this point it is much more convenient to use the ggplot2:
@@ -281,9 +282,11 @@ two ways of dealing with bibliography:
     possible in Jupyter)
 
 
----
+
 
 ## Adding bibliography (in Rmarkdown)
+
+Example: Altschul paper [@altschul1997gapped]
 
  1. Create a new text file called "bibliography.bib". You can do that in
     Rstudio for some OS (simply create a new .R file, but save it as

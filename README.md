@@ -14,7 +14,8 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 4, 2023-04-20 - Multiple sequence alignments, logos, PSSMs](https://january3.github.io/Bioinformatics/Lectures/lecture_04/weiner_BE_22_lecture_04.html)
  * [Lecture 5, 2023-05-04 - Reproducible bioinformatics](https://january3.github.io/Bioinformatics/Lectures/lecture_05/weiner_BE_22_lecture_05.html)
  * [Lecture 6, 2023-05-11 - Sequence evolution](https://january3.github.io/Bioinformatics/Lectures/lecture_06/weiner_BE_22_lecture_06.html)
- * [Lecture 6, 2023-05-18 - Omics](https://january3.github.io/Bioinformatics/Lectures/lecture_07/weiner_BE_22_lecture_07.html)
+ * [Lecture 7, 2023-05-18 - Omics](https://january3.github.io/Bioinformatics/Lectures/lecture_07/weiner_BE_22_lecture_07.html)
+ * [Lecture 8, 2023-06-01 - Transcription profiling](https://january3.github.io/Bioinformatics/Lectures/lecture_08/weiner_BE_22_lecture_08.html)
 
 # Practicals
 
@@ -24,6 +25,7 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 3: Sequence structures [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_03/weiner_BE_22_practicals_03.html)
   * Practicals 4: Introduction to R and programming[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04/weiner_BE_22_practicals_04_exercises.html)
   * Practicals 5: R and programming, statistical tests, visualizations [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_05/weiner_BE_22_practicals_05_exercises.html)
+  * Practicals 6: Phylogenies with R [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_06/weiner_BE_22_practicals_06.html)
 
 # Additional resources
 
