@@ -1,5 +1,5 @@
 ---
-title: "Lecture 11: Gene set enrichments"
+title: "Lecture 9: Gene set enrichments"
 subtitle: "BE_22 Bioinformatics SS 21"
 author: "January Weiner"
 date: "`r Sys.Date()`"
