@@ -28,6 +28,7 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 5: R and programming, statistical tests, visualizations [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_05/weiner_BE_22_practicals_05_exercises.html)
   * Practicals 6: Phylogenies with R [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_06/weiner_BE_22_practicals_06.html)
   * Practicals 7: Transcriptomics and clustering [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_07/weiner_BE_22_practicals_07_exercises.html)
+  * Practicals 8: Differential gene expression analysis [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08/weiner_BE_22_practicals_08_exercises.html)
 
 # Additional resources
 
