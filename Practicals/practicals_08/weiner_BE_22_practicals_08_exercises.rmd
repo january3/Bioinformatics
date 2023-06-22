@@ -115,6 +115,7 @@ annot  <- read.table("annot45.txt")
 There are three groups of data in the covariate file.
 
 ```{r results="markdown"}
+# install with install.packages("colorDF")
 library(colorDF)
 summary_colorDF(covar)
 ```

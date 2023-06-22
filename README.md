@@ -17,6 +17,7 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 7, 2023-05-18 - Omics](https://january3.github.io/Bioinformatics/Lectures/lecture_07/weiner_BE_22_lecture_07.html)
  * [Lecture 8, 2023-06-01 - Transcription profiling](https://january3.github.io/Bioinformatics/Lectures/lecture_08/weiner_BE_22_lecture_08.html)
  * [Lecture 9, 2023-06-08 - Gene set enrichments](https://january3.github.io/Bioinformatics/Lectures/lecture_09/weiner_BE_22_lecture_09.html)
+ * [Lecture 10, 2023-06-22 - Machine learning](https://january3.github.io/Bioinformatics/Lectures/lecture_10/weiner_BE_22_lecture_10.html)
 
 # Practicals
 
@@ -29,6 +30,7 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 6: Phylogenies with R [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_06/weiner_BE_22_practicals_06.html)
   * Practicals 7: Transcriptomics and clustering [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_07/weiner_BE_22_practicals_07_exercises.html)
   * Practicals 8: Differential gene expression analysis [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08/weiner_BE_22_practicals_08_exercises.html)
+  * Practicals 9: Machine Learning [Exercises + Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_09/weiner_BE_22_practicals_09_exercises.html)
 
 # Additional resources
 
