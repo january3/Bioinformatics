@@ -1,6 +1,6 @@
 ---
-title: "Practicals 10: Machine learning"
-subtitle: "BE_22 Bioinformatics SS 21"
+title: "Practicals 9: Machine learning"
+subtitle: "BE_22 Bioinformatics SS 23"
 author: "January Weiner"
 date: "`r Sys.Date()`"
 output:
