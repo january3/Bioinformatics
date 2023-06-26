@@ -18,6 +18,7 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 8, 2023-06-01 - Transcription profiling](https://january3.github.io/Bioinformatics/Lectures/lecture_08/weiner_BE_22_lecture_08.html)
  * [Lecture 9, 2023-06-08 - Gene set enrichments](https://january3.github.io/Bioinformatics/Lectures/lecture_09/weiner_BE_22_lecture_09.html)
  * [Lecture 10, 2023-06-22 - Machine learning](https://january3.github.io/Bioinformatics/Lectures/lecture_10/weiner_BE_22_lecture_10.html)
+ * [Lecture 11, 2023-06-25 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_11/weiner_BE_22_lecture_11_visualizations.html)
 
 # Practicals
 

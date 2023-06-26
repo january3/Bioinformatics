@@ -472,7 +472,7 @@ roc(response=m_df$GROUP, predictor=ct_probs,
 **Exercise – optional (if we find time)**. Otherwise, **Homework 6,
 alternative 2** (so if we don't manage to run it during practicals
 together, you can do it as a homework). Use the metabo dataset and random
-forests, but instead of "GROUP" take "SEX" as predictor. Which biochemicals
+forests or decision trees, but instead of "GROUP" take "SEX" as predictor. Which biochemicals
 found in blood are indicative of biological sex? Submit an Rmarkdown file.
 
 
