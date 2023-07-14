@@ -1,5 +1,9 @@
 # Bioinformatics
 
+**Important note:** Due to a technical mishap, there are no additional
+datasets for the reports on transcriptomics. If you choose this way, feel
+free to use the data sets we used in the Practicals 8.
+
 This is the repository for the course "Bioinformatics". You will find
 lectures, practicals and more here. Everything is publicly accessible.
 
