@@ -1,6 +1,6 @@
 ---
 title: "Lecture 2: Sequence alignments and sequence search"
-subtitle: "BE_22 Bioinformatics SS 21"
+subtitle: "BE4 4279 Bioinformatics SS 2024"
 author: "January Weiner"
 date: "`r Sys.Date()`"
 output:
