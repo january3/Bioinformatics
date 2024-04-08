@@ -9,6 +9,8 @@ make sure that you have the newest version of all files.
 You can click on the links below to directly view the HTML presentations.
 
  * [Lecture 1, 2024-04-05 - Introduction](https://january3.github.io/Bioinformatics/Lectures/lecture_01/weiner_BE_22_lecture_01_2024_04_05.html)
+ * [Lecture 1, part 2, 2024-04-05 - Introduction](https://january3.github.io/Bioinformatics/Lectures/lecture_01/weiner_BE_22_lecture_01_2024_04_05.html)
+ * [Lecture 2, part 1 - Sequence searches and alignments](https://january3.github.io/Bioinformatics/Lectures/lecture_02/weiner_bioinformatics_lecture_02.html)
 <!--  * [Lecture 2, 2023-03-27 - Alignments and sequence search](https://january3.github.io/Bioinformatics/Lectures/lecture_02/weiner_BE_22_lecture_02.html)
  * [Lecture 3, 2023-04-11 - Protein sequences and protein similarity](https://january3.github.io/Bioinformatics/Lectures/lecture_03/weiner_BE_22_lecture_03.html)
  * [Lecture 4, 2023-04-20 - Multiple sequence alignments, logos, PSSMs](https://january3.github.io/Bioinformatics/Lectures/lecture_04/weiner_BE_22_lecture_04.html)
