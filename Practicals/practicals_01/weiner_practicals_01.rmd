@@ -1,6 +1,6 @@
 ---
 title: "Practicals 01: Sequence search (intro)"
-subtitle: "BE_22 Bioinformatics SS 21"
+subtitle: "Bioinformatics SS 24"
 author: "January Weiner"
 date: "`r Sys.Date()`"
 output:
