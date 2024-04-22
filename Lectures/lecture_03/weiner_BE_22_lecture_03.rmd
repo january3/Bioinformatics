@@ -89,6 +89,9 @@ and research funding”. 2007. Genome Biol. 8(4):404.  doi:10.1186/gb-2007-8-4-4
  * Structural bioinformatics allows to predict protein structures and
    protein-protein interactions
     * we need structure prediction from sequences
+ * Modern deep learning structure prediction methods use both (evolutionary
+   relationships + structural predictions) to accurately predict protein
+   structures.
 
 In any case, we need to understand AA sequences!
 
@@ -528,9 +531,20 @@ in an alignment).
 $$M_1(i, j) = \lambda \frac{A(i, j)}{N\cdot f(j)}$$
 
 Where $i$, $j$ are amino acids, $A(i, j)$ is the number of occurences of
-mismatches of $i$ with $j$ amino acids, $N$ is the number of amino acids
-and $f(j)$ is the frequency of amino acid $j$.
+mismatches of $i$ with $j$ amino acids, $N$ is the total number of amino
+acids in the alignment(s) and $f(j)$ is the frequency of amino acid $j$.
 
+Clearly, $$\N\cdot f(j)$$ is simply the number of occurences of amino acid
+$j$.
+
+$\lambda$ is simply a scaling factor which ensures that the sum of all elements in
+the matrix is 1.
+
+---
+
+## Constructing the mutation matrix $M_1$
+
+$$M_1(i, j) = \lambda \frac{A(i, j)}{N\cdot f(j)}$$
 
 ---
 
@@ -1603,6 +1617,27 @@ Journal (2020).*
 (2D structure prediction)
 
 "stat" are statistical models (like Chou-Fasman)
+
+---
+
+## AlphaFold
+
+![:scale 70%](images/Nature-AlphaFold-Google-CASP13-500w@72ppi.webp)
+
+---
+
+## AlphaFold
+
+![:scale 70%](images/alphafold.webp)
+
+ * 1st main input: evolutionary information (multiple sequence alignment)
+  * Also: structures of closest homologs
+ * 2nd main input: predicted secondary structures
+
+The prediction is done iteratively, as you can see
+[here](https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_MOESM5_ESM.mp4).
+
+Read more [here](https://www.blopig.com/blog/2021/07/alphafold-2-is-here-whats-behind-the-structure-prediction-miracle/).
 
 
 
