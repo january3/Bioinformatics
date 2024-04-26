@@ -33,7 +33,7 @@ knitr::opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE,fig.width=5,fig.hei
    You can use one of the following online interfaces or download the
    program `clustalx`:
 
-     * (preferred) Clustal Omega on EBI web page: [clustalo](https://www.ebi.ac.uk/Tools/msa/clustalo/)
+     * (preferred) Clustal Omega on EBI web page: [clustalo](https://www.ebi.ac.uk/jdispatcher/msa/clustalo)
      * Clustal W interface: [clustalw](https://www.genome.jp/tools-bin/clustalw) (requires an offline viewer like Jalview)
      * Clustal W interface #2: [clustalw](https://embnet.vital-it.ch/software/ClustalW.html) (requires an offline viewer)
      * Alternatively, download and install `clustalx` from [here](http://www.clustal.org/clustal2/). This is a GUI offline program for doing alignmnets with clustalw. 
