@@ -587,3 +587,9 @@ background-image:url(images/cute_puppy.jpg)
 
 ![](images/A_profile_HMM_modelling_a_multiple_sequence_alignment.png)
 
+---
+
+# Hidden Markov Models
+
+![](images/hmms_building.png)
+
