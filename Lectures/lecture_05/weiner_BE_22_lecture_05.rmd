@@ -590,6 +590,18 @@ abilities.
 
 Can date of birth be used to predict our height?
 
+.myfootnote[
+Weber, Gerhard W., Hermann Prossinger, and Horst Seidler. "Height depends on month of birth." Nature 391.6669 (1998): 754-755.
+]
+
+???
+
+paper:
+
+https://www.nature.com/articles/35781
+
+Weber, Gerhard W., Hermann Prossinger, and Horst Seidler. "Height depends on month of birth." Nature 391.6669 (1998): 754-755.
+
 ---
 
 ## Effect sizes: Does astrology work?
@@ -868,7 +880,9 @@ experiencing.
 ## Introduction to the report: rules ✪
 
  * *In any case*, you will do the report in Rmarkdown or Jupyter lab book.
- * There are two main options:
+ * There are three main options:
+  * Pick a protein and use any available tools to analyse its structure,
+    evolutionary history (phylogeny), function etc.
   * Differential gene expression analysis, combined with functional
      analysis
   * Writing your own Python or R program (some ideas will follow) that actually
@@ -877,6 +891,31 @@ experiencing.
    Rmarkdown actually works and can produce a document (HTML, Word,
    whatever)
  
+---
+
+## Report on structural analysis
+
+ * Pick a protein. Whatever you pick is OK, as long as you don't pick a
+   protein or gene we have already discussed in the practicals
+ * Use several of the following tools, or any other tools you find useful:
+    * BLAST
+    * Pfam
+    * clustalw
+    * phylogeny tools
+    * InterPro
+    * CATH
+    * SCOP
+    * PDB
+    * UniProt
+    * STRING
+ * Try to apply these tools to the sequence of your protein to find out
+   more about it
+ * Document all things you have done in a *replicable* manner
+ * Use the "Discussion" part to describe your opinion on the results,
+   speculations, and what else one could do
+
+---
+
 
 ---
 
@@ -910,9 +949,9 @@ experiencing.
 ## Writing the report ✪
 
  * With these tasks complete, you write a report
- * Report must be written in Rmarkdown
- * You must create a bibliography file and include the references
- * Like a scientific paper, the report must include the following parts:
+ * Report must be written in Rmarkdown or as Jupyter lab book
+ * You must create a bibliography and include the references
+ * Like a scientific paper, the report **must** include the following parts:
     * Abstract: short description of your work
     * Introduction: explain what is the background of your work (e.g. why
       analysing proteins is important)

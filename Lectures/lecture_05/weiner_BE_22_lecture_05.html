@@ -4,8 +4,8 @@
     <title>Lecture 5: Reproducible Bioinformatics</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2023-05-02" />
-    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <meta name="date" content="2024-05-06" />
+    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
     <link rel="stylesheet" href="files/style.css" type="text/css" />
@@ -24,7 +24,7 @@ class: center, middle, inverse, title-slide
 ### January Weiner
 ]
 .date[
-### 2023-05-02
+### 2024-05-06
 ]
 
 ---
@@ -576,6 +576,18 @@ abilities.
 
 Can date of birth be used to predict our height?
 
+.myfootnote[
+Weber, Gerhard W., Hermann Prossinger, and Horst Seidler. "Height depends on month of birth." Nature 391.6669 (1998): 754-755.
+]
+
+???
+
+paper:
+
+https://www.nature.com/articles/35781
+
+Weber, Gerhard W., Hermann Prossinger, and Horst Seidler. "Height depends on month of birth." Nature 391.6669 (1998): 754-755.
+
 ---
 
 ## Effect sizes: Does astrology work?
@@ -626,13 +638,13 @@ T-test results:
 ## 	Welch Two Sample t-test
 ## 
 ## data:  df$Height by df[[2]]
-## t = 19.175, df = 2e+05, p-value &amp;lt; 2.2e-16
+## t = 19.061, df = 2e+05, p-value &amp;lt; 2.2e-16
 ## alternative hypothesis: true difference in means between group April and group October is not equal to 0
 ## 95 percent confidence interval:
-##  0.5377464 0.6601946
+##  0.5343158 0.6567946
 ## sample estimates:
 ##   mean in group April mean in group October 
-##              177.2875              176.6886
+##              177.2962              176.7006
 &lt;/code&gt;&lt;/pre&gt;
 
 `\(\Rightarrow\)` Differences are statistically significant!
@@ -850,7 +862,9 @@ experiencing.
 ## Introduction to the report: rules ✪
 
  * *In any case*, you will do the report in Rmarkdown or Jupyter lab book.
- * There are two main options:
+ * There are three main options:
+  * Pick a protein and use any available tools to analyse its structure,
+    evolutionary history (phylogeny), function etc.
   * Differential gene expression analysis, combined with functional
      analysis
   * Writing your own Python or R program (some ideas will follow) that actually
@@ -859,6 +873,31 @@ experiencing.
    Rmarkdown actually works and can produce a document (HTML, Word,
    whatever)
  
+---
+
+## Report on structural analysis
+
+ * Pick a protein. Whatever you pick is OK, as long as you don't pick a
+   protein or gene we have already discussed in the practicals
+ * Use several of the following tools, or any other tools you find useful:
+    * BLAST
+    * Pfam
+    * clustalw
+    * phylogeny tools
+    * InterPro
+    * CATH
+    * SCOP
+    * PDB
+    * UniProt
+    * STRING
+ * Try to apply these tools to the sequence of your protein to find out
+   more about it
+ * Document all things you have done in a *replicable* manner
+ * Use the "Discussion" part to describe your opinion on the results,
+   speculations, and what else one could do
+
+---
+
 
 ---
 
@@ -892,9 +931,9 @@ experiencing.
 ## Writing the report ✪
 
  * With these tasks complete, you write a report
- * Report must be written in Rmarkdown
- * You must create a bibliography file and include the references
- * Like a scientific paper, the report must include the following parts:
+ * Report must be written in Rmarkdown or as Jupyter lab book
+ * You must create a bibliography and include the references
+ * Like a scientific paper, the report **must** include the following parts:
     * Abstract: short description of your work
     * Introduction: explain what is the background of your work (e.g. why
       analysing proteins is important)
