@@ -35,6 +35,7 @@ Please fill out the following questionnaire:
 
 
 ```{r}
+library(qrcode)
 plot(qr_code("https://forms.gle/XDVMAZhQ9qPKBmYQ8"))
 ```
 
