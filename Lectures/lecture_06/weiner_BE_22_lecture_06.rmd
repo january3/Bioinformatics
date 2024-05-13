@@ -302,7 +302,7 @@ deficiency in high geographic latitudes.*
 
 ---
 
-## Positive / negative selection
+## Positive / negative selection ✪
 
 --
 
@@ -332,7 +332,7 @@ deficiency in high geographic latitudes.*
 
 ---
 
-## Genetic drift
+## Genetic drift ✪
 
 ---
 
@@ -384,7 +384,7 @@ deficiency in high geographic latitudes.*
 
 ---
 
-## Sequence evolution
+## Sequence evolution ✪
 
  * synonymous vs non-synonymous mutations
 
@@ -469,6 +469,8 @@ Also, we need to consider different models of evolution. The calculations quickl
 
 ---
 
+## Ka/Ks ratio ✪
+
 .pull-left[
 **High Ka/Ks ratio:**
 
@@ -527,7 +529,7 @@ Basically the same shark, but from the Jurassic (Berlin Museum of Natural Histor
 
 ---
 
-## Neutral evolution
+## Neutral evolution ✪
 
  * most of the mutations are neutral (even if non-synonymous!)
  * overall, the mutation rate can be quite constant over large periods of
@@ -599,6 +601,19 @@ Why do phylogenetic reconstructions?
  * Create beautiful plots
 
 ---
+
+## What makes a phylogenetic tree ✪ 
+
+![](images/phylo_tree.png)
+
+---
+
+## Rooted vs unrooted trees ✪ 
+
+![](images/phylo_tree.png)
+
+---
+
 
 ## Tree Of Life
 
@@ -706,7 +721,7 @@ criminal case." Proceedings of the National Academy of Sciences 99.22
 
 ---
 
-## Tree reconstruction
+## Tree reconstruction ✪
 
  * Distance based methods:
     * calculate evolutionary distances (e.g. number of substitutions) between each two sequences
