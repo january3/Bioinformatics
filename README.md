@@ -29,9 +29,9 @@ You can click on the links below to directly view the HTML presentations.
   * Practicals 1, 2024-04-12: Sequence searches [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_01/weiner_practicals_01_exercises.html)
   * Practicals 2, 2024-04-19 and 2024-04-26: Sequence logos and MSA [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_02/weiner_BE_22_practicals_02_exercises.html)
   * Practicals 3, 2024-05-03: Sequence structures [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_03/weiner_BE_22_practicals_03.html)
-  * Practicals 4, 2024-05-10: Introduction to R and programming[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04/weiner_BE_22_practicals_04_exercises.html)
-  <!--
+  * Practicals 4, 2024-05-10, 2024-05-31: Introduction to R and programming[Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_04/weiner_BE_22_practicals_04_exercises.html)
   * Practicals 5: R and programming, statistical tests, visualizations [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_05/weiner_BE_22_practicals_05_exercises.html)
+  <!--
   * Practicals 6: Phylogenies with R [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_06/weiner_BE_22_practicals_06.html)
   * Practicals 7: Transcriptomics and clustering [Exercises and Homework](https://january3.github.io/Bioinformatics/Practicals/practicals_07/weiner_BE_22_practicals_07_exercises.html)
   * Practicals 8: Differential gene expression analysis [Exercises](https://january3.github.io/Bioinformatics/Practicals/practicals_08/weiner_BE_22_practicals_08_exercises.html)
