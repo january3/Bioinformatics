@@ -49,7 +49,7 @@ library(tidyverse)
 ```
 
 
-## Omics
+## Omics✪ 
 
 genome – genomics, transcriptome – transcriptomics, proteome – proteomics,
 metabolome – metabolomics, metagenome – metagenomics
@@ -165,7 +165,7 @@ background-image:url(images/monet_all.png)
 
 ---
 
-## Common characteristics of high throughput data sets
+## Common characteristics of high throughput data sets✪ 
 
   * a lot more variables than samples, $p >> n$
   * many unknown / uncharacterized variables
@@ -329,7 +329,18 @@ Bioinformatics:
 
 ---
 
-## FASTQ files
+## Annotation & GTF files
+
+![](images/gtf.png)
+
+ * GTF files: Gene Transfer Format
+ * contain information about gene models
+ * e.g. chromosome, start, end, strand, gene name, transcript name, exon
+   number, exon start, exon end
+
+---
+
+## FASTQ files✪ 
 
 ![](images/fastq.png)
 
@@ -343,7 +354,7 @@ Lines:
 
 ---
 
-## Phred quality score
+## Phred quality score✪ 
 
  $$Q \stackrel{\text{def}}{=} -10 \cdot \log_{10}P$$
 
@@ -360,7 +371,7 @@ code of 65, which corresponds to $Q = 65 - 33 = 32$; `]` has the ASCII code
 
 ---
 
-## SAM and BAM files
+## SAM and BAM files✪ 
 
 ![](images/bam.png)
 
@@ -478,6 +489,7 @@ Bioinformatics:
 ]
 
 ---
+
 
 ## Transcriptomics
 
@@ -736,6 +748,44 @@ Predicts Resilience to Rupture in Genetically Diverse Mice, Cell Reports
 ![](images/flow_cytometry.jpg)
 
 ]
+
+---
+
+## Is it all worth it?
+
+![](images/zappaquote.png)
+
+(after Graur et al.)
+
+---
+
+## Example: ENCODE
+
+ * ENCODE = Encyclopedia of DNA Elements
+ * Goal: identify all functional elements in the human genome
+ * Data: ChIP-Seq, RNA-Seq, DNase-Seq, ATAC-Seq, Hi-C, CAGE, RAMPAGE, etc.
+
+Some claims:
+
+ * 80% of the genome is functional (as defined by "some protein seems to
+   sometimes bind to it") -> is it possible?
+
+---
+
+## Immortality of TV sets
+
+ * We know mutation rates, we know mathematics
+ * It is not possible for natural selection to maintain 80% of the genome
+   functional -> that would imply a huge fitness cost (as in,
+   99.9999999999% of the population would have to die)
+ * Current estimates rather at 10% of the genome being functional (in the
+   evolutionary sense)
+ * The fact that a protein binds a certain site doesn't mean that the site does
+   anything useful
+
+Graur, Dan, et al. "On the immortality of television sets:“function” in the
+human genome according to the evolution-free gospel of ENCODE." Genome
+biology and evolution 5.3 (2013): 578-590.
 
 ---
 
