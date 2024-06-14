@@ -34,6 +34,9 @@ x <- 5
 print(x)
 ```
 
+Todays goal is to reinforce the previous practicals with R, answer
+questions, check your understanding. Also, we will do some basic, example
+statistics.
 
 
 # Self-check
@@ -105,12 +108,12 @@ setosa_sw     <- iris$Sepal.Width[ iris$Species == "setosa" ]
 # same, but for versicolor and using the "subset" function
 versicolor_sw <- subset(iris$Sepal.Width, iris$Species == "versicolor")
 
-t.test(setosa_sw,versicolor_sw)
+t.test(setosa_sw, versicolor_sw)
 ```
 
 **Exercise 5.3**
 
- * What is the null hypothesis of the t.test?
+ * What is the null (zero) hypothesis of the t.test?
  * What is the alternative hypothesis of the t.test?
  * Repeat the t.test for Petal Width and comparison between versicolor and virginica.
 
@@ -121,9 +124,20 @@ A pairwise t-test between each group:
 pairwise.t.test(iris$Sepal.Width, iris$Species)
 ```
 
+Warning: this is not a *paired* t-test, a paired t-test is something else
+(when the data comes in pairs!).
+
 ## Analysis of Variance (ANOVA) 
 
 Like a t-test, but for multiple groups and multiple variables. 
+
+
+```{r}
+boxplot(Sepal.Width ~ Species, data=iris)
+```
+
+
+
 
 Next, a simple ANOVA to check whether Species is a significant covariate.
 
@@ -170,7 +184,6 @@ when the data are normally distributed.
 ```{r,echo=TRUE,eval=TRUE,results="markdown"}
 cor.test(iris$Sepal.Width, iris$Sepal.Length, method="spearman")
 ```
-
 
 
 # Visualisation in R.
@@ -269,6 +282,78 @@ well as the species column. Make plots which combine a principal component
 (e.g. PC1) and one of the variables. Do you see any correlation between
 the variables and the principal components?
 
+# Linear regression analysis
+
+## Simple regression
+
+The basic regression equation:
+
+ $$y = \beta_0 + \beta_1 x + \epsilon$$
+
+Here is how we do it in R. We use an example data set from R called
+"state.x77". It contains various statistics about the US states from 1977.
+
+```{r,echo=TRUE,eval=TRUE,results="markdown"}
+library(datasets)
+## convert a matrix to a data frame
+df <- as.data.frame(state.x77)
+ggplot(df, aes(x=Income, y=Illiteracy)) + geom_point()
+```
+
+Now we run a linear regression:
+
+```{r,echo=TRUE,eval=TRUE,results="markdown"}
+lm_fit <- lm(Illiteracy ~ Income, data=df)
+summary(lm_fit)
+tidy(lm_fit)
+```
+
+We can also plot the regression line:
+
+```{r,echo=TRUE,eval=TRUE,results="markdown"}
+ggplot(df, aes(x=Income, y=Illiteracy)) + geom_point() + geom_smooth(method="lm")
+```
+
+## Multiple regression
+
+Unlike in other programs, it is much simpler to make complex regression models
+in R.
+
+```{r,echo=TRUE,eval=TRUE,results="markdown"}
+df <- as.data.frame(state.x77)
+
+# clean up the column names. You can also use the function
+# `clean_names` from the package `janitor` to do it automatically.
+colnames(df) <- c("pop", "income", "illiteracy",
+                  "life_exp", "murder", "hs_grad", "frost", "area")
+# alternative: df <- clean_names(df)
+lm_fit <- lm(life_exp ~ income + illiteracy + murder, data=df)
+summary(lm_fit)
+```
+
+## ANOVA with linear regression
+
+ANOVA is practically equivalent to a simple regression model, where x is
+categorical.
+
+```{r}
+iris_anova <- aov(Sepal.Width ~ Species, data=iris)
+summary(iris_anova)
+
+iris_lm <- lm(Sepal.Width ~ Species, data=iris)
+
+summary(iris_lm)
+anova(iris_lm)
+```
+
+The `summary(iris_lm)` is not exactly what we want, because rather than
+showing whether there are differences between the groups, it checks whether
+the individual groups differ from the first group (*setosa*). We need to
+use the function `anova` on the regression model to actually get the same
+results as with `aov`. This function is pretty general and we can apply it
+in many cases.
+
+
 # Adding bibliography (in Rmarkdown)
 
 Bibliography must be found at the end of the document. There are basically
@@ -310,26 +395,5 @@ Example: Altschul paper [@altschul1997gapped]
     Download it to your working directory. To the markdown header add the
     line `csl: nature.csl` (or whatever the file is called). Knit and look
     at the output.
-
-
-
-
-# Homework
-
-Your homework for today is to create a Rmarkdown document 
-with the above analysis. You can use the `iris` data set or any other
-data set you like. You can also use the `mtcars` data set, which contains
-measurements of various car models. You can find more information about
-the data sets by typing `?iris` or `?mtcars` in the R console. Explain in
-the document what you are doing and what you are trying to show with the
-plots.
-
-Alternatively, use Jupyter Notebook:
-
- * Create a new Jupyter Notebook
- * As above: repeat the steps from the practicals
- * Add short comments for each step, indicating what the step is doing.
- * Submit your ipynb file as your homework.
-
 
  
