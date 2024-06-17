@@ -51,7 +51,6 @@ library(readxl)
 library(cowplot)
 library(RColorBrewer)
 library(cluster)
-library(pca3d)
 library(Rseasnap)
 library(colorDF)
 library(DESeq2)
@@ -112,9 +111,11 @@ number of approaches for functional analysis of gene expression.
 
 ---
 
-## Gene ontology database
+## Gene ontology database✪ 
 
 .pull-left[
+
+GO – Gene Ontology
 
  * Genes are assigned to GO categories
  * GO categories are assigned to each other
@@ -128,9 +129,33 @@ number of approaches for functional analysis of gene expression.
 
 ---
 
-## KEGG pathways
+## Gene ontology database✪ 
+
+ * Three main categories: biological process (BP), molecular function (MF), cellular
+   component (CC)
+ * Each category is a so-called "directed acyclic graph" (DAG)
+ * Each gene can be assigned to multiple categories
+ * Each category can have multiple "parents" and "children" (so it is not a
+   tree!)
+ 
+
+## KEGG pathways✪ 
+
+.pull-left[
 
 KEGG – Kyoto Encyclopaedia of Genes and Genomes
+
+KEGG pathways - a manually curated collection of ~ 300 pathways
+
+]
+
+.pull-right[
+
+![](images/minoru_kanehisa.png)
+
+Minoru Kanehisa (金久 實), the creator of KEGG
+
+]
 
 ---
 class:empty-slide,myinverse
@@ -158,7 +183,7 @@ Different lists of genes can be obtained from various sources.
 
 ---
 
-## MSigDB – a meta database of gene sets
+## MSigDB – a meta database of gene sets✪ 
 
 .pull-left[
 ![:scale 60%](images/msigdb.png)
@@ -166,7 +191,7 @@ Different lists of genes can be obtained from various sources.
 
 ---
 
-## Group of genes, and then what?
+## Group of genes, and then what?✪ 
 
 First, define DEGs: differentially expressed genes (e.g.
 `abs(log2FoldChange) > 1`, `adj_p_val < 0.001`)
@@ -272,10 +297,30 @@ chisq.test(matrix(c(50, 60, 70, 1000), byrow=TRUE, nrow=2))
 
 ---
 
-## GSEA algorithm
+## GSEA algorithm✪ 
 
 ![](images/GSEA-homegraphic.gif)
 
+---
+
+## GSEA algorithm
+
+ * Calculate the (pseudo) Kolmogorov-Smirnov statistic for each gene set
+ * The statistic has a value, but no associated p-value
+ * Test the statistic and obtain a p-value by a permutation test
+
+---
+
+## Permutation tests in statistics
+
+ * Normally, for a given statistic (like the t-test statistic or chi-squared
+   statistic), you can calculate a p-value from the known distribution of
+   the statistic
+ * If you don't know the distribution, you can simulate it by permuting the
+   data
+ * Advantages: no assumptions about the distribution of the statistic
+ * Disadvantages: computationally expensive, and more importantly: you need
+   a sufficient number of samples
 
 ---
 

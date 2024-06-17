@@ -6,6 +6,7 @@ output:
   html_document: default
   word_document: default
   pdf_document: default
+bibliography: bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -145,7 +146,41 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 ![Image of a sparrow](sparrow.png)
 
 
+## practicals 5
+
+```{r}
+is_setosa <- iris$Species == "setosa"
+length(is_setosa)
+# subset the iris$Sepal.Width vector with a logical vector
+setosa_sw <- iris$Sepal.Width[ is_setosa  ]
+versicolor_sw <- subset(iris$Sepal.Width, iris$Species == "versicolor")
+t_test_result <- t.test(setosa_sw, versicolor_sw)
+library(broom)
+tidy(t_test_result)
+```
 
 
+```{r}
+iris_anova <- aov(Sepal.Width ~ Species, data=iris)
+summary(iris_anova)
+```
+
+```{r}
+cor.test(iris$Sepal.Width, iris$Sepal.Length)
+```
+
+```{r}
+library(datasets)
+state.x77
+df <- as.data.frame(state.x77)
+lm_fit <- lm(Illiteracy ~ Income, data=df)
+summary(lm_fit)
+
+```
+
+Here is a great paper on Venn diagrams @justsomelabel.
+
+
+# Bibliography
 
 
