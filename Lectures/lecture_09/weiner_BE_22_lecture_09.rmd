@@ -137,7 +137,8 @@ GO – Gene Ontology
  * Each gene can be assigned to multiple categories
  * Each category can have multiple "parents" and "children" (so it is not a
    tree!)
- 
+
+---
 
 ## KEGG pathways✪ 
 
