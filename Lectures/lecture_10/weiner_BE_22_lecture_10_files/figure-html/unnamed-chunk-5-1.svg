@@ -154,10 +154,13 @@
   <path d="M 265 5.480469 L 267 5.480469 L 267 326.851562 L 265 326.851562 Z M 265 5.480469 "/>
 </clipPath>
 <clipPath id="clip20">
+  <path d="M 155 5.480469 L 162 5.480469 L 162 326.851562 L 155 326.851562 Z M 155 5.480469 "/>
+</clipPath>
+<clipPath id="clip21">
   <path d="M 32.152344 5.480469 L 272.84375 5.480469 L 272.84375 326.851562 L 32.152344 326.851562 Z M 32.152344 5.480469 "/>
 </clipPath>
 </defs>
-<g id="surface21">
+<g id="surface36">
 <rect x="0" y="0" width="360" height="360" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <rect x="0" y="0" width="360" height="360" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,100%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 360 L 360 360 L 360 0 L 0 0 Z M 0 360 "/>
@@ -319,6 +322,9 @@
 <path style="fill-rule:nonzero;fill:rgb(0%,74.901961%,76.862745%);fill-opacity:1;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,74.901961%,76.862745%);stroke-opacity:1;stroke-miterlimit:10;" d="M 111.203125 70.949219 C 111.203125 73.558594 107.292969 73.558594 107.292969 70.949219 C 107.292969 68.34375 111.203125 68.34375 111.203125 70.949219 "/>
 <path style="fill-rule:nonzero;fill:rgb(0%,74.901961%,76.862745%);fill-opacity:1;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,74.901961%,76.862745%);stroke-opacity:1;stroke-miterlimit:10;" d="M 153.746094 119.769531 C 153.746094 122.375 149.839844 122.375 149.839844 119.769531 C 149.839844 117.164062 153.746094 117.164062 153.746094 119.769531 "/>
 <g clip-path="url(#clip20)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:6.40187;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 158.566406 326.847656 L 158.566406 5.480469 "/>
+</g>
+<g clip-path="url(#clip21)" clip-rule="nonzero">
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(20%,20%,20%);stroke-opacity:1;stroke-miterlimit:10;" d="M 32.152344 326.847656 L 272.84375 326.847656 L 272.84375 5.476562 L 32.152344 5.476562 Z M 32.152344 326.847656 "/>
 </g>
 <g style="fill:rgb(30.196078%,30.196078%,30.196078%);fill-opacity:1;">

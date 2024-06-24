@@ -4,7 +4,7 @@
     <title>Lecture 10: Machine learning</title>
     <meta charset="utf-8" />
     <meta name="author" content="January Weiner" />
-    <meta name="date" content="2023-06-22" />
+    <meta name="date" content="2024-06-24" />
     <script src="libs/header-attrs-2.22/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="files/cubi-fonts.css" type="text/css" />
@@ -24,39 +24,18 @@ class: center, middle, inverse, title-slide
 ### January Weiner
 ]
 .date[
-### 2023-06-22
+### 2024-06-24
 ]
 
 ---
 
 
 
-```
-## ── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.2     ✔ readr     2.1.4
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-## ✔ purrr     1.0.1     
-## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter()     masks stats::filter()
-## ✖ dplyr::group_rows() masks kableExtra::group_rows()
-## ✖ dplyr::lag()        masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-## Type 'citation("pROC")' for a citation.
-## 
-## 
-## Attaching package: 'pROC'
-## 
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     cov, smooth, var
-```
 
 
 
----
+
+
 
 ## What is machine learning?
 
@@ -68,12 +47,49 @@ background-image:url(images/person-statistics-machine-learnine-machine-learning-
 
 .pull-left[
 
-### Supervised machine learning:
+### Unsupervised machine learning:✪ 
+
+ * algorithm
+ * data set
+ * no "training data"
+ * no classes / results to be predicted
+ * validation data set
+
+]
+
+.pull-right[
+
+### Supervised machine learning:✪ 
 
  * algorithm
  * training data set
+ * classes / results to be predicted
  * test data set
  * validation data set
+
+]
+
+---
+
+## Classification vs regression problems ✪ 
+
+.pull-left[
+
+### Classification
+
+ * discrete output
+ * e.g. "is this a cat or a dog?"
+ * e.g. "is this a TB patient or a healthy individual?"
+
+]
+
+.pull-right[
+
+### Regression
+
+ * continuous output
+ * e.g. "what is the age of this person?"
+ * e.g. "what is the concentration of this metabolite?"
 
 ]
 
@@ -89,7 +105,7 @@ number of machine learning algorithms.
 
 ---
 
-## Example: vs machine learning using PCA
+## Example: simple machine learning using PCA
 
 The idea: 
 
@@ -116,6 +132,11 @@ df &lt;- cbind(iris, pca$x)
 ggplot(df, aes(x=PC1, y=PC2, color=Species)) + 
   geom_point()
 ```
+
+ * This is not supervising learning yet
+ * PCA by itself is unsupervised learning
+ * However, we can use it to discriminate between two classes - we need to
+   define a cutoff value
 
 ]
 
@@ -163,7 +184,7 @@ Error rate = `\((9 + 9)/100  = 18.0%\)`
 
 .pull-right[
 
-![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-4-1.svg)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-5-1.svg)&lt;!-- --&gt;
 
 ]
 
@@ -190,16 +211,18 @@ Select training and testing sets:
 
 
 ```r
-load("metabo.rda")
 set.seed(1234)
-train &lt;- sample(1:nrow(iris), size = nrow(iris) * 2/3)
-test  &lt;- setdiff(1:nrow(iris), train) ## remainder
+
+# training set
+train &lt;- sample(1:nrow(iris),
+                size = nrow(iris) * 2/3)
+# remainder is test set
+test  &lt;- setdiff(1:nrow(iris),
+                 train) 
 
 model &lt;- prcomp(iris[train, 1:4], scale.=TRUE)
 df_train &lt;- cbind(iris[train, ], model$x)
-cutoff &lt;- -0.1 ## magic!
-#ggplot(df_train, aes(x=PC1, y=PC2, color=Species)) + 
-  #geom_point() + geom_vline(xintercept=cutoff)
+cutoff &lt;- -0.1 ## just by looking!
 ```
 
 ]
@@ -248,20 +271,22 @@ print(tmp)
 
 Error rate = `\((5 + 3)/34  = 23.5%\)`
 
+
 ---
 
 ## Positive vs negative: Another example
 
+
 .pull-left[
 
- * TB patients and healthy controls
- * Metabolites as predictors
- 
+Metabolomic data set to discriminate between tuberculosis (TB) patients and healthy
+individuals.
+
 ]
 
 .pull-right[
 
-![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-8-1.svg)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-9-1.svg)&lt;!-- --&gt;
 
 ]
 
@@ -286,17 +311,23 @@ likelihood that the given sample belongs to a certain class.
 
 
 
+
+
+
+
+
  `$$f_{LD} = -0.18 \cdot PC_1 + 0.21 \cdot PC_2$$`
 
 Note that the only reason we are running it on the PC variables is to have
 a simple situation. Normally, you can run the LDA directly on the variables
-(e.g. petal and sepal measurements from the Iris data set).
+(e.g. petal and sepal measurements from the Iris data set). In the original
+paper, Fisher applied it to the iris data set.
 
 ---
 
  `$$f_{LD} = -0.18 \cdot PC_1 + 0.21 \cdot PC_2$$`
 
-![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-10-1.svg)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-11-1.svg)&lt;!-- --&gt;
 
 ---
 
@@ -308,7 +339,7 @@ a simple situation. Normally, you can run the LDA directly on the variables
  * We choose a threshold to determine which of the two classes this
    data point belongs to
 
-![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-11-1.svg)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-12-1.svg)&lt;!-- --&gt;
 
 ---
 
@@ -375,6 +406,38 @@ Error rate = 10 / 46 = 22  %
 
 ---
 
+## FP, FN, TP, TN✪ 
+
+.pull-left[
+
+**LD &gt; 0**:
+
+&lt;pre class="r-output"&gt;&lt;code&gt;##          
+## pr        HEALTHY TB
+##   HEALTHY      24  1
+##   TB            7 14
+&lt;/code&gt;&lt;/pre&gt;
+
+]
+
+.pull-right[
+
+Four important abbreviations:
+
+ * **TP** (14) - true positive. These are patients correctly classified as patients.
+ * **TN** (24) - true negative. These are healthy individuals correctly classified as healthy.
+ * **FP** (7) - false positive. These are healthy individuals incorrectly classified as patients.
+ * **FN** (1) - false negative. These are patients incorrectly classified as healthy.
+
+
+Total number of patients: `\(P = TP + FN =\)` 14 `\(+\)` 1 `\(=\)` 15
+
+Total number of healthy individuals: `\(N = TN + FP =\)` 24 `\(+\)` 7 `\(=\)` 31
+
+]
+
+---
+
 ## Let us take a closer look at LD &gt; 1
 
 **LD &gt; 1**:
@@ -399,13 +462,15 @@ We can calculate a whole lot of different abbreviations with that!
 
 FPR, TNR, PPV, NPV, FNR, FDR, FOR, PT, TS, ...
 
+(The graphics on the next slide comes from [Wikipedia](https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values))
+
 ---
 class:empty-slide,mywhite
 background-image:url(images/tlas.png)
 
 ---
 
-## Let us take a closer look at LD &gt; 1
+## Let us take a closer look at LD &gt; 1✪ 
 
 **LD &gt; 1**:
 
@@ -420,7 +485,7 @@ false negatives (FP). At the same time, there
 are 29 true negatives (TN) 
 and 10 true positives (TP).
 
-FPR describes the proportion of healthy patients that have been
+FPR✪  describes the proportion of healthy patients that have been
 misclassified:
 
  `$$FPR \stackrel{\text{def}}{=} \frac{FP}{FP + TN}$$`
@@ -429,7 +494,7 @@ In our case, FPR = 2 / 31 = 6 %
 
 --
 
-Similarly, FNR is the false negative rate and describes the proportion of
+Similarly, FNR✪  is the false negative rate and describes the proportion of
 tuberculosis patients that have been classified as healthy.
 
  `$$FNR \stackrel{\text{def}}{=} \frac{FN}{FN + TP}$$`
@@ -439,7 +504,7 @@ In our case, FPR = 5 / 15 = 33 %
 
 ---
 
-## Sensitivity and specificity 
+## Sensitivity and specificity✪  
 
 
 .pull-left[
@@ -496,7 +561,7 @@ Best specificity so far (no FPs at all!), but really poor sensitivity.
 
 ---
 
-## Formal definitions
+## Formal definitions✪ 
 
 .pull-left[
 
@@ -506,11 +571,11 @@ Best specificity so far (no FPs at all!), but really poor sensitivity.
 
  `$$SEN = \frac{TP}{TP + FN} = \frac{TP}{P} = 1 - FNR$$`
 
-(where P is the total number of real patients)
+(where P is the total number of real patients, detected and undetected)
 
-This is the fraction of the patients that we were able to detect.
+This is the fraction of all the real patients that we were able to detect.
 
-Low sensitivity `\(\rightarrow\)` many patients misclassified as healthy
+Low sensitivity `\(\rightarrow\)` many patients incorrectly misclassified as healthy
 individuals.
 
 ]
@@ -523,9 +588,11 @@ individuals.
 
  `$$SPC = \frac{TN}{N} = 1 - FPR$$`
 
-This is the fraction of healthy individuals which we recognized as healthy.
+(where N is the total number of healthy individuals, detected and undetected)
 
-Low specificity `\(\rightarrow\)` many healthy individuals classified as
+This is the fraction of all healthy individuals which we recognized as healthy.
+
+Low specificity `\(\rightarrow\)` many healthy individuals incorrectly classified as
 patients.
 
 ]
@@ -533,17 +600,17 @@ patients.
 
 ---
 
-## What if we plot SPC vs SEN for our data?
+## What if we plot SPC vs SEN for our data?✪ 
 
-![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-23-1.svg)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-25-1.svg)&lt;!-- --&gt;
 
 ---
 
-## Receiver-operator characteristic curves
+## Receiver-operator characteristic (ROC) curves✪ 
 
 .pull-left[
 
-![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-24-1.svg)&lt;!-- --&gt;
+![](weiner_BE_22_lecture_10_files/figure-html/unnamed-chunk-26-1.svg)&lt;!-- --&gt;
 
 ]
 
@@ -578,7 +645,70 @@ Where
 
 ---
 
-## Cross-validation
+## PPV and NPV✪
+
+.pull-left[
+### PPV - positive predictive value, precision
+
+ * probability that a patient is really a patient given that the test is
+   positive
+
+ * Same as `\(1 - FDR\)`
+
+ * `\(\frac{TP}{TP + FP}\)`
+
+ * in our case, PPV = 5 / 15 = 33 %
+
+]
+
+.pull-right[
+
+### NPV - negative predictive value
+
+ * probability that a healthy individual is really healthy given that the
+   test is negative
+
+ * `\(\frac{TN}{TN + FN}\)`
+
+ * in our case, NPV = 31 / 31 = 100 %
+
+]
+
+PPV and NPV are more useful than sensitivity and specificity in clinical
+practice, but...
+
+---
+
+## PPV and NPV depend on prevalence✪
+
+If we are to get *real* probabilities that a given person with a positive
+test result really is sick, then we cannot use the test setting, in which
+the prevalence of the disease is artificially set to 50%.
+
+Instead, we need to use the *actual* prevalence of the disease in the
+population.
+
+.pull-left[
+
+`\(PPV = \frac{sensitivity \times prevalence}{sensitivity \times prevalence + (1 - specificity) \times (1 - prevalence)}\)`
+
+ * If prevalence is high, PPV is high
+ * The lower the prevalence, the lower the PPV
+
+]
+
+.pull-right[
+
+`\(NPV = \frac{specificity \times (1 - prevalence)}{specificity \times (1 - prevalence) + (1 - sensitivity) \times prevalence}\)`
+
+ * If prevalence is high, NPV is low
+ * The higher the prevalence, the higher the NPV
+
+]
+
+---
+
+## Cross-validation✪ 
 
 Splitting data set into training and test set:
 
@@ -592,7 +722,7 @@ Solution: cross-validation
 
 ---
 
-## LOO (leave-one-out)
+## LOO (leave-one-out)✪ 
 
 
 
@@ -616,7 +746,7 @@ samples, but we avoided overfitting.
 
 ---
 
-## K-fold cross-validation
+## K-fold cross-validation✪ 
 
 Pseudocode:
 
@@ -640,7 +770,7 @@ predictions for all samples.
 
 ---
 
-## Bias-variance tradeoff
+## Bias-variance tradeoff✪ 
 
 Two important concepts:
 
@@ -674,6 +804,39 @@ Two important concepts:
 ---
 class:empty-slide,mywhite
 background-image:url(images/machine_learning.png)
+
+---
+
+## Some notable (useful) simple algorithms for classification
+
+ * **decision trees** - a tree-like structure where each node is a decision
+   based on a feature, and each leaf is a class
+ * **random forests** - a collection of decision trees, each trained on a
+   different subset of the data
+ * **support vector machines** (SVMs) - a hyperplane that separates the classes
+   with the largest margin
+ * **naive Bayes** - a probabilistic classifier based on Bayes' theorem
+ * **logistic regression** - a regression model for binary outcomes
+ * **linear discriminant analysis** - a linear combination of features
+ * **neural networks** - a complex model that can learn complex patterns in
+   the data
+
+This is useful to know!
+
+---
+
+## Decision trees
+
+.pull-left[
+
+![:scale 80%](images/decision_tree.png)
+
+]
+
+*Maertzdorf J, McEwen G, Weiner 3rd J, Tian S, Lader E, Schriek U,
+Mayanja‐Kizza H, Ota M, Kenneth J, Kaufmann SH. Concise gene signature for
+point‐of‐care classification of tuberculosis. EMBO molecular medicine. 2016
+Feb;8(2):86-95.*
 
 
 ---
@@ -728,7 +891,7 @@ earthquake magnitude in Northeast Region of India." Disaster Advances 10.6
 
 ---
 
-## Deep learning: basically complex neural networks
+## Deep learning: basically complex neural networks✪ 
 
 ![:scale 70%](images/Deep-Neural-Network-What-is-Deep-Learning-Edureka.webp)
 
@@ -770,6 +933,22 @@ earthquake magnitude in Northeast Region of India." Disaster Advances 10.6
 .myfootnote[A nice intro to LLMs:
 [https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)]
 
+
+
+---
+
+## Training and learning
+
+Once the model is trained, the actual "chat" is a relatively simple
+procedure. The model is simply a huge matrix of probabilities, and the
+response is generated by choosing the word with the highest probability,
+given the previous words.
+
+In fact, while the training requires inordinate amounts of computational
+power, the actual "chat" is relatively simple, and can be even run on a 
+smartphone! If you want to try, check out [Ollama](https://ollama.com/).
+While you can not download the models behind ChatGPT from version 3 upwards,
+there are many other models you can try.
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
