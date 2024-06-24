@@ -518,6 +518,8 @@ background-image:url(images/tlas.png)
 
 ## Let us take a closer look at LD > 1✪ 
 
+XXX introduce sensitivity / specificity first!
+
 **LD > 1**:
 
 ```{r results="markdown", echo=FALSE}
@@ -546,13 +548,14 @@ tuberculosis patients that have been classified as healthy.
 
  $$FNR \stackrel{\text{def}}{=} \frac{FN}{FN + TP}$$
 
-In our case, FPR = `r tmp[1,2]` / `r sum(tmp[,2])` = `r sprintf("%.0f", tmp[1,2] / sum(tmp[,2]) * 100)` %
+In our case, FNR = `r tmp[1,2]` / `r sum(tmp[,2])` = `r sprintf("%.0f", tmp[1,2] / sum(tmp[,2]) * 100)` %
 
 
 ---
 
 ## Sensitivity and specificity✪  
 
+XXX show specificty and sensitivity
 
 .pull-left[
 
