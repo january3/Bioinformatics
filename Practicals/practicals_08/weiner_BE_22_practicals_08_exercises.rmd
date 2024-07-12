@@ -1,6 +1,6 @@
 ---
 title: "Practicals 08: Differential expression and gene set enrichments"
-subtitle: "BE_22 Bioinformatics SS 21"
+subtitle: "BE_22 Bioinformatics SS 24"
 author: "January Weiner"
 date: "`r Sys.Date()`"
 output:
