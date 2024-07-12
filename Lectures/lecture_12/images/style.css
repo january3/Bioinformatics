@@ -1,0 +1,76 @@
+table,
+.table-condensed,
+table.rmdtable {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+table,
+.table-condensed,
+table.rmdtable,
+table.rmdtable .header th,
+.table > thead > tr > th {
+  border-color:#FFF;
+}
+table.rmdtable th,
+table.rmdtable td,
+table th,
+table.rmdtable tr > td:first-child,
+table.rmdtable .even {
+  padding: 0.2em 0.2em;
+  color: inherit;
+  font-weight: normal;
+}
+
+table.rmdtable th {
+  background: #70ACC0;
+  color: #FFF;
+
+}
+
+.table > tbody > tr > td {
+  border-width: 0;
+}
+
+slides > slide.title-slide {
+  background: #70ACC0;
+}
+
+slides > slide.title-slide h1 {
+  font-size: 40px;
+}
+
+
+
+slides > slide.title-slide h1,
+slides > slide.title-slide h2,
+slides > slide.title-slide p {
+  color: #FFF;
+}
+
+
+slides > slide hgroup h2 {  
+  color: #015F91;
+  font-size: 40px;
+  letter-spacing: 10;
+  border-bottom: 3px solid #FF0480 ;
+}
+
+.inverse {
+
+  background: #70ACC0;
+
+}
+
+
+slides > slide.title-slide {
+  background-image: url(title_slide.png);
+  background-size: cover;
+}
+slides > slide.title-slide hgroup h2 {  
+  color: #70ACC0;
+  font-size: 40px;
+  letter-spacing: 10;
+  border-bottom: 3px none #AA1C7D ;
+}
+

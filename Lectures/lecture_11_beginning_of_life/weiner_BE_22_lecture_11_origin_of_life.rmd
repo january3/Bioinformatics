@@ -1,0 +1,1060 @@
+---
+title: "Lecture 11: Beginning of Life"
+subtitle: "Bioinformatics SS 24"
+author: "January Weiner"
+date: "`r Sys.Date()`"
+outputdupa: html_document
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    css: ["default", "files/cubi-fonts.css", "files/style.css" ]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "files/macros.js"
+toc: no
+---
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+## Set default options for the knitr RMD processing
+knitr::opts_chunk$set(echo=TRUE,warning=FALSE,message=FALSE,fig.width=5,fig.height=5,cache=FALSE,autodep=TRUE, results="hide",dev="svg")
+library(pander)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(ggplot2)
+library(pROC)
+#source("functions.R")
+```
+
+```{r echo=FALSE,include=FALSE,eval=TRUE,message=FALSE,warning=FALSE}
+options(crayon.enabled = TRUE)
+options(crayon.colors = 256)
+knitr::knit_hooks$set(output = function(x, options){
+  paste0(
+    '<pre class="r-output"><code>',
+    fansi::sgr_to_html(x = htmltools::htmlEscape(x), warn = FALSE),
+    '</code></pre>'
+  )
+})
+
+## this is an ugly, ugly hack, but otherwise crayon does not LISTEN TO REASON!!!
+num_colors <- function(forget=TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos="package:crayon")
+```
+
+
+.pull-left[
+
+Where did life come from?
+
+When did life begin?
+
+How did life arise?
+
+What can we find out about the beginning of life?
+
+And what is life, anyway?
+
+]
+
+
+.pull-right[
+
+![:scale 75%](images/universe.png)
+
+]
+
+
+.myfootnote[ All hand-drawn illustrations by Kazimierz Wisniak are from my
+book, "Jak powstało życie na Ziemi" (Origin of Life on Earth) which has been published
+2023. Unfortunately – only in Polish...]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/history_of_universe.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/hadean.jpg)
+
+???
+
+Hadean accretion – 4.54 Billions of years ago
+
+---
+class:empty-slide,myinverse
+background-image:url(images/moon.webp)
+
+???
+
+Moon formation - 4.5 Ga
+
+---
+
+.pull-left[
+
+![:scale 75%](images/bombardowanie.png)
+
+]
+
+.pull-right[
+
+# Approach 1: paleontology
+
+ * fossils
+ * oldest rocks
+ * traces of life in isotope ratios
+
+]
+
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/oldest_rock.png)
+
+---
+
+# What was it like on prebiotic Earth?
+
+ * end of the asteroid bombardement / cooling down: ca. 4-3.8 Ga
+ * Sun at 71% efficiency – Earth should have been frozen, but wasn't
+   (methane induced global warming?)
+
+.pull-left[
+
+![:scale 75%](images/Late-Heavy-Bombardment.jpg)
+
+]
+
+---
+
+# Oldest fossils on Earth
+
+Let us take a trip back in time...
+
+???
+
+For a long time, people thought that life started in the cambrian period,
+because that is where the oldest macrofossils come from
+
+---
+class:empty-slide,myinverse
+background-image:url(images/burgess_shale.webp)
+
+???
+
+Burgess shale fossils: 508 Ma (mid-Cambrian)
+
+---
+class:empty-slide,mywhite
+background-image:url(images/opabinia_new.png)
+
+???
+Opabinia
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/marella_new.png)
+
+???
+Marella
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/hallucigenia_new.png)
+
+???
+Hallucigenia
+
+---
+class:empty-slide,myinverse
+background-image:url(images/ediacara_organism.jpg)
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/ediacara.jpg)
+
+???
+
+Ediacaran fauna: 635-575 Ma
+
+---
+class:empty-slide,myinverse
+background-image:url(images/C0122589-Cryogenian_pre_ediacaran_fossil_porpita.jpg)
+
+???
+
+Cryogenian: snowball earth 850-675 Ma
+
+possibly a cnidarian
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/stromatolites.jpg)
+
+???
+
+Stromatolites: more than 3 Ga
+
+---
+
+# Indirect fossils traces of life
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/banded_irons.png)
+
+???
+
+3.7 Ga
+
+---
+
+# Finding traces of life using isotopes
+
+$\delta^{13}C$ – measurement of the ratio of $^{13}C$ to $^{12}C$,
+normalized to a common standard.
+biological processes preferably take the lighter $^{12}C$ isotope.
+
+
+$$\delta^{13}C = \left(\frac{\left(\frac{^{13}C}{^{12}C}\right)_{sample}}{\left(\frac{^{13}C}{^{12}C}\right)_{standard}} - 1\right) \times 1000$$
+
+
+
+---
+class:empty-slide,mywhite
+background-image:url(images/pdb.png)
+
+???
+
+PDB, Belemnitella americana from Pee Dee formation 
+
+Do not confuse with 14C/12C ratio! the mechanism is completely different
+
+organic matter has low delta 13C values – -20 or so; bicarbonate has like 0
+(standard is high in 13C)
+
+Water can be detected using 18 O / 16 O ratio: water loses 18O and the
+minerals absorb it, increasing its fraction
+
+
+---
+
+# $\delta^{13}C$ values in different rocks
+
+![](images/delta13.png)
+
+
+???
+
+chert – silicate inclusions in limestones; of biological origin
+
+shows that BIFs are depleted in 14C
+
+
+
+---
+
+# Oldest traces of life:
+
+.pull-left[
+ * 1979 – 2014: 3.7 Ga
+ * 2001: 3.8 Ga
+ * 2019: 3.95 Ga (during LHB!)
+ * some report even 4.1 Ga (prior to LHB)
+   ]
+
+.pull-right[
+
+ * Oldest "crown" Eukaryota fossils: 1.1 Ga (?1.6 Ga)
+ * Oldest Eukaryota: 1.6 Ga
+
+![](images/history_of_life.png)
+
+???
+
+life started almost immediately after the Late Heavy Bombardment, or even
+earlier (models indicate that LHB would not have been enough to sterilize
+the planet)
+
+This is as far as paleontology takes us. What next?
+
+---
+
+
+.pull-left[
+
+![:scale 75%](images/wisniak_viruses.png)
+
+
+]
+
+.pull-right[
+
+# Approach 2: Phylogeny reconstructions
+
+LUCA: Last Universal Common Ancestor
+
+ * Reconstruct phylogeny
+ * Use molecular clock
+ * Attempt to reconstruct the LUCA
+
+]
+
+---
+
+![](images/woese_table.jpeg)
+
+
+.myfootnote[
+Woese, Carl R., and George E. Fox. "Phylogenetic structure of the
+prokaryotic domain: the primary kingdoms." Proceedings of the National
+Academy of Sciences 74.11 (1977): 5088-5090.  ]
+
+???
+
+Woese et al included some exotic thermophilic bacteria. Since they were so
+different, they called them "Archebacteria". They were not arche nor
+bacteria.
+
+---
+
+# Archaea – a new domain of life
+
+.pull-left[
+
+What are Archea:   
+
+ * single cell organisms (but multicellular sophisticated colonies present
+   in some species)
+ * no organelles
+ * circular chromosomes, but 
+ * transcription / translation machinery similar to Eukaryota
+ * initially found in hot springs, but meanwhile found even in our mouts
+   and guts
+ * no archeal pathogens known (why? no idea)
+]
+
+.pull-right[
+
+![](images/archea_2.png)
+
+]
+
+---
+
+.pull-left[
+![](images/tol.webp)
+]
+
+.pull-right[
+
+Hug, Laura A., Brett J. Baker, Karthik Anantharaman, Christopher T. Brown,
+Alexander J. Probst, Cindy J. Castelle, Cristina N. Butterfield et al. "A
+new view of the tree of life." Nature microbiology 1, no. 5 (2016): 1-6.
+
+ * A nice interactive ToL: https://itol.embl.de/itol.cgi
+
+]
+
+???
+
+The red dots show sequences from environmental sequencing
+
+---
+
+# We are Archaea from Ásgarðr
+
+.pull-left[
+![](images/archea.webp)
+
+]
+
+.pull-right[
+
+The Asgard group of Archaea:
+  - even more similar to Eukaryotes (cytoskeleton, several proteins found
+    otherwise only in Eukaryota)
+  - Lokiarcheota
+  - Heimdallarcheota
+  - Odinarcheota
+  - Thorarcheota (etc.)
+
+*Spang, A., Saw, J. H., Jørgensen, S. L., Zaremba-Niedzwiedzka, K.,
+Martijn, J., Lind, A. E., ... & Ettema, T. J. (2015). Complex archaea that
+bridge the gap between prokaryotes and eukaryotes. Nature, 521(7551),
+173-179.*
+
+]
+
+---
+
+.pull-left[
+
+![](images/2dtree.jpg)
+
+]
+
+.pull-right[
+
+*Williams, T. A., Cox, C. J., Foster, P. G., Szöllősi, G. J., & Embley, T.
+M. (2020). Phylogenomics provides robust support for a two-domains tree of
+life. Nature ecology & evolution, 4(1), 138-147.*
+
+ * Used 3000 different gene families
+ * Used supertrees:
+  * calcualte a tree for each gene family
+  * Then, combine the trees into a single tree
+ * The 3D tree is an artifact of "long branch attraction" 
+
+]
+
+???
+
+Yeah, so first I introduced a new domain, making 3, and now it seems that
+there are 2 after all...
+
+Supertrees -- because alternative is concatenation, and the problem with
+concatenation is that you must have the family in each of the species
+
+LBA - basically, some phylogeny methods tend to cluster together branches
+that are very long.
+
+---
+
+# When was LUCA
+
+.pull-left[
+
+![:scale 75%](images/whenluca.webp)
+
+]
+
+.pull-right[
+
+Betts HC, Puttick MN, Clark JW, Williams TA, Donoghue PC, Pisani D.
+Integrated genomic and fossil evidence illuminates life’s early evolution
+and eukaryote origin. [Nature Ecology &
+Evolution](https://www.nature.com/articles/s41559-018-0644-x). 2018 Oct;2(10):1556-62.
+
+ * used paleontological evidence for calibration - used as constraints
+ * explored a variety of models and approaches
+ * LUCA older than the late heavy bombing....!
+ * methanogenesis older (3.5 Ga) than "crown" Eukaryotes
+
+
+]
+
+???
+
+Using a molecular clock, it is possible to date LUCA.
+
+
+---
+
+## Who was LUCA
+
+ * Build phylogenetic trees for all protein families
+ * If the ur-protein was present in the LUCA, then all branches of the tree
+   (in all domains of life) should have this protein (even if individual
+   species lost it)
+
+---
+
+## Who was LUCA
+
+.pull-left[
+
+ Probably more than 350 families of proteins already present in LUCA,
+ including:
+
+ * translation machinery – ribosomes, tRNA synthesis
+ * genetic code, nucleotide modifying enzymes
+ * proton gradient-dependent ATP synthase
+ * genes characteristic for thermophilic organisms
+
+*"LUCA [was] anaerobic, CO2-fixing, H2-dependent with a Wood–Ljungdahl
+pathway, N2-fixing and thermophilic."*
+
+*Weiss, M. C., Sousa, F. L., Mrnjavac, N., Neukirchen, S., Roettger, M.,
+Nelson-Sathi, S., & Martin, W. F. (2016). The physiology and habitat of the
+last universal common ancestor. Nature microbiology, 1(9), 1-8.*
+
+]
+
+.pull-right[
+
+
+![](images/luca.webp)
+
+]
+
+???
+
+WLP: Wood-Ljungdahl pathway; reactions based on hydrogen and carbon
+dioxide, resulting in organic molecules
+
+Note: HGT
+
+---
+
+.pull-left[
+
+![:scale 75%](images/invitro.bmp)
+
+]
+
+.pull-right[
+
+# Approach 3: Experiments
+
+]
+
+
+---
+class:empty-slide,myinverse
+background-image:url(images/4-28-Oparin-Dali-sidyat.jpg)
+
+
+---
+
+.pull-left[
+
+![](images/MUexperiment.png)
+
+]
+
+
+.pull-right[
+
+
+![](images/miller_photo.jpg)
+
+*Stanley Miller* (Harold Urey was his PhD supervisor)
+
+
+]
+
+???
+
+---
+
+# Organic molecules synthesized in Miller/Urey and other experiments
+
+.pull-left[
+
+ * all basic amino acids
+ * purines, pirimidines,
+ * carboxylic acids
+ * sugars
+
+]
+
+.pull-right[
+
+
+Assumption of reducing atmosphere not supported by present models, however:
+
+ * several other experiments show that organic molecules can be synthesized
+   in a variety of conditions
+ * organic molecules can be found in space
+ * large asteroid impact could have generated transient reducing
+   conditions
+
+]
+
+---
+
+.pull-left[
+
+![:scale 75%](images/jajkokura.png)
+
+]
+
+.pull-right[
+
+# The chicken and egg problem
+
+ * Metabolism / enzymes are necessary for replication of the DNA
+ * DNA is required to encode the proteins
+
+What kind of molecule or molecule system is self-replicating?
+
+]
+
+???
+
+we need to start 
+
+
+---
+
+# The world of RNA
+
+ * RNA forms complex structures
+ * ribozymes: RNA-based enzymes capable of catalysing reactions
+
+![](images/ribozymes.png)
+
+(source: Wikipedia; leadzyme, hammerhead, twister)
+
+???
+
+leadzyme cuts certain diester bonds in presence of lead
+
+hammerhead specific cleavage and ligation
+
+twister very fast cleaving; found by searching for conserved sequences. 
+
+---
+
+
+.pull-left[
+
+![](images/3Q1Q.png)
+
+]
+
+
+.pull-right[
+
+# Ribonuclease P
+
+ * common to all domains of life
+ * protein part is variable, but the RNA molecule has similar structures in
+   all domains of life
+ * required for one of the fundamental processes in a living cell:
+   producing tRNA and rRNA
+]
+
+---
+
+.pull-left[
+
+![](images/ribosome_2.png)
+
+]
+
+.pull-right[
+
+![](images/ribosome.png)
+
+ * structural analysis shows that amino acid residues are not participating
+   in peptide synthesis
+ * the reactive site is generated by the rRNA molecule only
+ 
+
+
+]
+
+.myfootnote[
+Cech, Thomas R. "The ribosome is a ribozyme." Science 289.5481 (2000): 878-879.
+]
+
+---
+
+## RNA world
+
+ * It is quite clear now that an RNA world existed before LUCA
+ * Whether or not life started with RNA is another matter
+   * RNA is not very stable
+   * the structure is simple, but the 
+
+---
+
+# Yes, but can they replicate themselves?
+
+---
+
+.pull-left[
+
+![](images/szostak.jpg)
+
+Jack W. Szostak (Nobel prize laureate for telomeres)
+
+]
+
+.pull-right[
+
+# First in vitro selection of replicating molecules
+
+ * start with $1,6 \times 10^15$ random RNA molecules, each 220 bases long
+ * fishing for ribozymes having a ligase activity using a bait (short RNA
+   molecule) – ribozymes which can ligate the bait with their own sequence
+   will be retreived from the mixture
+
+]
+
+---
+
+.pull-left[
+
+![](images/barton.jpeg)
+
+*Johnston, W. K., Unrau, P. J., Lawrence, M. S., Glasner, M. E., & Bartel,
+D. P. (2001). RNA-catalyzed RNA polymerization: accurate and general
+RNA-templated primer extension. Science, 292(5520), 1319-1325.*
+
+]
+
+.pull-right[
+
+## Combining mutation and selection
+
+ * create random mutations of a simple RNA-based RNA polymerase/ligase by adding 
+   random fragments
+ * template ligated with the polymerase
+ * modified substrate (nucleotides) allowed isolation of the molecules that incorporated
+   the largest number of nucleotides
+ * the selected molecules were amplified with PCR and a new round was
+   started
+ * all in all, with only 18 rounds, a substantial increase in the activity
+   was observed (the polymerase was able to synthetase up to 14
+   nucleotides)
+ 
+
+
+]
+
+---
+
+# Do we have self-replicating molecules?
+ 
+ * currently, some of the molecules are able (in certain conditions) to
+   synthetize up to 200 nucleotides
+ * replication process is very slow
+ * conditions must be very favorable and substrate must be abundant
+ * even though a PCR-like exponential reaction can be achieved, no truly
+   self-replicating molecules have yet been created
+
+---
+
+## RNA-based replication
+
+ * it is possible to construct a system that replicates itself,
+   based only on RNA
+ * Joyce et al:
+
+  $$A' + B' \overset{E} \rightarrow E'$$
+
+  $$A + B \overset{E'} \rightarrow E$$
+
+ * the system is not based on replication, but on the ligase reaction, and
+   the fragments A, A', B, B' must be introduced to the mixture
+
+---
+
+
+
+.pull-left[
+
+![:scale 75%](images/eigen.jpg)
+
+Manfred Eigen (1927-2019), Nobel prize for the temperature jump method of
+measuring rapid reaction rates.
+
+]
+
+.pull-right[
+
+# Eigen's paradox
+
+Eigen constructed a mathematical model of nucleotide replication based
+evolution, involving an *error threshold*. 
+
+ * evolution is possible when the error rate is below the error threshold
+ * error threshold depends on the number of nucleotides
+ * therefore, the maximum length of the RNA molecule able to replicate
+   depends on the threshold.
+
+The paradoxon:
+
+ * short molecules have high error rates, but
+ * high error rates require even shorter molecules
+
+For example, at 90% fidelity, the replicating molecule cannot be longer
+than 12 nucleotides.
+
+]
+
+
+---
+
+## How about bottom-down approach?
+
+.pull-left[
+
+![](images/synthia.png)
+
+]
+
+.pull-right[
+
+*Synthia* a.k.a. *Mycoplasma laboratorium*
+
+ * *M. genitalium* has a very small genome (482)
+ * Non-essential genes were identified experimentally
+ * only 382 genes
+ * genomic DNA de novo synthesized in vitro
+
+
+]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/synthia_scheme.png)
+
+???
+
+the point is: that is still far too complex to explain to us how life arose
+in the first place
+
+---
+
+
+.pull-left[
+
+![:scale 75%](images/kominy.bmp)
+]
+
+.pull-right[
+
+# Where did life arise? 
+
+"But if (and oh what a big if) we could conceive in some warm little pond
+with all sorts of ammonia and phosphoric salts, light, heat, electricity
+etcetera present, that a protein compound was chemically formed, ready to
+undergo still more complex changes [..] "
+
+– Charles Darwin, in a letter to Joseph Hooker (1871)
+]
+
+---
+
+# Black smokers
+
+.pull-left[
+
+![](images/black_smoker.gif)
+
+]
+
+
+.pull-right[
+
+![](images/fk151121-guam-20151123-baker-plume_touched-up-1024x655.jpg)
+
+]
+
+---
+
+# Black smokers
+
+.pull-left[
+
+![:scale 75%](images/black_smoker.gif)
+
+]
+
+.pull-right[
+
+&nbsp;
+
+ * deep (2 km) hydrothermal vents
+ * high temperature (up to 400°C)
+ * high pressure
+ * rich in minerals 
+ * chemical gradients - energy source (H2S, H2, CH4)
+ * thriving ecosystem
+
+But:
+
+ * high temperature
+ * transient
+ * no cycles
+
+
+
+]
+
+
+
+---
+
+## White smokers
+
+.pull-left[
+
+![:scale 75%](images/lost_city.jpg)
+
+]
+
+
+.pull-right[
+
+&nbsp;
+
+ * fueled by serpentinization reactions
+ * 700-900 m depth
+ * persisting for longer time periods (30,000 yrs or more) 
+ * larger
+ * alkaline (pH 9-11)
+ * cooler (40°C - 60°C)
+ * experimental evidence for lipid formation possibility
+ * thriving ecosystem
+
+
+]
+
+???
+
+Lost city formation in the Atlantic
+
+https://www.science.org/doi/pdf/10.1126/science.1109849
+
+---
+
+## White smokers
+
+.pull-left[
+
+![:scale 75%](images/lost_city.jpg)
+
+]
+
+
+.pull-right[
+
+![:scale 75%](images/white_smoker_chemistry.png)
+
+]
+
+???
+
+Lost city formation in the Atlantic
+
+
+
+
+---
+
+# Back to the pond
+
+.pull-left[
+
+![](images/deamer_and_damer.png)
+
+David Deamer and Bruce Damer
+
+]
+
+.pull-right[
+
+""We have proposed an alternative, which is that life began in freshwater
+hot springs associated with volcanic land masses that emerged from a global
+ocean around 4 billion years ago" (Damer & Deamer, 2020)
+
+]
+
+???
+
+https://news.ucsc.edu/2019/03/assembling-life.html
+
+Damer, Bruce, and David Deamer. "The hot spring hypothesis for an origin of life." Astrobiology 20.4 (2020): 429-452.
+
+---
+
+.pull-left[
+
+![](images/volcanic_pond.jpeg)
+
+
+]
+
+
+.pull-right[
+
+&nbsp;
+
+ * energy source from continental hydrothermal vents
+ * persistent
+ * dry/wet cycles
+ * UV
+ * diversity of environment
+ * experimental evidence for polimer and vescicle formation
+ * thriving ecosystem
+
+
+
+
+]
+
+---
+class:empty-slide,myinverse
+background-image:url(images/life_history_10_b.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/life_history_25_b.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/life_history_50_b.png)
+
+---
+class:empty-slide,myinverse
+background-image:url(images/life_history_90_b.png)
+
+---
+
+.pull-left[
+
+![:scale 75%](images/wisniak_aliens.png)
+
+]
+
+.pull-right[
+
+# What did I leave out?
+
+ * cell compartmentalization
+ * viruses
+ * synthetic life
+ * astronaut poop on the Moon
+ * also, life on other planets
+
+and...
+
+]
+
+???
+
+there are many other areas I have not discussed
+
+for example the environment in which life arose
+
+cell compartmentalization
+
+there is astronaut's poop on the moon (96 bags of it). "“Answers to some of
+the most profound and ancient questions about our place in the cosmos may
+indeed be waiting in Neil Armstrong’s 55-year-old spent diapers,” Becky
+Ferreira writes in Wired."
+
+synthetic life
+
+viruses
+
+---
+
+.mycenter[What IS life?]
+

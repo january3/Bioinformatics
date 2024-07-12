@@ -19,8 +19,9 @@ You can click on the links below to directly view the HTML presentations.
  * [Lecture 8, 2024-06-10 - Transcription profiling](https://january3.github.io/Bioinformatics/Lectures/lecture_08/weiner_BE_22_lecture_08.html)
  * [Lecture 9, 2024-06-17 - Gene set enrichments](https://january3.github.io/Bioinformatics/Lectures/lecture_09/weiner_BE_22_lecture_09.html)
  * [Lecture 10, 2024-06-24 - Machine learning](https://january3.github.io/Bioinformatics/Lectures/lecture_10/weiner_BE_22_lecture_10.html)
+ * [Lecture 11, 2024-07-05 - Beginning of life](https://january3.github.io/Bioinformatics/Lectures/lecture_11_beginning_of_life/weiner_BE_22_lecture_12_origin_of_life.html)
+ * [Lecture 12, 2024-07-12 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_12/weiner_BE_22_lecture_12_visualizations.html)
 <!--  * [Lecture 2, 2023-03-27 - Alignments and sequence search](https://january3.github.io/Bioinformatics/Lectures/lecture_02/weiner_BE_22_lecture_02.html)
- * [Lecture 11, 2023-06-25 - Visualizations](https://january3.github.io/Bioinformatics/Lectures/lecture_11/weiner_BE_22_lecture_11_visualizations.html)
  -->
 
 # Practicals
