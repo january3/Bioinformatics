@@ -466,6 +466,16 @@ mpg %>% ggplot(aes(x=class, y=hwy)) +
 
 ---
 
+.mycenter[
+Whenever possible, show the actual data points. Only if there are too many
+of them, use a box plot or a violin plot.
+
+Never use bar plots.
+]
+
+
+---
+
 ## Box plots: Tufte
 
 .pull-left[
@@ -567,6 +577,14 @@ Common problems and solutions
  * Pie charts are bad at communicating information, just don't use them
  * Don't even mention 3D pie charts
  * There are tons of alternatives to pie charts
+
+.mycenter[
+Humans are best at comparing lengths, good at comparing areas and really
+bad at comparing angles.
+
+Pie charts use angles to convey information.
+
+]
 
 ---
 
